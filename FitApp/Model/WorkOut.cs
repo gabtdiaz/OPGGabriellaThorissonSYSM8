@@ -6,7 +6,21 @@ using System.Threading.Tasks;
 
 namespace FitApp.Model
 {
-    class WorkOut
+    public class Workout
     {
+        // Egenskaper
+        public DateTime DateTime {  get; set; }
+        public string Type { get; set; }
+        public TimeSpan Duration { get; set; }
+        public int CaloriesBurned { get; set; }
+        public string Notes {  get; set; }
+
+        // Konstruktor
+
+        // Metod
+        public virtual int CalculateCaloriesBurned()
+        {
+            return 0;
+        }
     }
 }

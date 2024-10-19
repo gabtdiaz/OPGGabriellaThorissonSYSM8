@@ -10,7 +10,9 @@ namespace FitApp.Model
     { 
         // Egenskaper
         public string Username { get; set; }
-        public string Password { get; set; }
+        protected string Password { get; set; }
+
+        // Konstruktor?
 
         // Metod
         public abstract void SignIn();

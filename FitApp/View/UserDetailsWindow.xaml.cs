@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FitApp.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,8 @@ namespace FitApp.View
         public UserDetailsWindow()
         {
             InitializeComponent();
+            UserDetailsWindowViewModel viewModel = new UserDetailsWindowViewModel();
+            DataContext = viewModel;
         }
     }
 }

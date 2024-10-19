@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FitApp.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -21,7 +22,10 @@ namespace FitApp.View
     {
         public AddWorkoutWindow()
         {
+            
             InitializeComponent();
+            AddWorkoutWindowViewModel viewModel = new AddWorkoutWindowViewModel();
+            DataContext = viewModel;
         }
     }
 }

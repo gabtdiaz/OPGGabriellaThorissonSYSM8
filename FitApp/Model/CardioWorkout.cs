@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace FitApp.Model
 {
-    class CardioWorkout
+    class CardioWorkout : Workout
     {
+        public int Distance { get; set; }
+
+        public override int CalculateCaloriesBurned()
+        {
+            return 0;
+        }
     }
 }

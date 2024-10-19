@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using FitApp.ViewModel;
+using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -19,6 +20,9 @@ namespace FitApp
         public MainWindow()
         {
             InitializeComponent();
+            MainWindowViewModel viewModel = new MainWindowViewModel("Gabriella","012345"); // ??
+            DataContext = viewModel;
+
         }
     }
 }

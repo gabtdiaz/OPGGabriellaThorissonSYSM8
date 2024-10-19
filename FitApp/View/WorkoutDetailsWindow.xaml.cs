@@ -1,5 +1,4 @@
-﻿using FitApp.ViewModel;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,15 +15,16 @@ using System.Windows.Shapes;
 namespace FitApp.View
 {
     /// <summary>
-    /// Interaction logic for WorkoutsWindow.xaml
+    /// Interaction logic for WorkoutDetailsWindow.xaml
     /// </summary>
-    public partial class WorkoutsWindow : Window
+    public partial class WorkoutDetailsWindow : Window
     {
-        public WorkoutsWindow()
+        public WorkoutDetailsWindow()
         {
+            
             InitializeComponent();
-            WorkoutsWindowViewModel viewModel = new WorkoutsWindowViewModel();
-            DataContext = viewModel;
+            WorkoutDetailsWindow workoutDetails = new WorkoutDetailsWindow();
+            DataContext = workoutDetails; 
         }
     }
 }

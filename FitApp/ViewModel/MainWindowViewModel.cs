@@ -6,7 +6,23 @@ using System.Threading.Tasks;
 
 namespace FitApp.ViewModel
 {
-    internal class MainWindowViewModel
+    public class MainWindowViewModel
     {
+        // Egenskaper
+        public string LabelTitle { get; set; }
+        public string UsernameInput { get; set; }
+        public string PasswordInput { get; set; }
+
+        // Konstruktor
+        public MainWindowViewModel(string UsernameInput, string PasswordInput) 
+        {
+            this.UsernameInput = UsernameInput;
+            this.PasswordInput = PasswordInput;
+        }
+
+        // Metoder
+        public void SignIn() {}
+
+        public void Register() {}
     }
 }
