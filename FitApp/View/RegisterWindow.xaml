@@ -7,6 +7,42 @@
         mc:Ignorable="d"
         Title="RegisterWindow" Height="480" Width="320">
     <Grid>
-        
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FFF9F8F8" Offset="1"/>
+                <GradientStop Color="Black"/>
+                <GradientStop Color="Crimson" Offset="0"/>
+                <GradientStop Color="#FFFA6767" Offset="0.214"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <StackPanel Grid.Row="1" Orientation="Vertical" VerticalAlignment="Bottom">
+            <ComboBox x:Name="Countries" FontSize="15"/>
+            <Label Content="E-mail adress:" FontSize="15" Foreground="AliceBlue"/>
+            <TextBox x:Name="txtBoxEmail"/>
+            <Label Content="Password:" FontSize="15" Foreground="White" />
+            <TextBox x:Name="txtBoxPassword" />
+            <Label Content="Confirm password:" FontSize="15" Foreground="AliceBlue"/>
+            <TextBox x:Name="txtBoxConfirm"/>
+            <Button Content="" FontSize="40" HorizontalAlignment="Center" FontFamily="Arial" Foreground="AliceBlue"/>
+        </StackPanel>
+        <Button Content="Register Now" Width="100" Height="30" Grid.Row="2" 
+         Background="#DC143C" Foreground="AliceBlue"
+         BorderBrush="Red" BorderThickness="2" Padding="10" Command="{Binding LoginWindow}">
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}" 
+                     BorderBrush="{TemplateBinding BorderBrush}" 
+                     BorderThickness="{TemplateBinding BorderThickness}" 
+                     CornerRadius="15">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
     </Grid>
 </Window>

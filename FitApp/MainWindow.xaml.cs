@@ -24,5 +24,10 @@ namespace FitApp
             //DataContext = viewModel;
 
         }
+
+        private void lblForgotPassword_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+
+        }
     }
 }
