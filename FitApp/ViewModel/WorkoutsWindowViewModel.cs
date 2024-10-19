@@ -18,7 +18,11 @@ namespace FitApp.ViewModel
         public WorkoutsWindowViewModel(User User, List<Workout> Workoutlist, string UsernameInput, string PasswordInput) : base(UsernameInput, PasswordInput)
         {
             this.User = User;
-            this.WorkoutList = this.WorkoutList; // tilldela direkt.
+            WorkoutList = new List<Workout>
+        {
+            new CardioWorkout { Type = "Cardio", Distance = 5, Duration = new TimeSpan(0, 30, 0), CaloriesBurned = 300 },
+            new StrengthWorkout { Type = "Strength", Repetitions = 10, Duration = new TimeSpan(0, 45, 0), CaloriesBurned = 400 }
+        }; // tilldela direkt.
         }
 
         // Metoder

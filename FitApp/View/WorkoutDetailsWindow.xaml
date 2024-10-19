@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FitApp.View"
         mc:Ignorable="d"
-        Title="WorkoutDetailsWindow" Height="450" Width="800">
+        Title="WorkoutDetailsWindow" Height="480" Width="320">
     <Grid>
         
     </Grid>

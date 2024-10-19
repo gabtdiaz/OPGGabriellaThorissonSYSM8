@@ -23,8 +23,8 @@ namespace FitApp.View
         public RegisterWindow()
         {
             InitializeComponent();
-            RegisterWindowViewModel viewModel = new RegisterWindowViewModel();
-            DataContext = viewModel;
+            //RegisterWindowViewModel viewModel = new RegisterWindowViewModel();
+            //DataContext = viewModel;
         }
     }
 }
