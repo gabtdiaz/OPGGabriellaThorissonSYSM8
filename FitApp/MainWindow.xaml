@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:FitApp"
         mc:Ignorable="d"
         Title="MainWindow" Height="480" Width="320">
-    <Grid>
+    <Grid Background="LightGray">
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition Height="140"/>
@@ -21,7 +21,7 @@
         </StackPanel>
         <Button Content="Sign In" Width="100" Height="30" 
                 Background="#DC143C" Foreground="AliceBlue"
-                BorderBrush="#DC143C" BorderThickness="2" Padding="10" Grid.Row="1" VerticalAlignment="Bottom" Command="{Binding SignIncommand}">
+                BorderBrush="#DC143C" BorderThickness="2" Padding="10" Grid.Row="1" VerticalAlignment="Bottom" Command="{Binding SignInCommand}">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
                     <Border Background="{TemplateBinding Background}" 
@@ -49,8 +49,8 @@
             </Button.Template>
         </Button>
         <Button Content="Forgot Password?" Width="150" Height="30" 
-         Background="White" Foreground="Blue"
-         BorderThickness="0" Grid.Row="2" Command="{Binding NewpasswordCommand}" Grid.ColumnSpan="2" VerticalAlignment="Top">
+         Background="LightGray" Foreground="Blue"
+         BorderThickness="0" Grid.Row="2" Command="{Binding ForgotPasswordCommand}" Grid.ColumnSpan="2" VerticalAlignment="Top">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
                     <Border Background="{TemplateBinding Background}" 

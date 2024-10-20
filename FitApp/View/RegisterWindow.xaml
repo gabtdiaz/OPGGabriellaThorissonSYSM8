@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="RegisterWindow" Height="480" Width="320">
 
-    <Grid>
+    <Grid Background="LightGray">
 
         <StackPanel>
             <Label Content="Join FitTrack today!" HorizontalAlignment="Center" FontSize="30" VerticalAlignment="Center" FontFamily="Arial" FontWeight="Bold" Margin="0,0,0,40"/>
@@ -36,7 +36,7 @@
             <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
             <Label Content="Country   "/>
             <ComboBox Width="200" 
-             ItemsSource="{Binding Countries}" SelectedItem="{Binding SelectedCountry}">
+             ItemsSource="{Binding CountryComboBox}" SelectedItem="{Binding SelectedCountry}">
             </ComboBox>
         </StackPanel>
 

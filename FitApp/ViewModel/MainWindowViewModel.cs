@@ -19,34 +19,35 @@ namespace FitApp.ViewModel
         public RelayCommand SignInCommand { get; }
         public RelayCommand RegisterCommand { get; }
 
-        public RelayCommand ForgotPassword {  get; }
+        public RelayCommand ForgotPasswordCommand {  get; }
 
         // Konstruktor
         public MainWindowViewModel()
         {
             SignInCommand = new RelayCommand(obj => SignIn());
             RegisterCommand = new RelayCommand(obj => Register());
+            ForgotPasswordCommand = new RelayCommand(obj => ForgotPassword());
         }
 
         // Metoder
         public void SignIn() 
         {
-            if (UsernameInput == "admin" && PasswordInput == "password")
-            {
-                WorkoutsWindow workouts = new WorkoutsWindow();
-                workouts.Show();
-                Application.Current.MainWindow.Close();
-            }
-            else
-            {
-                MessageBox.Show("Invalid username or password!");
-            }
+            SignInWindow signInWindow = new SignInWindow();
+            signInWindow.Show();
+            Application.Current.MainWindow.Close();
         }
 
         public void Register() 
         {
             RegisterWindow registerWindow = new RegisterWindow();
             registerWindow.Show();
+            Application.Current.MainWindow.Close();
+        }
+
+        public void ForgotPassword()
+        {
+            ForgotPasswordWindow forgotPasswordWindow = new ForgotPasswordWindow();
+            forgotPasswordWindow.Show();
             Application.Current.MainWindow.Close();
         }
     }
