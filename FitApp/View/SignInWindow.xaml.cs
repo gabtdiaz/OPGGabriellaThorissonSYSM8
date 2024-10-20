@@ -15,15 +15,15 @@ using System.Windows.Shapes;
 namespace FitApp.View
 {
     /// <summary>
-    /// Interaction logic for ForgotPasswordWindow.xaml
+    /// Interaction logic for SignInWindow.xaml
     /// </summary>
-    public partial class ForgotPasswordWindow : Window
+    public partial class SignInWindow : Window
     {
-        public ForgotPasswordWindow()
+        public SignInWindow()
         {
             InitializeComponent();
-            ForgotPasswordWindow forgotPasswordWindow = new ForgotPasswordWindow();
-            this.DataContext = forgotPasswordWindow;
+            SignInWindow signInWindow = new SignInWindow();
+            DataContext = signInWindow;
         }
     }
 }
