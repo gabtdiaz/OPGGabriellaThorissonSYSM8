@@ -20,13 +20,8 @@ namespace FitApp
         public MainWindow()
         {
             InitializeComponent();
-            //MainWindowViewModel viewModel = new MainWindowViewModel("Gabriella","012345"); // ??
-            //DataContext = viewModel;
-
-        }
-
-        private void lblForgotPassword_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
+            var mainViewModel = new MainWindowViewModel();
+            DataContext = mainViewModel;
 
         }
     }

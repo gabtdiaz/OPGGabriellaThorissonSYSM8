@@ -7,24 +7,10 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="480" Width="320">
     <Grid>
-        <Grid.Background>
-            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                <GradientStop Color="Crimson"/>
-                <GradientStop Color="White" Offset="0.508"/>
-                <GradientStop Color="#FFFA6767" Offset="0.913"/>
-                <GradientStop Color="#FFFA6767" Offset="0.095"/>
-                <GradientStop Color="Crimson" Offset="0.994"/>
-                <GradientStop Color="Crimson"/>
-                <GradientStop Color="Crimson"/>
-                <GradientStop Color="#D3D3D3" Offset="0.22"/>
-                <GradientStop Color="#D3D3D3" Offset="0.784"/>
-                <GradientStop Color="Crimson" Offset="0"/>
-                <GradientStop Color="Crimson"/>
-            </LinearGradientBrush>
-        </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition/>
-            <RowDefinition/>
+            <RowDefinition Height="140"/>
+            <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition/>
@@ -32,13 +18,10 @@
         </Grid.ColumnDefinitions>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom" Orientation="Horizontal" Grid.ColumnSpan="2">
             <Label Content="{Binding LabelTitle}" FontSize="40" FontStyle="Oblique" FontFamily="Arial" />
-            
-            
-
         </StackPanel>
         <Button Content="Sign In" Width="100" Height="30" 
                 Background="#DC143C" Foreground="AliceBlue"
-                BorderBrush="Red" BorderThickness="2" Padding="10" Grid.Row="1" Command="{Binding SignIn}">
+                BorderBrush="#DC143C" BorderThickness="2" Padding="10" Grid.Row="1" VerticalAlignment="Bottom" Command="{Binding SignIncommand}">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
                     <Border Background="{TemplateBinding Background}" 
@@ -52,7 +35,8 @@
         </Button>
         <Button Content="Register" Width="100" Height="30" 
                 Background="#DC143C" Foreground="AliceBlue"
-                BorderBrush="Red" BorderThickness="2" Padding="10" Grid.Row="1" Grid.Column="1" Command="{Binding Register}">
+                BorderBrush="#DC143C" BorderThickness="2" Padding="10" 
+                Grid.Row="1" Grid.Column="1" VerticalAlignment="Bottom" Command="{Binding RegisterCommand}">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
                     <Border Background="{TemplateBinding Background}" 
@@ -64,9 +48,19 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        <Label x:Name="lblForgotPassword" Content="Forgot password?" Grid.ColumnSpan="2" FontSize="12" Grid.Row="1" RenderTransformOrigin="0.523,1.953" Margin="106,136,106,70" Foreground="Blue" FontFamily="Arial" MouseDoubleClick="lblForgotPassword_MouseDoubleClick" Height="80" Width="200"/>
-
-
-
+        <Button Content="Forgot Password?" Width="150" Height="30" 
+         Background="White" Foreground="Blue"
+         BorderThickness="0" Grid.Row="2" Command="{Binding NewpasswordCommand}" Grid.ColumnSpan="2" VerticalAlignment="Top">
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}" 
+                     BorderBrush="{TemplateBinding BorderBrush}" 
+                     BorderThickness="{TemplateBinding BorderThickness}" 
+                     CornerRadius="15">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
     </Grid>
 </Window>

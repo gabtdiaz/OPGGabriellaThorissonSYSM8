@@ -7,34 +7,38 @@ using System.Windows.Input;
 
 namespace FitApp.MVVM
 {
-        public class RelayCommand : ICommand
+    public class RelayCommand : ICommand
+    {
+        //Fält för att hålla referenser till metoder som definierar vad som ska göras (Execute)
+        private Action<object> execute;
+
+        //Kollar om kommandot kan köras
+        private Func<object, bool> canExecute;
+
+
+        //Event som signalerar när kommandots möjlighet att köras har ändrats
+        public event EventHandler? CanExecuteChanged
         {
-            private readonly Action<object> _execute;
-            private readonly Predicate<object> _canExecute;
+            add { CommandManager.RequerySuggested += value; }
+            remove { CommandManager.RequerySuggested -= value; }
+        }
 
-            public event EventHandler CanExecuteChanged;
+        public RelayCommand(Action<object> execute, Func<object, bool> canExecute = null)
+        {
+            this.execute = execute;
+            this.canExecute = canExecute;
+        }
 
-            public RelayCommand(Action<object> execute, Predicate<object> canExecute = null)
-            {
-                _execute = execute ?? throw new ArgumentNullException(nameof(execute));
-                _canExecute = canExecute;
-            }
+        //Bestämmer om kommandot kan köras eller inte
+        public bool CanExecute(object? parameter)
+        {
+            return canExecute == null || canExecute(parameter);
+        }
 
-            public bool CanExecute(object parameter)
-            {
-                return _canExecute == null || _canExecute(parameter);
-            }
-
-            public void Execute(object parameter)
-            {
-                _execute(parameter);
-            }
-
-            public void RaiseCanExecuteChanged()
-            {
-                CanExecuteChanged?.Invoke(this, EventArgs.Empty);
-            }
+        //Kör den logik som tilldelats via execute metoden
+        public void Execute(object? parameter)
+        {
+            execute(parameter);
         }
     }
-
 }

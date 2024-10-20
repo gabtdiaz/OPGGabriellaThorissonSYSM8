@@ -15,7 +15,7 @@ namespace FitApp.ViewModel
         new List<Workout> WorkoutList = new List<Workout>();
 
         // Konstruktor
-        public WorkoutsWindowViewModel(User User, List<Workout> Workoutlist, string UsernameInput, string PasswordInput) : base(UsernameInput, PasswordInput)
+        public WorkoutsWindowViewModel(User User, List<Workout> Workoutlist, string UsernameInput, string PasswordInput) 
         {
             this.User = User;
             WorkoutList = new List<Workout>

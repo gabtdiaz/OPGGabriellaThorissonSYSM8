@@ -12,12 +12,14 @@ namespace FitApp.ViewModel
         public string ConfirmPasswordInput { get; set; }
         public string CountryComboBox { get; set; }
         // Konstruktor
-        public RegisterWindowViewModel(string ConfirmPasswordInput, string CountryComboBox, string PasswordInput, string UsernameInput) : base(PasswordInput, UsernameInput)
+        public RegisterWindowViewModel(string ConfirmPasswordInput, string CountryComboBox, string PasswordInput, string UsernameInput) 
         {
             this.ConfirmPasswordInput = ConfirmPasswordInput;
             this.CountryComboBox = CountryComboBox;
         }
         // Metoder
-        public void RegisterNewUser() { }
+        public void RegisterNewUser() 
+        {
+        }
     }
 }
