@@ -7,6 +7,10 @@
         mc:Ignorable="d"
         Title="AddWorkoutWindow" Height="480" Width="320">
     <Grid>
+        <StackPanel>
+            <ListBox x:Name="listBoxWorkouts" Height="200"/>
+            <Button x:Name="btnDetails" Height="30" Content="See details"/>
+        </StackPanel>
         
     </Grid>
 </Window>

@@ -26,5 +26,10 @@ namespace FitApp.View
             //RegisterWindowViewModel viewModel = new RegisterWindowViewModel();
             //DataContext = viewModel;
         }
+
+        private void Countries_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //det ska inte hamna här.
+        }
     }
 }

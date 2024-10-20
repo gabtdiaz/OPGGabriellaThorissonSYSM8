@@ -16,12 +16,12 @@
             </LinearGradientBrush>
         </Grid.Background>
         <StackPanel Orientation="Vertical" VerticalAlignment="Bottom">
-            <ComboBox x:Name="Countries" FontSize="15"/>
+            <ComboBox x:Name="Countries" FontSize="15" SelectionChanged="Countries_SelectionChanged"/>
   
-            <Label Content="E-mail adress:" FontSize="15" Foreground="AliceBlue"/>
-            <TextBox x:Name="txtBoxEmail"/>
+            <Label Content="Username:" FontSize="15" Foreground="AliceBlue"/>
+            <TextBox x:Name="txtBoxEmail" Text= "{Binding UsernameInput}"/>
             <Label Content="Password:" FontSize="15" Foreground="White" />
-            <TextBox x:Name="txtBoxPassword" />
+            <TextBox x:Name="txtBoxPassword" Text="{Binding PasswordInput}"/>
             <Label Content="Confirm password:" FontSize="15" Foreground="AliceBlue"/>
             <TextBox x:Name="txtBoxConfirm"/>
         </StackPanel>

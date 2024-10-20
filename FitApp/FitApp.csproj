@@ -8,11 +8,4 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="MVVM\**" />
-    <EmbeddedResource Remove="MVVM\**" />
-    <None Remove="MVVM\**" />
-    <Page Remove="MVVM\**" />
-  </ItemGroup>
-
 </Project>

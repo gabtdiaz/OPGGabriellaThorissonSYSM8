@@ -13,9 +13,9 @@ namespace FitApp.ViewModel
         public Workout Workout {  get; set; }
 
         // Konstruktor
-        public WorkoutDetailsWindowViewModel(Workout workout)
+        public WorkoutDetailsWindowViewModel(Workout Workout)
         {
-            Workout = workout; 
+            this.Workout = Workout; 
         }
 
         // Metoder

@@ -31,14 +31,14 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom" Orientation="Horizontal" Grid.ColumnSpan="2">
-            <Label Content="Fit" FontSize="40" FontStyle="Oblique" FontFamily="Arial" />
-            <Label Content="Track" FontSize="40" FontFamily="Arial" FontWeight="Bold"/>
+            <Label Content="{Binding LabelTitle}" FontSize="40" FontStyle="Oblique" FontFamily="Arial" />
+            
             
 
         </StackPanel>
         <Button Content="Sign In" Width="100" Height="30" 
                 Background="#DC143C" Foreground="AliceBlue"
-                BorderBrush="Red" BorderThickness="2" Padding="10" Grid.Row="1" Command="{Binding LoginWindow}">
+                BorderBrush="Red" BorderThickness="2" Padding="10" Grid.Row="1" Command="{Binding SignIn}">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
                     <Border Background="{TemplateBinding Background}" 
@@ -52,7 +52,7 @@
         </Button>
         <Button Content="Register" Width="100" Height="30" 
                 Background="#DC143C" Foreground="AliceBlue"
-                BorderBrush="Red" BorderThickness="2" Padding="10" Grid.Row="1" Grid.Column="1" Command="{Binding RegisterWindow}">
+                BorderBrush="Red" BorderThickness="2" Padding="10" Grid.Row="1" Grid.Column="1" Command="{Binding Register}">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
                     <Border Background="{TemplateBinding Background}" 

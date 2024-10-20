@@ -9,7 +9,7 @@ namespace FitApp.ViewModel
     public class MainWindowViewModel
     {
         // Egenskaper
-        public string LabelTitle { get; set; }
+        public string LabelTitle { get; set; } = "FitTrack";
         public string UsernameInput { get; set; }
         public string PasswordInput { get; set; }
 
