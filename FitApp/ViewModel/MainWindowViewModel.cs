@@ -9,12 +9,12 @@ using System.Windows;
 
 namespace FitApp.ViewModel
 {
-    public class MainWindowViewModel
+    public class MainWindowViewModel : ViewModelBase // Måste ärva från ViewModelBase klassen för att kunna använda sig av OnPropertyChanged()
     {
         // Egenskaper
-        public string LabelTitle { get; set; } = "FitTrack";
+        public string LabelTitle { get; set; } = "FitTrack"; // Sätter standarDvärde
         public string UsernameInput { get; set; } = string.Empty;
-        public string PasswordInput { get; set; }
+        public string PasswordInput { get; set; } = string.Empty;
 
         public RelayCommand SignInCommand { get; }
         public RelayCommand RegisterCommand { get; }

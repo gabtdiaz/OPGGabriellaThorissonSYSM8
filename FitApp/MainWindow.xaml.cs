@@ -20,7 +20,7 @@ namespace FitApp
         public MainWindow()
         {
             InitializeComponent();
-            var mainViewModel = new MainWindowViewModel();
+            MainWindowViewModel mainViewModel = new MainWindowViewModel();
             DataContext = mainViewModel;
 
         }

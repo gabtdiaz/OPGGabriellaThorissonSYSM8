@@ -27,9 +27,12 @@ namespace FitApp.View
             DataContext = registerViewModel;
         }
 
-        private void Countries_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
         {
-            //det ska inte hamna här.
+            if (DataContext is RegisterWindowViewModel viewModel)
+            {
+                viewModel.PasswordInput = ((PasswordBox)sender).Password;
+            }
         }
     }
 }

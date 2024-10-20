@@ -13,26 +13,28 @@
             <RowDefinition Height="100"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
+        
         <Label Content="Join FitTrack today!" HorizontalAlignment="Center" FontSize="30" VerticalAlignment="Center" FontFamily="Arial" FontWeight="Bold"/>
+
+        <!-- Användarnamn input -->
         <StackPanel Grid.Row="1" Orientation="Horizontal" Height="50" VerticalAlignment="Top">
             <Label Content="Username"/>
             <TextBox Width="200" VerticalAlignment="Top"
                  Text="{Binding UsernameInput}"/>
         </StackPanel>
+
+        <!-- Lösenord input -->
         <StackPanel Grid.Row="1" Orientation="Horizontal" Height="50" VerticalAlignment="Center" Margin="4,30,0,0">
             <Label Content="Password"/>
             <PasswordBox Width="200" VerticalAlignment="Top"
-                     PasswordBox.PasswordChanged="{Binding PasswordInput}"/>
+                         PasswordChanged="PasswordBox_PasswordChanged"/>
         </StackPanel>
+        
+        <!-- Välj land -->
         <ComboBox Grid.Row="1" Width="200" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="62,0,0,0"
-             ItemsSource="{Binding CountryComboBox}" SelectedItem="{Binding Country}">
-            <ComboBoxItem Content="Select country" IsSelected="True" IsEnabled="False"/>
-            <ComboBoxItem Content="Sweden"/>
-            <ComboBoxItem Content="Norway"/>
-            <ComboBoxItem Content="Denmark"/>
-            <ComboBoxItem Content="Finland"/>
-        </ComboBox>
+             ItemsSource="{Binding CountryComboBox}" SelectedItem="{Binding SelectedCountry}"/>
 
+        <!-- Skapa konto button -->
         <Button Content="Create account" Width="130" Height="30"
          Background="#DC143C" Foreground="AliceBlue"
          BorderBrush="#DC143C" BorderThickness="2" Padding="10" 

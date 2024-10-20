@@ -17,6 +17,19 @@ namespace FitApp.ViewModel
         public ObservableCollection<string> CountryComboBox { get; set; }
         public RelayCommand RegisterCommand { get; }
 
+        private string selectedCountry;
+        public string SelectedCountry
+        {
+            get
+            {
+                return selectedCountry;
+            }
+            set
+            {
+                selectedCountry = value;
+                OnPropertyChanged(nameof(SelectedCountry));
+            }
+        }
         // Konstruktor
         public RegisterWindowViewModel() 
         {
