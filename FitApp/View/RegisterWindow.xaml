@@ -8,37 +8,43 @@
         Title="RegisterWindow" Height="480" Width="320">
 
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="120"/>
-            <RowDefinition Height="100"/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
-        
-        <Label Content="Join FitTrack today!" HorizontalAlignment="Center" FontSize="30" VerticalAlignment="Center" FontFamily="Arial" FontWeight="Bold"/>
 
-        <!-- Användarnamn input -->
-        <StackPanel Grid.Row="1" Orientation="Horizontal" Height="50" VerticalAlignment="Top">
+        <StackPanel>
+            <Label Content="Join FitTrack today!" HorizontalAlignment="Center" FontSize="30" VerticalAlignment="Center" FontFamily="Arial" FontWeight="Bold" Margin="0,0,0,40"/>
+
+        <!-- Username input -->
+        <StackPanel Orientation="Horizontal" Height="25" Margin="0,0,0,20">
             <Label Content="Username"/>
-            <TextBox Width="200" VerticalAlignment="Top"
-                 Text="{Binding UsernameInput}"/>
+            <TextBox Width="200"
+                Text="{Binding UsernameInput}"/>
         </StackPanel>
 
-        <!-- Lösenord input -->
-        <StackPanel Grid.Row="1" Orientation="Horizontal" Height="50" VerticalAlignment="Center" Margin="4,30,0,0">
-            <Label Content="Password"/>
-            <PasswordBox Width="200" VerticalAlignment="Top"
-                         PasswordChanged="PasswordBox_PasswordChanged"/>
+        <!-- Password input -->
+            <StackPanel Orientation="Horizontal" Height="25" Margin="0,0,0,20">
+            <Label Content="Password "/>
+            <PasswordBox x:Name="PasswordBox" Width="200" PasswordChanged="PasswordBox_PasswordChanged"/>
         </StackPanel>
-        
+            
+        <!-- Bekräfta lösenord -->
+            <StackPanel Orientation="Horizontal" Height="25" Margin="0,0,0,20">
+            <Label Content="Password "/>
+            <PasswordBox x:Name="PasswordBoxConfirm" Width="200"
+                 PasswordChanged="PasswordBoxConfirm_PasswordChanged"/>
+        </StackPanel>
+
         <!-- Välj land -->
-        <ComboBox Grid.Row="1" Width="200" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="62,0,0,0"
-             ItemsSource="{Binding CountryComboBox}" SelectedItem="{Binding SelectedCountry}"/>
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+            <Label Content="Country   "/>
+            <ComboBox Width="200" 
+             ItemsSource="{Binding Countries}" SelectedItem="{Binding SelectedCountry}">
+            </ComboBox>
+        </StackPanel>
 
         <!-- Skapa konto button -->
         <Button Content="Create account" Width="130" Height="30"
-         Background="#DC143C" Foreground="AliceBlue"
-         BorderBrush="#DC143C" BorderThickness="2" Padding="10" 
-         Grid.Row="2" VerticalAlignment="Center" Command="{Binding RegisterCommand}">
+            Background="#DC143C" Foreground="AliceBlue"
+            BorderBrush="#DC143C" BorderThickness="2" Padding="10" 
+            VerticalAlignment="Center" Command="{Binding RegisterCommand}">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
                     <Border Background="{TemplateBinding Background}" 
@@ -50,5 +56,6 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
+        </StackPanel>
     </Grid>
 </Window>

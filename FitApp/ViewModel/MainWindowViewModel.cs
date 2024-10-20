@@ -31,7 +31,8 @@ namespace FitApp.ViewModel
         {
             if (UsernameInput == "admin" && PasswordInput == "password")
             {
-                MessageBox.Show("Login successful!");
+                MainWindow mainWindow = new MainWindow();
+                mainWindow.Show();
                 Application.Current.MainWindow.Close();
             }
             else

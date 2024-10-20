@@ -34,5 +34,10 @@ namespace FitApp.View
                 viewModel.PasswordInput = ((PasswordBox)sender).Password;
             }
         }
+
+        private void PasswordBoxConfirm_PasswordChanged(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
