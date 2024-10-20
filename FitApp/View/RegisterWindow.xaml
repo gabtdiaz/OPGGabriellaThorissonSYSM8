@@ -6,28 +6,37 @@
         xmlns:local="clr-namespace:FitApp.View"
         mc:Ignorable="d"
         Title="RegisterWindow" Height="480" Width="320">
+
     <Grid>
-        <Grid.Background>
-            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                <GradientStop Color="#FFF9F8F8" Offset="1"/>
-                <GradientStop Color="Black"/>
-                <GradientStop Color="Crimson" Offset="0"/>
-                <GradientStop Color="#FFFA6767" Offset="0.214"/>
-            </LinearGradientBrush>
-        </Grid.Background>
-        <StackPanel Orientation="Vertical" VerticalAlignment="Bottom">
-            <ComboBox x:Name="Countries" FontSize="15" SelectionChanged="Countries_SelectionChanged"/>
-  
-            <Label Content="Username:" FontSize="15" Foreground="AliceBlue"/>
-            <TextBox x:Name="txtBoxEmail" Text= "{Binding UsernameInput}"/>
-            <Label Content="Password:" FontSize="15" Foreground="White" />
-            <TextBox x:Name="txtBoxPassword" Text="{Binding PasswordInput}"/>
-            <Label Content="Confirm password:" FontSize="15" Foreground="AliceBlue"/>
-            <TextBox x:Name="txtBoxConfirm"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="120"/>
+            <RowDefinition Height="100"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Label Content="Join FitTrack today!" HorizontalAlignment="Center" FontSize="30" VerticalAlignment="Center" FontFamily="Arial" FontWeight="Bold"/>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Height="50" VerticalAlignment="Top">
+            <Label Content="Username"/>
+            <TextBox Width="200" VerticalAlignment="Top"
+                 Text="{Binding UsernameInput}"/>
         </StackPanel>
-        <Button Content="Register Now" Width="100" Height="30" Grid.Row="2" 
-         Background="#DC143C" Foreground="AliceBlue" VerticalAlignment="Center"
-         BorderBrush="Red" BorderThickness="2" Padding="10" Command="{Binding WorkoutsWindow}">
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Height="50" VerticalAlignment="Center" Margin="4,30,0,0">
+            <Label Content="Password"/>
+            <PasswordBox Width="200" VerticalAlignment="Top"
+                     PasswordBox.PasswordChanged="{Binding PasswordInput}"/>
+        </StackPanel>
+        <ComboBox Grid.Row="1" Width="200" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="62,0,0,0"
+             ItemsSource="{Binding CountryComboBox}" SelectedItem="{Binding Country}">
+            <ComboBoxItem Content="Select country" IsSelected="True" IsEnabled="False"/>
+            <ComboBoxItem Content="Sweden"/>
+            <ComboBoxItem Content="Norway"/>
+            <ComboBoxItem Content="Denmark"/>
+            <ComboBoxItem Content="Finland"/>
+        </ComboBox>
+
+        <Button Content="Create account" Width="130" Height="30"
+         Background="#DC143C" Foreground="AliceBlue"
+         BorderBrush="#DC143C" BorderThickness="2" Padding="10" 
+         Grid.Row="2" VerticalAlignment="Center" Command="{Binding RegisterCommand}">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
                     <Border Background="{TemplateBinding Background}" 
@@ -39,10 +48,5 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        <ComboBox HorizontalAlignment="Left" Height="0" Margin="377,251,0,0" Grid.Row="2" VerticalAlignment="Top" Width="120"/>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="280"/>
-            <RowDefinition/>
-        </Grid.RowDefinitions>
     </Grid>
 </Window>

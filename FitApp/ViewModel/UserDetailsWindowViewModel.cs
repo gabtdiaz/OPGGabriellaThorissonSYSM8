@@ -10,7 +10,7 @@ namespace FitApp.ViewModel
     public class UserDetailsWindowViewModel : RegisterWindowViewModel
     {
         // Konstruktor
-        public UserDetailsWindowViewModel(string UsernameInput, string PasswordInput, string ConfirmPasswordInput, string CountryComboBox) : base (UsernameInput, PasswordInput, ConfirmPasswordInput, CountryComboBox) { }
+        public UserDetailsWindowViewModel(string UsernameInput, string PasswordInput, string ConfirmPasswordInput, string CountryComboBox) { }
 
         // Metoder
 

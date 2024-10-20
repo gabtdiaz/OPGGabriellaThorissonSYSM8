@@ -1,8 +1,11 @@
-﻿using System;
+﻿using FitApp.MVVM;
+using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace FitApp.ViewModel
 {
@@ -10,16 +13,30 @@ namespace FitApp.ViewModel
     {
         // Egenskaper
         public string ConfirmPasswordInput { get; set; }
-        public string CountryComboBox { get; set; }
+
+        public ObservableCollection<string> CountryComboBox { get; set; }
+        public RelayCommand RegisterCommand { get; }
+
         // Konstruktor
-        public RegisterWindowViewModel(string ConfirmPasswordInput, string CountryComboBox, string PasswordInput, string UsernameInput) 
+        public RegisterWindowViewModel() 
         {
-            this.ConfirmPasswordInput = ConfirmPasswordInput;
-            this.CountryComboBox = CountryComboBox;
+            CountryComboBox = new ObservableCollection<string> { "Sweden", "Norway", "Denmark", "Finland" };
+            RegisterCommand = new RelayCommand(obj => Register());
         }
         // Metoder
         public void RegisterNewUser() 
         {
+            if (UsernameInput == "admin")
+            {
+                MessageBox.Show("Username already taken.");
+            }
+            else
+            {
+                MessageBox.Show($"User {UsernameInput} created successfully.");
+                Application.Current.MainWindow.Close();
+                MainWindow mainWindow = new MainWindow();
+                mainWindow.Show();
+            }
         }
     }
 }

@@ -23,8 +23,8 @@ namespace FitApp.View
         public RegisterWindow()
         {
             InitializeComponent();
-            //RegisterWindowViewModel viewModel = new RegisterWindowViewModel();
-            //DataContext = viewModel;
+            RegisterWindowViewModel registerViewModel = new RegisterWindowViewModel();
+            DataContext = registerViewModel;
         }
 
         private void Countries_SelectionChanged(object sender, SelectionChangedEventArgs e)
