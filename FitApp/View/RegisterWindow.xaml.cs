@@ -37,7 +37,10 @@ namespace FitApp.View
 
         private void PasswordBoxConfirm_PasswordChanged(object sender, RoutedEventArgs e)
         {
-
+            if (DataContext is RegisterWindowViewModel viewModel)
+            {
+                viewModel.PasswordInput = ((PasswordBox)sender).Password; // är denna rätt?
+            }
         }
     }
 }

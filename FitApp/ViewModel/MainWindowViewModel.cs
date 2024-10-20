@@ -19,6 +19,8 @@ namespace FitApp.ViewModel
         public RelayCommand SignInCommand { get; }
         public RelayCommand RegisterCommand { get; }
 
+        public RelayCommand ForgotPassword {  get; }
+
         // Konstruktor
         public MainWindowViewModel()
         {
@@ -31,8 +33,8 @@ namespace FitApp.ViewModel
         {
             if (UsernameInput == "admin" && PasswordInput == "password")
             {
-                MainWindow mainWindow = new MainWindow();
-                mainWindow.Show();
+                WorkoutsWindow workouts = new WorkoutsWindow();
+                workouts.Show();
                 Application.Current.MainWindow.Close();
             }
             else
