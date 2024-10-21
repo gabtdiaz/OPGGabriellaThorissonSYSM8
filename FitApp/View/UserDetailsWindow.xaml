@@ -7,3 +7,61 @@
         mc:Ignorable="d"
         Title="UserDetailsWindow" Height="480" Width="320">
 
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="150"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="Change User Details" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="30" />
+        
+        <StackPanel Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Username"/>
+                <TextBox Text="{Binding UsernameInput}" HorizontalAlignment="Center" Width="200"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Password "/>
+                <TextBox Text="{Binding PasswordInput}" HorizontalAlignment="Center"  Width="200"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Password "/>
+                <TextBox Text="{Binding ConfirmPasswordInput}" HorizontalAlignment="Center" Width="200"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal">
+                <Label Content="Country   "/>
+                <ComboBox ItemsSource="{Binding Countries}" SelectedItem="{Binding CountryComboBox}" HorizontalAlignment="Center" Width="200" />
+            </StackPanel>
+        </StackPanel>
+        <Button Content="Save" Command="{Binding SaveUserDetailsCommand}" HorizontalAlignment="Left" 
+                VerticalAlignment="Bottom" Margin="10,0,0,10" Grid.Row="2"
+                Background="Crimson" Foreground="AliceBlue" Grid.ColumnSpan="2"
+            BorderBrush="#DC143C" BorderThickness="2" Padding="10" Width="80">
+            <Button.Template>
+            <ControlTemplate TargetType="Button">
+                <Border Background="{TemplateBinding Background}" 
+                    BorderBrush="{TemplateBinding BorderBrush}" 
+                    BorderThickness="{TemplateBinding BorderThickness}" 
+                    CornerRadius="15">
+                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Border>
+            </ControlTemplate>
+        </Button.Template>
+        </Button>
+        <Button Content="Cancel" Command="{Binding CancelCommand}" HorizontalAlignment="Right" 
+            VerticalAlignment="Bottom" Margin="0,0,10,10" Grid.Row="2" Background="Crimson" 
+                Foreground="AliceBlue" Grid.ColumnSpan="2" BorderBrush="#DC143C" 
+                BorderThickness="2" Padding="10" Width="80">
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}" 
+                        BorderBrush="{TemplateBinding BorderBrush}" 
+                        BorderThickness="{TemplateBinding BorderThickness}" 
+                        CornerRadius="15">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+    </Grid>
+</Window>
