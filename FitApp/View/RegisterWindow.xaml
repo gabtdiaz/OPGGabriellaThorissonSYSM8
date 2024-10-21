@@ -22,7 +22,7 @@
         <!-- Password input -->
             <StackPanel Orientation="Horizontal" Height="25" Margin="0,0,0,20">
             <Label Content="Password "/>
-            <PasswordBox x:Name="PasswordBox" Width="200" PasswordChanged="{Binding PasswordInput}"/>
+            <PasswordBox x:Name="PasswordBox" PasswordChanged = "{Binding PasswordInput}" Width="200"/>
         </StackPanel>
             
         <!-- Bekräfta lösenord -->
