@@ -7,45 +7,97 @@
         mc:Ignorable="d"
         Title="WorkoutsWindow" Height="480" Width="320">
     <Grid>
+        <!--Rader-->
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition/>
-            <RowDefinition/>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal">
-            <Button x:Name="btnUser" Content="" Width="50" Height="30" Margin="5,5,40,0"
-  Background="#DC143C" Foreground="AliceBlue" VerticalAlignment="Top"
-  BorderBrush="Red" BorderThickness="2" Padding="10" Command="{Binding WorkoutsWindow}" RenderTransformOrigin="0.38,0.748">
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+
+            <!--Knapp som öppnar UserDetailsWindow-->
+            <Button x:Name="btnUser" Content="{Binding Username}" Width="100" Height="30"
+                Background="#DC143C" Foreground="AliceBlue" BorderBrush="Red" BorderThickness="2" 
+                Padding="10" Command="{Binding WorkoutsWindow}">
                 <Button.Template>
                     <ControlTemplate TargetType="{x:Type Button}">
-                        <Border Background="{TemplateBinding Background}" 
-              BorderBrush="{TemplateBinding BorderBrush}" 
-              BorderThickness="{TemplateBinding BorderThickness}" 
-              CornerRadius="15">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" 
+                            BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="15">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                     </ControlTemplate>
                 </Button.Template>
             </Button>
-            <Label Content="FitTrack" FontSize="20" FontWeight="Bold" Width="92" Margin="15,0,15,0"/>
-            <Button x:Name="btnAddWorkout" Content="+ Add Workout" Width="100" Height="30" Grid.Row="2" HorizontalAlignment="Center"
-Background="#DC143C" Foreground="AliceBlue" VerticalAlignment="Center" Margin="0,0,0,10"
-BorderBrush="Red" BorderThickness="2" Padding="10" Command="{Binding WorkoutsWindow}">
+
+            <!--Label FitTrack-->
+            <Label Content="FitTrack" FontSize="20" FontWeight="Bold"/>
+
+            <!--Knapp som öppnar AddWorkoutsWindow-->
+            <Button x:Name="btnAddWorkout" Content="+ Add Workout" Width="100" Height="30" Background="#DC143C" 
+                Foreground="AliceBlue" VerticalAlignment="Center" BorderBrush="Red" BorderThickness="2" 
+                Padding="10" Command="{Binding WorkoutsWindow}">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}" 
-            BorderBrush="{TemplateBinding BorderBrush}" 
-            BorderThickness="{TemplateBinding BorderThickness}" 
-            CornerRadius="15">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" 
+                            BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="15">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+
+            <!--ListBox med Träningspass-->
+        </StackPanel>
+        <ListBox ItemsSource="{Binding Workoutlist}"  SelectedItem="{Binding SelectedWorkout}" Height="300" Width="300"
+                 Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,40,0,0">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock Text="{Binding Date}" />
+                        <TextBlock Text="{Binding Type}" />
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+        
+        <!--Knappar för att se detaljer, ta bort träningspass eller logga ut--> 
+        <StackPanel Orientation="Horizontal" Grid.Row="1" VerticalAlignment="Bottom" Height="50" Width="320">
+            <Button Content="Details" Command="{Binding OpenDetailsCommand}" Width="80" Height="30" Background="#DC143C" 
+                Foreground="AliceBlue" VerticalAlignment="Center" BorderBrush="Red" BorderThickness="2" Padding="10">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" 
+                            BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="15">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button Content="Remove" Command="{Binding RemoveWorkoutCommand}" Width="80" Height="30" Background="#DC143C" 
+                Foreground="AliceBlue" VerticalAlignment="Center" BorderBrush="Red" BorderThickness="2" 
+                Padding="10">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" 
+                            BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="15">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button Content="Sign Out" Command="{Binding SignOutCommand}" Width="80" Height="30" Background="#DC143C" 
+                Foreground="AliceBlue" VerticalAlignment="Center" BorderBrush="Red" BorderThickness="2" 
+                Padding="10">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" 
+                            BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="15">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                     </ControlTemplate>
                 </Button.Template>
             </Button>
         </StackPanel>
-        <Label Content="Välkommen" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="40" FontFamily="Arial"/>
-
-
 
     </Grid>
 </Window>

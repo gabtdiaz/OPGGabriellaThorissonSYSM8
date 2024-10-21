@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="480" Width="320">
     
-    <Grid Background="LightGray">
+    <Grid Background="White">
         
         <!--Kolumner och rader-->
         <Grid.RowDefinitions>
@@ -21,8 +21,10 @@
         </Grid.ColumnDefinitions>
         
         <!--Titel-->
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Bottom" Orientation="Horizontal" Grid.ColumnSpan="2">
-            <Label Content="{Binding LabelTitle}" FontSize="40" FontStyle="Oblique" FontFamily="Arial" />
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical" Grid.ColumnSpan="2">
+            <TextBlock Text="F I T" FontSize="55" FontStyle="Normal" FontFamily="Arial" HorizontalAlignment="Center"/>
+            <TextBlock Text="&#x2AF8;
+Track" FontSize="30" FontStyle="Normal" FontFamily="Arial" Foreground="DarkOrange"/>
         </StackPanel>
         
         <!--Label Username och Password-->
@@ -34,13 +36,15 @@
         <!--TextBox och PasswordBox-->
         <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Width="180" HorizontalAlignment="Center"> 
             <TextBox Text="{Binding UsernameInput}" Height="25" Margin="0,0,0,10"/>
-            <PasswordBox PasswordChanged="{Binding PasswordInput}" Height="25" />
+            <PasswordBox Height="25" />
+            <!--PasswordChanged="{Binding PasswordInput}"-->
         </StackPanel>
         
         <!--Logga in knapp-->
         <Button Content="Sign In" Width="100" Height="30" 
-                Background="#DC143C" Foreground="AliceBlue" Grid.ColumnSpan="2"
-                BorderBrush="#DC143C" BorderThickness="2" Padding="10" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" Command="{Binding SignInCommand}">
+                Background="DarkOrange" Foreground="AliceBlue" Grid.ColumnSpan="2"
+                BorderBrush="#DC143C" BorderThickness="2" Padding="10" Grid.Row="1" VerticalAlignment="Bottom" 
+                HorizontalAlignment="Center" Command="{Binding SignInCommand}">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
                     <Border Background="{TemplateBinding Background}" 
@@ -55,7 +59,7 @@
         
         <!--Glömt lösenord knapp-->
         <Button Content="Forgot Password?" Width="150" Height="30" 
-         Background="LightGray" Foreground="Blue"
+         Background="White" Foreground="Blue"
          BorderThickness="0" Grid.Row="2" Command="{Binding ForgotPasswordCommand}" Grid.ColumnSpan="2" VerticalAlignment="Top">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
@@ -71,8 +75,8 @@
         
         <!--Skapa konto knapp-->
         <Button Content="No account? Register here" Height="30" 
-                Background="LightGray" Foreground="Blue"
-                BorderBrush="LightGray" BorderThickness="2" Padding="10" 
+                Background="White" Foreground="Blue"
+                BorderBrush="White" Padding="10" 
                 Grid.Row="2" VerticalAlignment="Center" Command="{Binding RegisterCommand}" Margin="66,0,66,0" Grid.ColumnSpan="2">
             <Button.Template>
                 <ControlTemplate TargetType="Button">

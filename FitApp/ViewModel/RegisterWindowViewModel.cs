@@ -17,7 +17,7 @@ namespace FitApp.ViewModel
         // Egenskaper
         public string ConfirmPasswordInput { get; set; }
         public ObservableCollection<string> CountryComboBox { get; set; }
-        public ICommand RegisterCommand { get; }
+        public ICommand RegisterNewUserCommand { get; }
 
         private string selectedCountry;
         public string SelectedCountry
@@ -36,7 +36,7 @@ namespace FitApp.ViewModel
         public RegisterWindowViewModel() 
         {
             CountryComboBox = new ObservableCollection<string> { "Sweden", "Norway", "Denmark", "Finland" };
-            RegisterCommand = new RelayCommand(RegisterNewUser);
+            RegisterNewUserCommand = new RelayCommand(RegisterNewUser);
         }
         // Metoder
         public void RegisterNewUser() 

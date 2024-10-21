@@ -24,7 +24,7 @@ namespace FitApp.View
         {
             InitializeComponent();
             RegisterWindowViewModel registerViewModel = new RegisterWindowViewModel();
-            DataContext = registerViewModel;
+            DataContext = registerViewModel; // kan göra såhär istället(?)
         }
 
         private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)

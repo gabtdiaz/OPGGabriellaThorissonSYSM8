@@ -13,29 +13,29 @@
             <Label Content="Join FitTrack today!" HorizontalAlignment="Center" FontSize="30" VerticalAlignment="Center" FontFamily="Arial" FontWeight="Bold" Margin="0,0,0,40"/>
 
         <!-- Username input -->
-        <StackPanel Orientation="Horizontal" Height="25" Margin="0,0,0,20">
-            <Label Content="Username"/>
-            <TextBox Width="200"
+        <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                <Label Content="Username" Height="25"/>
+                <TextBox Width="200" Height="20"
                 Text="{Binding UsernameInput}"/>
         </StackPanel>
 
         <!-- Password input -->
-            <StackPanel Orientation="Horizontal" Height="25" Margin="0,0,0,20">
-            <Label Content="Password "/>
-            <PasswordBox x:Name="PasswordBox" PasswordChanged = "{Binding PasswordInput}" Width="200"/>
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                <Label Content="Password " Height="25"/>
+                <PasswordBox x:Name="PasswordBox" PasswordChanged = "{Binding PasswordInput}" Width="200" Height="20"/>
         </StackPanel>
             
         <!-- Bekräfta lösenord -->
-            <StackPanel Orientation="Horizontal" Height="25" Margin="0,0,0,20">
-            <Label Content="Password "/>
-            <PasswordBox x:Name="PasswordBoxConfirm" Width="200"
-                 PasswordChanged="{Binding PasswordInput}"/>
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                <Label Content="Password " Height="25"/>
+                <PasswordBox x:Name="PasswordBoxConfirm" Width="200" Height="20"
+                 PasswordChanged="{Binding ConfirmPasswordInput}"/>
         </StackPanel>
 
         <!-- Välj land -->
             <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
-            <Label Content="Country   "/>
-            <ComboBox Width="200" 
+                <Label Content="Country   " Height="25"/>
+                <ComboBox Width="200" Height="20"
              ItemsSource="{Binding CountryComboBox}" SelectedItem="{Binding SelectedCountry}">
             </ComboBox>
         </StackPanel>
@@ -44,7 +44,7 @@
         <Button Content="Create account" Width="130" Height="30"
             Background="#DC143C" Foreground="AliceBlue"
             BorderBrush="#DC143C" BorderThickness="2" Padding="10" 
-            VerticalAlignment="Center" Command="{Binding RegisterCommand}">
+            VerticalAlignment="Center" Command="{Binding RegisterNewUserCommand}">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
                     <Border Background="{TemplateBinding Background}" 
