@@ -1,21 +1,52 @@
 ﻿using FitApp.Model;
+using FitApp.MVVM;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Input;
 
 namespace FitApp.ViewModel
 {
-    public class UserDetailsWindowViewModel : RegisterWindowViewModel
+    public class UserDetailsWindowViewModel : ViewModelBase
     {
+        // Egenskaper
+        public string UsernameInput { get; set; }
+        public string PasswordInput { get; set; }
+        public string ConfirmPasswordInput { get; set; }
+        public List<string> Countries { get; set; }
+        public string CountryComboBox { get; set; }
+
+        public ICommand SaveUserDetailsCommand { get; }
+        public ICommand CancelCommand { get; }
+
         // Konstruktor
-        public UserDetailsWindowViewModel(string UsernameInput, string PasswordInput, string ConfirmPasswordInput, string CountryComboBox) { }
+        public UserDetailsWindowViewModel() // vilka egenskaper ska jag skicka med konstruktorn?
+        {
+
+            SaveUserDetailsCommand = new RelayCommand(SaveUserDetails);
+            CancelCommand = new RelayCommand(Cancel);
+        }
 
         // Metoder
 
-        public void SaveUserDetails() { }
+        public void SaveUserDetails() 
+        {
+            if (PasswordInput == ConfirmPasswordInput) 
+            {
+                // Hur ska jag spara usernameinput och passwordInput till användaren?
+            }
+            else
+            {
+                MessageBox.Show("Passwords do not match.");
+            }
+        }
 
-        public void Cancel() { }
+        public void Cancel() 
+        {
+            // Gå tillbaka till WorkoutsWindow?
+        }
     }
 }
