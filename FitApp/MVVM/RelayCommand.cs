@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FitApp.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,12 +12,18 @@ namespace FitApp.MVVM
     {
         private Action execute;
         private Func<bool> canExecute;
+        private Action<Workout> openDetails;
 
         // lägg till kommentarer
         public RelayCommand(Action execute, Func<bool> canExecute = null)
         {
             this.execute = execute;
             this.canExecute = canExecute;
+        }
+
+        public RelayCommand(Action<Workout> openDetails)
+        {
+            this.openDetails = openDetails;
         }
 
         public bool CanExecute(object parameter)

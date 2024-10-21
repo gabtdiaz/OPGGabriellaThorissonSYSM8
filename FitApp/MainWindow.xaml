@@ -6,9 +6,18 @@
         xmlns:local="clr-namespace:FitApp"
         mc:Ignorable="d"
         Title="MainWindow" Height="480" Width="320">
-    
-    <Grid Background="White">
-        
+
+    <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF858585" Offset="1"/>
+                <GradientStop Color="#FFFFFBFB" Offset="0.93"/>
+                <GradientStop Color="White" Offset="0.07"/>
+                <GradientStop Color="#FF858585" Offset="0"/>
+                <GradientStop Color="#FF797979"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+
         <!--Kolumner och rader-->
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -19,30 +28,32 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        
+
         <!--Titel-->
-        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical" Grid.ColumnSpan="2">
-            <TextBlock Text="F I T" FontSize="55" FontStyle="Normal" FontFamily="Arial" HorizontalAlignment="Center"/>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" 
+                    Orientation="Vertical" Grid.ColumnSpan="2">
+            <TextBlock Text="F I T" FontSize="45" FontStyle="Normal" FontFamily="Arial Black" 
+                       HorizontalAlignment="Center" Foreground="#FF4C4C4C"/>
             <TextBlock Text="&#x2AF8;
 Track" FontSize="30" FontStyle="Normal" FontFamily="Arial" Foreground="DarkOrange"/>
         </StackPanel>
-        
+
         <!--Label Username och Password-->
         <StackPanel Grid.Row="1" >
             <Label Content="Username" Margin="0,0,0,10"/>
             <Label Content="Password"/>
         </StackPanel>
-        
+
         <!--TextBox och PasswordBox-->
-        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Width="180" HorizontalAlignment="Center"> 
+        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Width="180" HorizontalAlignment="Center">
             <TextBox Text="{Binding UsernameInput}" Height="25" Margin="0,0,0,10"/>
             <PasswordBox Height="25" />
             <!--PasswordChanged="{Binding PasswordInput}"-->
         </StackPanel>
-        
+
         <!--Logga in knapp-->
         <Button Content="Sign In" Width="100" Height="30" 
-                Background="DarkOrange" Foreground="AliceBlue" Grid.ColumnSpan="2"
+                Background="Crimson" Foreground="AliceBlue" Grid.ColumnSpan="2"
                 BorderBrush="#DC143C" BorderThickness="2" Padding="10" Grid.Row="1" VerticalAlignment="Bottom" 
                 HorizontalAlignment="Center" Command="{Binding SignInCommand}">
             <Button.Template>
@@ -56,7 +67,7 @@ Track" FontSize="30" FontStyle="Normal" FontFamily="Arial" Foreground="DarkOrang
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        
+
         <!--Glömt lösenord knapp-->
         <Button Content="Forgot Password?" Width="150" Height="30" 
          Background="White" Foreground="Blue"
@@ -72,7 +83,7 @@ Track" FontSize="30" FontStyle="Normal" FontFamily="Arial" Foreground="DarkOrang
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        
+
         <!--Skapa konto knapp-->
         <Button Content="No account? Register here" Height="30" 
                 Background="White" Foreground="Blue"

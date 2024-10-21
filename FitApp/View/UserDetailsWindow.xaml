@@ -6,7 +6,4 @@
         xmlns:local="clr-namespace:FitApp.View"
         mc:Ignorable="d"
         Title="UserDetailsWindow" Height="480" Width="320">
-    <Grid>
-        
-    </Grid>
-</Window>
+
