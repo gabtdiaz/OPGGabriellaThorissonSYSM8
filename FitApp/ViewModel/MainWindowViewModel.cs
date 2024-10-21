@@ -18,7 +18,6 @@ namespace FitApp.ViewModel
 
         public RelayCommand SignInCommand { get; }
         public RelayCommand RegisterCommand { get; }
-
         public RelayCommand ForgotPasswordCommand {  get; }
 
         // Konstruktor
@@ -29,12 +28,13 @@ namespace FitApp.ViewModel
             ForgotPasswordCommand = new RelayCommand(obj => ForgotPassword());
         }
 
-        // Metoder
+        // Metoder som öppnar och stänger fönster
         public void SignIn() 
         {
+            MessageBox.Show("Sign in Clicked");
             SignInWindow signInWindow = new SignInWindow();
             signInWindow.Show();
-            Application.Current.MainWindow.Close();
+            //Application.Current.MainWindow.Close();
         }
 
         public void Register() 
@@ -46,9 +46,10 @@ namespace FitApp.ViewModel
 
         public void ForgotPassword()
         {
+            MessageBox.Show("Forgot clicked");
             ForgotPasswordWindow forgotPasswordWindow = new ForgotPasswordWindow();
             forgotPasswordWindow.Show();
-            Application.Current.MainWindow.Close();
+            //Application.Current.MainWindow.Close();
         }
     }
 }

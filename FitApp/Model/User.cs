@@ -14,7 +14,10 @@ namespace FitApp.Model
         public string SecurityAnswer { get; set; }
 
         // Metoder
-        public override void SignIn() { }
+        public override void SignIn()
+        {
+
+        }
 
         public void ResetPassword(string SecurityAnswer)
         {

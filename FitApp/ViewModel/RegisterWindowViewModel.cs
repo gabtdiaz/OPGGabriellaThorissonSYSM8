@@ -1,4 +1,6 @@
-﻿using FitApp.MVVM;
+﻿using FitApp.Model;
+using FitApp.MVVM;
+using FitApp.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -37,7 +39,7 @@ namespace FitApp.ViewModel
             RegisterCommand = new RelayCommand(obj => Register());
         }
         // Metoder
-        public void RegisterNewUser() 
+        public void Register() 
         {
             if (UsernameInput == "admin")
             {
@@ -45,6 +47,7 @@ namespace FitApp.ViewModel
             }
             else
             {
+                User user = new User(); // Måste skapa en ny användare med lösenord och användarnamn
                 MessageBox.Show($"User {UsernameInput} created successfully.");
                 Application.Current.MainWindow.Close();
                 MainWindow mainWindow = new MainWindow();

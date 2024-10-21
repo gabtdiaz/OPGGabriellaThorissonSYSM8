@@ -36,6 +36,7 @@ namespace FitApp.ViewModel
         }
         public void OpenDetails (Workout workout) 
         {
+
         }
     }
 }
