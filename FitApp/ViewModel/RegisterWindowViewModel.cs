@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 
 namespace FitApp.ViewModel
 {
@@ -15,9 +16,8 @@ namespace FitApp.ViewModel
     {
         // Egenskaper
         public string ConfirmPasswordInput { get; set; }
-
         public ObservableCollection<string> CountryComboBox { get; set; }
-        public RelayCommand RegisterCommand { get; }
+        public ICommand RegisterCommand { get; }
 
         private string selectedCountry;
         public string SelectedCountry
@@ -36,10 +36,10 @@ namespace FitApp.ViewModel
         public RegisterWindowViewModel() 
         {
             CountryComboBox = new ObservableCollection<string> { "Sweden", "Norway", "Denmark", "Finland" };
-            RegisterCommand = new RelayCommand(obj => Register());
+            RegisterCommand = new RelayCommand(RegisterNewUser);
         }
         // Metoder
-        public void Register() 
+        public void RegisterNewUser() 
         {
             if (UsernameInput == "admin")
             {

@@ -1,4 +1,5 @@
-﻿using FitApp.MVVM;
+﻿using FitApp.Model;
+using FitApp.MVVM;
 using FitApp.View;
 using System;
 using System.Collections.Generic;
@@ -6,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 
 namespace FitApp.ViewModel
 {
@@ -16,21 +18,19 @@ namespace FitApp.ViewModel
         public string UsernameInput { get; set; } = string.Empty;
         public string PasswordInput { get; set; } = string.Empty;
 
-        public RelayCommand SignInCommand { get; }
-        public RelayCommand RegisterCommand { get; }
-        public RelayCommand ForgotPasswordCommand {  get; }
+        public ICommand SignInCommand { get; }
 
         // Konstruktor
         public MainWindowViewModel()
         {
-            SignInCommand = new RelayCommand(obj => SignIn());
-            RegisterCommand = new RelayCommand(obj => Register());
-            ForgotPasswordCommand = new RelayCommand(obj => ForgotPassword());
+            SignInCommand = new RelayCommand(SignIn);
         }
 
         // Metoder som öppnar och stänger fönster
         public void SignIn() 
         {
+            //User user = new User ( { UsernameInput,  PasswordInput });
+            //user.SignIn();
             MessageBox.Show("Sign in Clicked");
             SignInWindow signInWindow = new SignInWindow();
             signInWindow.Show();

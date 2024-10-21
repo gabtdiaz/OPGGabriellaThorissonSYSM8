@@ -33,21 +33,8 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        <Button Content="Register" Width="100" Height="30" 
-                Background="#DC143C" Foreground="AliceBlue"
-                BorderBrush="#DC143C" BorderThickness="2" Padding="10" 
-                Grid.Row="1" Grid.Column="1" VerticalAlignment="Bottom" Command="{Binding RegisterCommand}">
-            <Button.Template>
-                <ControlTemplate TargetType="Button">
-                    <Border Background="{TemplateBinding Background}" 
-                            BorderBrush="{TemplateBinding BorderBrush}" 
-                            BorderThickness="{TemplateBinding BorderThickness}" 
-                            CornerRadius="15">
-                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    </Border>
-                </ControlTemplate>
-            </Button.Template>
-        </Button>
+
+
         <Button Content="Forgot Password?" Width="150" Height="30" 
          Background="LightGray" Foreground="Blue"
          BorderThickness="0" Grid.Row="2" Command="{Binding ForgotPasswordCommand}" Grid.ColumnSpan="2" VerticalAlignment="Top">
@@ -57,6 +44,21 @@
                      BorderBrush="{TemplateBinding BorderBrush}" 
                      BorderThickness="{TemplateBinding BorderThickness}" 
                      CornerRadius="15">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <Button Content="No account? Register here" Height="30" 
+                Background="LightGray" Foreground="Blue"
+                BorderBrush="LightGray" BorderThickness="2" Padding="10" 
+                Grid.Row="2" VerticalAlignment="Center" Command="{Binding RegisterCommand}" Margin="66,0,66,0" Grid.ColumnSpan="2">
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}" 
+                            BorderBrush="{TemplateBinding BorderBrush}" 
+                            BorderThickness="{TemplateBinding BorderThickness}" 
+                            CornerRadius="15">
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Border>
                 </ControlTemplate>

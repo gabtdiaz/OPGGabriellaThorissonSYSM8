@@ -9,36 +9,30 @@ namespace FitApp.MVVM
 {
     public class RelayCommand : ICommand
     {
-        //Fält för att hålla referenser till metoder som definierar vad som ska göras (Execute)
-        private Action<object> execute;
+        private Action execute;
+        private Func<bool> canExecute;
 
-        //Kollar om kommandot kan köras
-        private Func<object, bool> canExecute;
-
-
-        //Event som signalerar när kommandots möjlighet att köras har ändrats
-        public event EventHandler? CanExecuteChanged
-        {
-            add { CommandManager.RequerySuggested += value; }
-            remove { CommandManager.RequerySuggested -= value; }
-        }
-
-        public RelayCommand(Action<object> execute, Func<object, bool> canExecute = null)
+        // lägg till kommentarer
+        public RelayCommand(Action execute, Func<bool> canExecute = null)
         {
             this.execute = execute;
             this.canExecute = canExecute;
         }
 
-        //Bestämmer om kommandot kan köras eller inte
-        public bool CanExecute(object? parameter)
+        public bool CanExecute(object parameter)
         {
-            return canExecute == null || canExecute(parameter);
+            return canExecute == null || canExecute();
         }
 
-        //Kör den logik som tilldelats via execute metoden
-        public void Execute(object? parameter)
+        public void Execute(object parameter)
         {
-            execute(parameter);
+            execute();
+        }
+
+        public event EventHandler CanExecuteChanged;
+        public void RaiseCanExecuteChanged()
+        {
+            CanExecuteChanged?.Invoke(this, EventArgs.Empty);
         }
     }
 }
