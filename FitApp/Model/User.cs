@@ -19,7 +19,7 @@ namespace FitApp.Model
         }
 
         // Konstruktor - för att kunna lägga till ny användare i UserManager klassen.
-        public User(string Country, string Username, string Password) : base (Username, Password) 
+        public User(string Country, string Username, string Password)  
         {
             this.Country = Country;
             this.Username = Username;

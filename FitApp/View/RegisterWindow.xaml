@@ -22,13 +22,13 @@
         <!-- Password input -->
             <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
                 <Label Content="Password " Height="25"/>
-                <PasswordBox x:Name="Password" Width="200" Height="20"/>
+                <TextBox Text="{Binding PasswordInput}" x:Name="Password" Width="200" Height="20"/>
         </StackPanel>
             
         <!-- Bekräfta lösenord -->
             <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
                 <Label Content="Password " Height="25"/>
-                <PasswordBox x:Name="PasswordBoxConfirm" Width="200" Height="20"/>
+                <TextBox Text = "{Binding ConfirmPasswordInput}"  x:Name="PasswordBoxConfirm" Width="200" Height="20"/>
         </StackPanel>
 
         <!-- Välj land -->

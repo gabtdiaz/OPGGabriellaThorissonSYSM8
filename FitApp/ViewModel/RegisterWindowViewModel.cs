@@ -16,11 +16,23 @@ namespace FitApp.ViewModel
     public class RegisterWindowViewModel : ViewModelBase
     {
         // Egenskaper
-        public string ConfirmPasswordInput { get; set; }
         public ObservableCollection<string> CountryComboBox { get; set; }
-        public ICommand RegisterNewUserCommand { get; }
 
-        public UserManager UserManager;
+        public UserManager userManager; // får den vara här?
+
+        private string confirmPasswordInput;
+        public string ConfirmPasswordInput
+        {
+            get
+            {
+                return confirmPasswordInput;
+            }
+            set
+            {
+                confirmPasswordInput = value;
+                OnPropertyChanged(nameof(ConfirmPasswordInput));
+            }
+        }
 
         private string selectedCountry;
         public string SelectedCountry
@@ -64,24 +76,37 @@ namespace FitApp.ViewModel
             }
         }
 
+        public ICommand RegisterNewUserCommand { get; }
         // Konstruktor
-        public RegisterWindowViewModel(UserManager UserManager) 
+
+        public RegisterWindowViewModel(UserManager userManager) // måste man ha denna som parameter?
         {
-            this.UserManager = UserManager;
+            this.userManager = userManager; 
             CountryComboBox = new ObservableCollection<string> { "Sweden", "Norway", "Denmark", "Finland" };
             RegisterNewUserCommand = new RelayCommand(RegisterNewUser);
         }
-        // Metoder
-        public void RegisterNewUser() 
+        // Metod för att lägga till nya användare.
+        public void RegisterNewUser()
         {
-            User newUser = new User()
+            if (string.IsNullOrWhiteSpace(UsernameInput) || string.IsNullOrWhiteSpace(PasswordInput) ||
+            string.IsNullOrWhiteSpace(ConfirmPasswordInput) || SelectedCountry == null)
             {
-                Country = SelectedCountry,
-                Username = UsernameInput,
-                Password = PasswordInput,
-            };   
+                MessageBox.Show("Please enter information correctly.","Felmeddelande", MessageBoxButton.OK);
+                return;
+            }
+            if (PasswordInput != ConfirmPasswordInput)
+            {
+                MessageBox.Show("Passwords do not match.");
+                return;
+            }
+            if (PasswordInput.Length < 8)
+            { 
 
-            
+            }
+            else
+            {
+                userManager.Users.Add(new User { Country = SelectedCountry, Username = UsernameInput, Password = PasswordInput });
+            }
         }
     }
 }

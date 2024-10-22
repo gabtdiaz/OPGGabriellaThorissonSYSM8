@@ -17,9 +17,6 @@ namespace FitApp.ViewModel
         new List<Workout> WorkoutList = new List<Workout>();
 
         public User currentUser {  get; set; }
-       
-              
-
         public ICommand AddWorkoutCommand { get; }
         public ICommand OpenDetailsCommand { get; }
         public ICommand RemoveWorkoutCommand { get; }
@@ -44,7 +41,7 @@ namespace FitApp.ViewModel
         // Konstruktor
         public WorkoutsWindowViewModel(User currentUser) 
         {
-            User = currentUser;
+            this.currentUser  = currentUser;
             WorkoutList = new List<Workout>
         {
             new CardioWorkout { Type = "Cardio", Distance = 5, Duration = new TimeSpan(0, 30, 0), CaloriesBurned = 300 },

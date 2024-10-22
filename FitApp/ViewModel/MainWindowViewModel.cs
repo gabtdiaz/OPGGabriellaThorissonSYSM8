@@ -15,7 +15,7 @@ namespace FitApp.ViewModel
     public class MainWindowViewModel : ViewModelBase // Måste ärva från ViewModelBase klassen för att kunna använda sig av OnPropertyChanged()
     {
         // Egenskaper
-        public string LabelTitle1 { get; set; } = "FitTrack"; // Sätter standardvärde
+        public string LabelTitle { get; set; } = "FitTrack"; // Sätter standardvärde
 
         public ICommand SignInCommand { get; }
         public ICommand RegisterCommand { get; set; }
@@ -63,7 +63,7 @@ namespace FitApp.ViewModel
         {
             if (UsernameInput != null)
             {
-                if (usernameInput == "admin" && passwordInput == "abcd1234")
+                if (usernameInput == "admin" && passwordInput == "abcd1234") // kan man använda AdminUser här?
                 {
                     WorkoutsWindow workoutsWindow = new WorkoutsWindow();
                     workoutsWindow.Show();

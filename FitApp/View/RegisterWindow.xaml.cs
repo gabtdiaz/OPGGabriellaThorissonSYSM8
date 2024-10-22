@@ -1,4 +1,5 @@
-﻿using FitApp.ViewModel;
+﻿using FitApp.Services;
+using FitApp.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,10 +21,12 @@ namespace FitApp.View
     /// </summary>
     public partial class RegisterWindow : Window
     {
+        private UserManager userManager;
+
         public RegisterWindow()
         {
             InitializeComponent();
-            RegisterWindowViewModel registerWindow = new RegisterWindowViewModel();
+            RegisterWindowViewModel registerWindow = new RegisterWindowViewModel(userManager);
             DataContext = registerWindow;
         }
     }

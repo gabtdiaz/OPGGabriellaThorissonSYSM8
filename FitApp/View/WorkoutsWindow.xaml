@@ -17,7 +17,7 @@
 
             <!--Knapp som öppnar UserDetailsWindow-->
             <Button x:Name="btnUser" Content="{Binding Username}" Width="100" Height="30" Margin="5"
-                Background="DarkOrange" Foreground="AliceBlue" BorderBrush="Crimson" BorderThickness="2" 
+                Background="Crimson" Foreground="AliceBlue" BorderBrush="Crimson" BorderThickness="2" 
                 Padding="10" Command="{Binding WorkoutsWindow}">
                 <Button.Template>
                     <ControlTemplate TargetType="{x:Type Button}">
@@ -33,7 +33,7 @@
             <Label Content="FitTrack" FontSize="20" FontWeight="Bold" Margin="15,7,8,10"/>
 
             <!--Knapp som öppnar AddWorkoutsWindow-->
-            <Button x:Name="btnAddWorkout" Content="+ Add Workout" Width="100" Height="30" Background="DarkOrange" 
+            <Button x:Name="btnAddWorkout" Content="+ Add Workout" Width="100" Height="30" Background="Crimson" 
                 Foreground="AliceBlue" VerticalAlignment="Center" BorderBrush="Crimson" BorderThickness="2" 
                 Padding="10" Command="{Binding WorkoutsWindow}">
                 <Button.Template>
@@ -67,7 +67,7 @@
                 <Button.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="White" Offset="1"/>
-                        <GradientStop Color="DarkOrange" Offset="0.7"/>
+                        <GradientStop Color="Crimson" Offset="0.7"/>
                     </LinearGradientBrush>
                 </Button.Background>
                 <Button.Template>
@@ -85,7 +85,7 @@
                 <Button.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="White" Offset="1"/>
-                        <GradientStop Color="DarkOrange" Offset="0.7"/>
+                        <GradientStop Color="Crimson" Offset="0.7"/>
                     </LinearGradientBrush>
                 </Button.Background>
                 <Button.Template>
@@ -98,14 +98,14 @@
                 </Button.Template>
             </Button>
             <Button Content="Sign Out" Command="{Binding SignOutCommand}" Width="80" Height="30" 
-                Foreground="AliceBlue" VerticalAlignment="Center" BorderBrush="Red" BorderThickness="2" 
+                Foreground="AliceBlue" VerticalAlignment="Center" BorderBrush="Crimson" BorderThickness="2" 
                 Padding="10" Margin="0,0,20,5">
                 <Button.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="White" Offset="1"/>
-                        <GradientStop Color="DarkOrange" Offset="0.381"/>
-                        <GradientStop Color="DarkOrange"/>
-                        <GradientStop Color="DarkOrange" Offset="0.7"/>
+                        <GradientStop Color="Crimson" Offset="0.381"/>
+                        <GradientStop Color="Crimson"/>
+                        <GradientStop Color="Crimson" Offset="0.7"/>
                     </LinearGradientBrush>
                 </Button.Background>
                 <Button.Template>
@@ -118,6 +118,5 @@
                 </Button.Template>
             </Button>
         </StackPanel>
-
     </Grid>
 </Window>
