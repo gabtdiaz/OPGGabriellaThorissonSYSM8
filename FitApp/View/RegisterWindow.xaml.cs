@@ -23,24 +23,8 @@ namespace FitApp.View
         public RegisterWindow()
         {
             InitializeComponent();
-            RegisterWindowViewModel registerViewModel = new RegisterWindowViewModel();
-            DataContext = registerViewModel; // kan göra såhär istället(?)
-        }
-
-        private void PasswordBox_PasswordChanged(object sender, RoutedEventArgs e)
-        {
-            if (DataContext is RegisterWindowViewModel viewModel)
-            {
-                viewModel.PasswordInput = ((PasswordBox)sender).Password;
-            }
-        }
-
-        private void PasswordBoxConfirm_PasswordChanged(object sender, RoutedEventArgs e)
-        {
-            if (DataContext is RegisterWindowViewModel viewModel)
-            {
-                viewModel.PasswordInput = ((PasswordBox)sender).Password; // är denna rätt?
-            }
+            RegisterWindowViewModel registerWindow = new RegisterWindowViewModel();
+            DataContext = registerWindow; // kan göra såhär istället(?)
         }
     }
 }

@@ -34,8 +34,7 @@
                     Orientation="Vertical" Grid.ColumnSpan="2">
             <TextBlock Text="F I T" FontSize="45" FontStyle="Normal" FontFamily="Arial Black" 
                        HorizontalAlignment="Center" Foreground="#FF4C4C4C"/>
-            <TextBlock Text="&#x2AF8;
-Track" FontSize="30" FontStyle="Normal" FontFamily="Arial" Foreground="DarkOrange"/>
+            <TextBlock Text="&#x2AF8;Track" FontSize="30" FontStyle="Normal" FontFamily="Arial" Foreground="DarkOrange"/>
         </StackPanel>
 
         <!--Label Username och Password-->
@@ -47,25 +46,24 @@ Track" FontSize="30" FontStyle="Normal" FontFamily="Arial" Foreground="DarkOrang
         <!--TextBox och PasswordBox-->
         <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Width="180" HorizontalAlignment="Center">
             <TextBox Text="{Binding UsernameInput}" Height="20" Margin="0,0,0,10"/>
-            <PasswordBox Height="20"/>
-            <!--PasswordChanged="{Binding PasswordInput}"-->
+            <TextBox Text="{Binding PasswordInput}" Height="20"/>
         </StackPanel>
 
         <!--Logga in knapp-->
-        <Button Content="Sign In" Width="100" Height="30" 
+        <Button x:Name="btnSignIn" Content="Sign In" Width="100" Height="30" 
                 Background="Crimson" Foreground="AliceBlue" Grid.ColumnSpan="2"
                 BorderBrush="#DC143C" BorderThickness="2" Padding="10" Grid.Row="1" VerticalAlignment="Bottom" 
                 HorizontalAlignment="Center" Command="{Binding SignInCommand}">
-            <Button.Template>
-                <ControlTemplate TargetType="Button">
-                    <Border Background="{TemplateBinding Background}" 
+        <Button.Template>
+            <ControlTemplate TargetType="Button">
+                <Border Background="{TemplateBinding Background}" 
                             BorderBrush="{TemplateBinding BorderBrush}" 
                             BorderThickness="{TemplateBinding BorderThickness}" 
                             CornerRadius="15">
-                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    </Border>
-                </ControlTemplate>
-            </Button.Template>
+                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Border>
+            </ControlTemplate>
+        </Button.Template>
         </Button>
 
         <!--Glömt lösenord knapp-->

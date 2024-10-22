@@ -12,7 +12,7 @@ using System.Windows.Input;
 
 namespace FitApp.ViewModel
 {
-    public class RegisterWindowViewModel : MainWindowViewModel
+    public class RegisterWindowViewModel : ViewModelBase
     {
         // Egenskaper
         public string ConfirmPasswordInput { get; set; }
@@ -40,19 +40,11 @@ namespace FitApp.ViewModel
         }
         // Metoder
         public void RegisterNewUser() 
-        {
-            if (UsernameInput == "admin")
-            {
-                MessageBox.Show("Username already taken.");
-            }
-            else
-            {
-                User user = new User(); // Måste skapa en ny användare med lösenord och användarnamn
-                MessageBox.Show($"User {UsernameInput} created successfully.");
+        {                
                 Application.Current.MainWindow.Close();
                 MainWindow mainWindow = new MainWindow();
                 mainWindow.Show();
-            }
+            
         }
     }
 }

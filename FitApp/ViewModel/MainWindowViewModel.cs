@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using System.Windows.Markup;
 
 namespace FitApp.ViewModel
 {
@@ -16,27 +17,63 @@ namespace FitApp.ViewModel
         // Egenskaper
         public string LabelTitle1 { get; set; } = "FitTrack"; // Sätter standardvärde
 
-        public string UsernameInput { get; set; } = string.Empty;
-        public string PasswordInput { get; set; }
-
         public ICommand SignInCommand { get; }
+        public ICommand RegisterCommand { get; set; }
         public ICommand ForgotPasswordCommand { get; }
+
+        private string usernameInput;
+        public string UsernameInput
+        {
+            get
+            {
+                return usernameInput;
+            }
+            set
+            {
+                usernameInput = value;
+                OnPropertyChanged(UsernameInput);
+            }
+        }
+
+        private string passwordInput;
+
+        public string PasswordInput 
+        {
+            get 
+            { 
+                return passwordInput; 
+            }
+            set 
+            { 
+                passwordInput = value;
+                OnPropertyChanged(PasswordInput);
+            }
+        }
 
         // Konstruktor
         public MainWindowViewModel()
         {
             SignInCommand = new RelayCommand(SignIn);
+            RegisterCommand = new RelayCommand(Register);
             ForgotPasswordCommand = new RelayCommand(ForgotPassword);
         }
 
         // Metoder som öppnar och stänger fönster
         public void SignIn() 
         {
-            
-            MessageBox.Show("Sign in Clicked");
-            //SignInWindow signInWindow = new SignInWindow();
-            //signInWindow.Show();
-            Application.Current.MainWindow.Close();
+            if (UsernameInput != null)
+            {
+                if (usernameInput == "admin" && passwordInput == "abcd1234")
+                {
+                    WorkoutsWindow workoutsWindow = new WorkoutsWindow();
+                    workoutsWindow.Show();
+                    Application.Current.MainWindow.Close();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Kontot existerar inte. Registrera nytt konto.", "Felmeddelande",MessageBoxButton.OK);
+            } 
         }
 
         public void Register() 

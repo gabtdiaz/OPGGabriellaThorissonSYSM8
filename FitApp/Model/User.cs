@@ -15,16 +15,14 @@ namespace FitApp.Model
 
         // Konstruktor
         public User (string Country, string Username, string Password) : base (Username, Password)
-        {
-            User Admin = new User("Sverige", "admin", "Abcd1234");
-            User User = new User(Country, Username, Password);
-                    
+        { 
+            User User = new User(Country, Username, Password);   
         }
 
         // Metoder
         public override void SignIn()
         {
-
+        
         }
 
         public void ResetPassword(string SecurityAnswer)
