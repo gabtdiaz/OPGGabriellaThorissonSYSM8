@@ -40,14 +40,14 @@ Track" FontSize="30" FontStyle="Normal" FontFamily="Arial" Foreground="DarkOrang
 
         <!--Label Username och Password-->
         <StackPanel Grid.Row="1" >
-            <Label Content="Username" Margin="0,0,0,10"/>
-            <Label Content="Password"/>
+            <Label Content="Username"/>
+            <Label Content="Password" Height="25"/>
         </StackPanel>
 
         <!--TextBox och PasswordBox-->
         <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Width="180" HorizontalAlignment="Center">
-            <TextBox Text="{Binding UsernameInput}" Height="25" Margin="0,0,0,10"/>
-            <PasswordBox Height="25" />
+            <TextBox Text="{Binding UsernameInput}" Height="20" Margin="0,0,0,10"/>
+            <PasswordBox Height="20"/>
             <!--PasswordChanged="{Binding PasswordInput}"-->
         </StackPanel>
 

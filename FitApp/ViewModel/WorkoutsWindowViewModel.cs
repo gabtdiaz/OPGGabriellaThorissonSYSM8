@@ -11,7 +11,7 @@ using System.Windows.Input;
 
 namespace FitApp.ViewModel
 {
-    public class WorkoutsWindowViewModel : MainWindowViewModel
+    public class WorkoutsWindowViewModel : ViewModelBase
     {
         // Egenskaper
         public User User {  get; set; }

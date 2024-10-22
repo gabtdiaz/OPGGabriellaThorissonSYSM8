@@ -1,4 +1,5 @@
 ﻿using FitApp.Model;
+using FitApp.MVVM;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace FitApp.ViewModel
 {
-    public class AddWorkoutWindowViewModel : WorkoutsWindowViewModel
+    public class AddWorkoutWindowViewModel : ViewModelBase
     {
         // Egenskaper
         public string WorkoutTypeComboBox {  get; set; }
@@ -17,16 +18,12 @@ namespace FitApp.ViewModel
         public string NotesInput { get; set; }
 
         // Konstruktor - Anropar både WorkoutsWindowViewModel och MainWindowViewModels konstruktorer
-        public AddWorkoutWindowViewModel(User User, List<Workout> WorkoutList, string WorkoutTypeComboBox, TimeSpan DurationInput, int CaloriesBurnedInput, string NotesInput, string UsernameInput, string PasswordInput)
-            : base(User, WorkoutList, UsernameInput, PasswordInput)
-        {
-            this.WorkoutTypeComboBox = WorkoutTypeComboBox;
-            this.DurationInput = DurationInput;
-            this.CaloriesBurnedInput = CaloriesBurnedInput;
-            this.NotesInput = NotesInput;
-        }
+        public AddWorkoutWindowViewModel() { } // Skicka med listan
 
-        public void SaveWorkout() { }
+        public void SaveWorkout() 
+        {
+
+        }
 
     }
 }

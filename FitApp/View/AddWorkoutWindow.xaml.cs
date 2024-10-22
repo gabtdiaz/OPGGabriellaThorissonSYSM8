@@ -1,4 +1,5 @@
-﻿using FitApp.ViewModel;
+﻿using FitApp.Model;
+using FitApp.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
