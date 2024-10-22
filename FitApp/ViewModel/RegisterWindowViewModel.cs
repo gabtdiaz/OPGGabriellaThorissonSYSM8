@@ -91,7 +91,7 @@ namespace FitApp.ViewModel
             if (string.IsNullOrWhiteSpace(UsernameInput) || string.IsNullOrWhiteSpace(PasswordInput) ||
             string.IsNullOrWhiteSpace(ConfirmPasswordInput) || SelectedCountry == null)
             {
-                MessageBox.Show("Please enter information correctly.","Felmeddelande", MessageBoxButton.OK);
+                MessageBox.Show("Please enter information correctly.","Error", MessageBoxButton.OK);
                 return;
             }
             if (PasswordInput != ConfirmPasswordInput)
@@ -99,13 +99,26 @@ namespace FitApp.ViewModel
                 MessageBox.Show("Passwords do not match.");
                 return;
             }
-            if (PasswordInput.Length < 8)
-            { 
-
+            if (PasswordInput.Length < 8 && !PasswordInput.Any(char.IsDigit) && !PasswordInput.Any(char.IsSymbol))
+            {
+                MessageBox.Show("Password must follow these requirements: \n - Minimun of 8 characters \n - At least one digit \n - At least one special character", "Felmeddelande", MessageBoxButton.OK);
+                return;
             }
             else
             {
                 userManager.Users.Add(new User { Country = SelectedCountry, Username = UsernameInput, Password = PasswordInput });
+                
+                // Tömmer textboxarna på innehåll.
+                //UsernameInput = "";
+                //PasswordInput = "";
+                //ConfirmPasswordInput = "";
+                //SelectedCountry = null;
+
+                MessageBox.Show("Account created successfully. Navigating back to HomePage");
+                
+                // måste jag skapa nytt objekt varje gång jag vill öppna nytt fönster?
+                MainWindowViewModel mainWindowView = new MainWindowViewModel();
+                mainWindowView.Show();
             }
         }
     }

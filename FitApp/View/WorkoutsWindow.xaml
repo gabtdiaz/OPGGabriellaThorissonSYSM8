@@ -10,15 +10,16 @@
         <!--Rader-->
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="320">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="300">
 
             <!--Knapp som öppnar UserDetailsWindow-->
-            <Button x:Name="btnUser" Content="{Binding Username}" Width="100" Height="30" Margin="5"
+            <Button x:Name="btnUser" Content="{Binding currentUser}" Width="94" Height="30"
                 Background="Crimson" Foreground="AliceBlue" BorderBrush="Crimson" BorderThickness="2" 
-                Padding="10" Command="{Binding WorkoutsWindow}">
+                Padding="10" Command="{Binding UserDetailsCommand}">
                 <Button.Template>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" 
@@ -33,7 +34,7 @@
             <Label Content="FitTrack" FontSize="20" FontWeight="Bold" Margin="15,7,8,10"/>
 
             <!--Knapp som öppnar AddWorkoutsWindow-->
-            <Button x:Name="btnAddWorkout" Content="+ Add Workout" Width="100" Height="30" Background="Crimson" 
+            <Button x:Name="btnAddWorkout" Content="+ Add Workout" Width="93" Height="30" Background="Crimson" 
                 Foreground="AliceBlue" VerticalAlignment="Center" BorderBrush="Crimson" BorderThickness="2" 
                 Padding="10" Command="{Binding WorkoutsWindow}">
                 <Button.Template>
@@ -48,8 +49,8 @@
 
             <!--ListBox med Träningspass-->
         </StackPanel>
-        <ListBox ItemsSource="{Binding Workoutlist}"  SelectedItem="{Binding SelectedWorkout}" Height="300" Width="300"
-                 Grid.Row="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="10,40,0,0">
+        <ListBox ItemsSource="{Binding Workouts}" SelectedItem="{Binding SelectedWorkout}" Height="280" Width="280"
+                 Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,40,0,0">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
@@ -61,7 +62,7 @@
         </ListBox>
 
         <!--Knappar för att se detaljer, ta bort träningspass eller logga ut-->
-        <StackPanel Orientation="Horizontal" Grid.Row="1" VerticalAlignment="Bottom" HorizontalAlignment="Center" Height="50" Width="320">
+        <StackPanel Orientation="Horizontal" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Center" Height="50" Width="320" Margin="0,343,0,0">
             <Button Content="Details" Command="{Binding OpenDetailsCommand}" Width="80" Height="30" 
                 Foreground="AliceBlue" VerticalAlignment="Center" BorderBrush="Crimson" BorderThickness="2" Padding="10" Margin="20,0,20,0">
                 <Button.Background>
@@ -99,7 +100,7 @@
             </Button>
             <Button Content="Sign Out" Command="{Binding SignOutCommand}" Width="80" Height="30" 
                 Foreground="AliceBlue" VerticalAlignment="Center" BorderBrush="Crimson" BorderThickness="2" 
-                Padding="10" Margin="0,0,20,5">
+                Padding="10" Margin="0,0,20,0">
                 <Button.Background>
                     <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                         <GradientStop Color="White" Offset="1"/>

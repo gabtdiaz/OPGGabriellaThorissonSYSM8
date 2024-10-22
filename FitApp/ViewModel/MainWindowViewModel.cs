@@ -58,22 +58,20 @@ namespace FitApp.ViewModel
             ForgotPasswordCommand = new RelayCommand(ForgotPassword);
         }
 
-        // Metoder som öppnar och stänger fönster
+        // Metoder som öppnar nya fönster och stänger MainWindow
         public void SignIn() 
         {
-            if (UsernameInput != null)
+            if (usernameInput == "admin" && passwordInput == "abcd")
             {
-                if (usernameInput == "admin" && passwordInput == "abcd1234") // kan man använda AdminUser här?
-                {
-                    WorkoutsWindow workoutsWindow = new WorkoutsWindow();
-                    workoutsWindow.Show();
-                    Application.Current.MainWindow.Close();
-                }
+                WorkoutsWindow workoutsWindow = new WorkoutsWindow();
+                workoutsWindow.Show();
+                Application.Current.MainWindow.Close();
             }
             else
             {
-                MessageBox.Show("Kontot existerar inte. Registrera nytt konto.", "Felmeddelande",MessageBoxButton.OK);
-            } 
+                MessageBox.Show("UserID does not exist, create new account.", "Felmeddelande", MessageBoxButton.OK);
+                // antingen fel lösenord, användarnamn eller så existerar kontot inte.
+            }
         }
 
         public void Register() 
@@ -89,6 +87,11 @@ namespace FitApp.ViewModel
             ForgotPasswordWindow forgotPasswordWindow = new ForgotPasswordWindow();
             forgotPasswordWindow.Show();
             Application.Current.MainWindow.Close();
+        }
+
+        internal void Show()
+        {
+            throw new NotImplementedException();
         }
     }
 }

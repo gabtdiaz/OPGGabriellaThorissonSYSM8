@@ -13,17 +13,16 @@ namespace FitApp.Model
         public string SecurityQuestion { get; set; }
         public string SecurityAnswer { get; set; }
 
-        public User()
+        public User() 
         {
 
         }
 
         // Konstruktor - för att kunna lägga till ny användare i UserManager klassen.
-        public User(string Country, string Username, string Password)  
+        public User(string Country, string Username, string Password)
         {
             this.Country = Country;
-            this.Username = Username;
-            this.Password = Password;
+            
 
         }
 
