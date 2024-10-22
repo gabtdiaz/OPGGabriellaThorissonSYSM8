@@ -13,16 +13,24 @@ namespace FitApp.Model
         public string SecurityQuestion { get; set; }
         public string SecurityAnswer { get; set; }
 
-        // Konstruktor
-        public User (string Country, string Username, string Password) : base (Username, Password)
-        { 
-            User User = new User(Country, Username, Password);   
+        public User()
+        {
+
+        }
+
+        // Konstruktor - för att kunna lägga till ny användare i UserManager klassen.
+        public User(string Country, string Username, string Password) : base (Username, Password) 
+        {
+            this.Country = Country;
+            this.Username = Username;
+            this.Password = Password;
+
         }
 
         // Metoder
         public override void SignIn()
         {
-        
+            
         }
 
         public void ResetPassword(string SecurityAnswer)

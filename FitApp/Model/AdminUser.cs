@@ -10,7 +10,7 @@ namespace FitApp.Model
     {
         public AdminUser(string Country, string Username, string Password ) : base( Country, Username, Password )
         {
-            User admin = new AdminUser( Country, Username,Password );
+            User admin = new AdminUser( "Sverige", "admin", "ABCD1234" );
         }
         public void ManageAllWorkouts()
         {

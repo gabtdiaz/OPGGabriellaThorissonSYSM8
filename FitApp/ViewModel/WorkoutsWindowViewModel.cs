@@ -14,14 +14,17 @@ namespace FitApp.ViewModel
     public class WorkoutsWindowViewModel : ViewModelBase
     {
         // Egenskaper
-        public User User {  get; set; }
         new List<Workout> WorkoutList = new List<Workout>();
-        
+
+        public User currentUser {  get; set; }
+       
+              
 
         public ICommand AddWorkoutCommand { get; }
         public ICommand OpenDetailsCommand { get; }
         public ICommand RemoveWorkoutCommand { get; }
         public ICommand SignOutCommand { get; }
+
 
         private string selectedWorkout;
 

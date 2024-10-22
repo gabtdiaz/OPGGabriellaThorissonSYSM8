@@ -1,5 +1,6 @@
 ﻿using FitApp.Model;
 using FitApp.MVVM;
+using FitApp.Services;
 using FitApp.View;
 using System;
 using System.Collections.Generic;
@@ -19,6 +20,8 @@ namespace FitApp.ViewModel
         public ObservableCollection<string> CountryComboBox { get; set; }
         public ICommand RegisterNewUserCommand { get; }
 
+        public UserManager UserManager;
+
         private string selectedCountry;
         public string SelectedCountry
         {
@@ -32,18 +35,52 @@ namespace FitApp.ViewModel
                 OnPropertyChanged(nameof(SelectedCountry));
             }
         }
-        // Konstruktor
-        public RegisterWindowViewModel() 
+
+        private string usernameInput;
+        public string UsernameInput
         {
+            get
+            {
+                return usernameInput;
+            }
+            set
+            {
+                usernameInput = value;
+                OnPropertyChanged(nameof(UsernameInput));
+            }
+        }
+
+        private string passwordInput;
+        public string PasswordInput
+        {
+            get
+            {
+                return passwordInput;
+            }
+            set
+            {
+                passwordInput = value;
+                OnPropertyChanged(nameof(PasswordInput));
+            }
+        }
+
+        // Konstruktor
+        public RegisterWindowViewModel(UserManager UserManager) 
+        {
+            this.UserManager = UserManager;
             CountryComboBox = new ObservableCollection<string> { "Sweden", "Norway", "Denmark", "Finland" };
             RegisterNewUserCommand = new RelayCommand(RegisterNewUser);
         }
         // Metoder
         public void RegisterNewUser() 
-        {                
-                Application.Current.MainWindow.Close();
-                MainWindow mainWindow = new MainWindow();
-                mainWindow.Show();
+        {
+            User newUser = new User()
+            {
+                Country = SelectedCountry,
+                Username = UsernameInput,
+                Password = PasswordInput,
+            };   
+
             
         }
     }
