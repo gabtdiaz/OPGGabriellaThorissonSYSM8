@@ -1,5 +1,6 @@
 ﻿using FitApp.Model;
 using FitApp.MVVM;
+using FitApp.Services;
 using FitApp.View;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,7 @@ namespace FitApp.ViewModel
         public Window _mainWindow;
         public Window _registerWindow;
         public Window _workoutsWindow;
+        UserManager userManager = new UserManager();
 
         public string LabelTitle { get; set; } = "FitTrack"; // Sätter standardvärde
 
@@ -78,11 +80,13 @@ namespace FitApp.ViewModel
                 // antingen fel lösenord, användarnamn eller så existerar kontot inte.
             }
         }
-
+        
         public void Register() 
         {
-            //RegisterWindow registerWindow = new RegisterWindow();
-            //registerWindow.Show();
+            // Skapa OCH visa RegisterWindow
+            RegisterWindow registerWindow = new RegisterWindow(userManager);
+            registerWindow.Show();
+            // Stäng ner nuvarande fönster
             Application.Current.MainWindow.Close();
         }
 

@@ -82,7 +82,7 @@ namespace FitApp.ViewModel
         {
             if (SelectedWorkout != null)
             {
-                //Workouts.Remove(SelectedWorkout);
+                Workouts.Remove(SelectedWorkout);
             }
             else
             {
