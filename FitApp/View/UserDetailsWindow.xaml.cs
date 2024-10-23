@@ -23,8 +23,8 @@ namespace FitApp.View
         public UserDetailsWindow()
         {
             InitializeComponent();
-            UserDetailsWindowViewModel userDetailsWindow = new UserDetailsWindowViewModel();
-            DataContext = userDetailsWindow;
+            UserDetailsWindow userDetailsWindow = new UserDetailsWindow();
+            DataContext = new UserDetailsWindowViewModel(this);
         }
     }
 }

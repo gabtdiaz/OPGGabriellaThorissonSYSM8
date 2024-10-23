@@ -1,4 +1,6 @@
-﻿using FitApp.ViewModel;
+﻿using FitApp.Services;
+using FitApp.View;
+using FitApp.ViewModel;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -19,9 +21,8 @@ namespace FitApp
     {
         public MainWindow()
         {
-            InitializeComponent();
-            MainWindowViewModel mainViewModel = new MainWindowViewModel();
-            DataContext = mainViewModel;
+            MainWindowViewModel mainViewModel = new MainWindowViewModel(this);
+            this.DataContext = new MainWindowViewModel(this);
 
         }
         //private void btnSignIn_Click(object sender, RoutedEventArgs e)

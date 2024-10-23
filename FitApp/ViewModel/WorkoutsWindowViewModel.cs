@@ -19,6 +19,8 @@ namespace FitApp.ViewModel
     public class WorkoutsWindowViewModel : ViewModelBase
     {
         // Egenskaper
+
+        public Window _workoutsWindow;
         new List<Workout> WorkoutList = new List<Workout>();
         public ObservableCollection<Workout> Workouts { get; set; }
 
@@ -45,8 +47,10 @@ namespace FitApp.ViewModel
         }
 
         // Konstruktor
-        public WorkoutsWindowViewModel(User currentUser) 
+        public WorkoutsWindowViewModel(User currentUser, Window workoutsWindow) 
         { 
+            this.currentUser = currentUser;
+            _workoutsWindow = workoutsWindow;
             Workouts = new ObservableCollection<Workout>();
             {
                 new CardioWorkout { Type = "Cardio", Distance = 5, Duration = new TimeSpan(0, 30, 0), CaloriesBurned = 300 };
@@ -68,8 +72,8 @@ namespace FitApp.ViewModel
         // Metoder
         public void AddWorkout()
         {
-            AddWorkoutWindowViewModel addWorkoutWindow = new AddWorkoutWindowViewModel();
-            //addWorkoutWindow.Show(); // Öppnar nytt fönster
+            AddWorkoutWindow addWorkoutWindow = new AddWorkoutWindow();
+            addWorkoutWindow.Show(); // Öppnar nytt fönster
             Application.Current.MainWindow.Close();
             // Efter att fönstret stängs, lägg till ny workout.
             
@@ -97,10 +101,10 @@ namespace FitApp.ViewModel
 
         public void SignOut()
         {
-            WorkoutsWindowViewModel workoutsWindow = new WorkoutsWindowViewModel(); 
-            //workoutsWindow.Close();
-            MainWindowViewModel mainWindow = new MainWindowViewModel();
-            //workoutsWindow.Show(); // Inte VM, kommer det funka?
+            WorkoutsWindow workoutsWindow = new WorkoutsWindow(); 
+            workoutsWindow.Close();
+            MainWindow mainWindow = new MainWindow();
+            workoutsWindow.Show(); // Inte VM, kommer det funka?
             
         }
     }

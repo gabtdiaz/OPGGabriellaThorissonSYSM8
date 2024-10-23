@@ -16,9 +16,10 @@ namespace FitApp.ViewModel
     public class RegisterWindowViewModel : ViewModelBase
     {
         // Egenskaper
+        
+        private readonly UserManager _userManager;
+        private readonly Window _registerWindow;
         public ObservableCollection<string> CountryComboBox { get; set; }
-
-        public UserManager userManager; // får den vara här?
 
         private string confirmPasswordInput;
         public string ConfirmPasswordInput
@@ -63,6 +64,8 @@ namespace FitApp.ViewModel
         }
 
         private string passwordInput;
+        
+
         public string PasswordInput
         {
             get
@@ -76,15 +79,20 @@ namespace FitApp.ViewModel
             }
         }
 
+        // Skapa ny command, för binding i Registerknapp i XAML
         public ICommand RegisterNewUserCommand { get; }
         // Konstruktor
 
-        public RegisterWindowViewModel() 
+        public RegisterWindowViewModel(UserManager userManager, Window registerWindow) 
         {
-            this.userManager = userManager; 
+            _userManager = userManager; 
+            _registerWindow = registerWindow;
             CountryComboBox = new ObservableCollection<string> { "Sweden", "Norway", "Denmark", "Finland" };
             RegisterNewUserCommand = new RelayCommand(RegisterNewUser);
         }
+
+
+
         // Metod för att lägga till nya användare.
         public void RegisterNewUser()
         {
@@ -106,7 +114,7 @@ namespace FitApp.ViewModel
             }
             else
             {
-                userManager.Users.Add(new User { Country = SelectedCountry, Username = UsernameInput, Password = PasswordInput });
+                _userManager.Users.Add(new User { Country = SelectedCountry, Username = UsernameInput, Password = PasswordInput });
                 
                 // Tömmer textboxarna på innehåll.
                 //UsernameInput = "";
@@ -117,7 +125,9 @@ namespace FitApp.ViewModel
                 MessageBox.Show("Account created successfully. Navigating back to HomePage");
                 
                 // måste jag skapa nytt objekt varje gång jag vill öppna nytt fönster?
-                MainWindowViewModel mainWindowView = new MainWindowViewModel();
+                MainWindow mainWindowView = new MainWindow();
+                RegisterWindow _registerWindow = new RegisterWindow(_userManager);
+                _registerWindow.Close();
                 mainWindowView.Show();
             }
         }

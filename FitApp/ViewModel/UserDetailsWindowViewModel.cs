@@ -13,6 +13,8 @@ namespace FitApp.ViewModel
     public class UserDetailsWindowViewModel : ViewModelBase
     {
         // Egenskaper
+
+        public Window _userDetailsWindow;
         public string UsernameInput { get; set; }
         public string PasswordInput { get; set; }
         public string ConfirmPasswordInput { get; set; }
@@ -23,11 +25,12 @@ namespace FitApp.ViewModel
         public ICommand CancelCommand { get; }
 
         // Konstruktor
-        public UserDetailsWindowViewModel() // vilka egenskaper ska jag skicka med konstruktorn?
+        public UserDetailsWindowViewModel(Window userDetailsWindow) // vilka egenskaper ska jag skicka med konstruktorn?
         {
 
             SaveUserDetailsCommand = new RelayCommand(SaveUserDetails);
             CancelCommand = new RelayCommand(Cancel);
+            _userDetailsWindow = userDetailsWindow;
         }
 
         // Metoder

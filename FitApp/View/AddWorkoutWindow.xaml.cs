@@ -1,4 +1,5 @@
 ﻿using FitApp.Model;
+using FitApp.Services;
 using FitApp.ViewModel;
 using System;
 using System.Collections.Generic;
@@ -23,10 +24,11 @@ namespace FitApp.View
     {
         public AddWorkoutWindow()
         {
-            
+
             InitializeComponent();
-            AddWorkoutWindowViewModel addWorkoutWindow = new AddWorkoutWindowViewModel();
-            DataContext = addWorkoutWindow;
+            AddWorkoutWindow addWorkout = new AddWorkoutWindow();
+            this.DataContext = new AddWorkoutWindowViewModel(this);
+
         }
     }
 }
