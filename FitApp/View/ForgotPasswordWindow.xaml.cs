@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FitApp.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,12 +18,12 @@ namespace FitApp.View
     /// <summary>
     /// Interaction logic for ForgotPasswordWindow.xaml
     /// </summary>
-    public partial class ForgotPasswordWindow : Window
+    public partial class ForgotPasswordWindowVievModel : Window
     {
-        public ForgotPasswordWindow()
+        public ForgotPasswordWindowVievModel()
         {
             InitializeComponent();
-            ForgotPasswordWindow forgotPasswordWindow = new ForgotPasswordWindow();
+            ForgotPasswordWindowViewModel forgotPasswordWindow = new ForgotPasswordWindowVievModel();
             this.DataContext = forgotPasswordWindow;
         }
     }

@@ -84,7 +84,7 @@ namespace FitApp.ViewModel
         public void ForgotPassword()
         {
             MessageBox.Show("Forgot clicked");
-            ForgotPasswordWindow forgotPasswordWindow = new ForgotPasswordWindow();
+            ForgotPasswordWindowVievModel forgotPasswordWindow = new ForgotPasswordWindowVievModel();
             forgotPasswordWindow.Show();
             Application.Current.MainWindow.Close();
         }

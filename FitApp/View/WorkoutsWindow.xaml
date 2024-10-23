@@ -47,7 +47,7 @@
             <!--Knapp som öppnar AddWorkoutsWindow-->
             <Button x:Name="btnAddWorkout" Content="+ Add Workout" Width="93" Height="25" Background="DarkGray" 
                 Foreground="AliceBlue" VerticalAlignment="Center" BorderBrush="LightGray" BorderThickness="2" 
-                Padding="10" Command="{Binding WorkoutsWindow}">
+                Padding="10" Command="{Binding AddWorkoutCommand}">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" 
@@ -65,8 +65,8 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
-                        <TextBlock Text="{Binding Date}" />
                         <TextBlock Text="{Binding Type}" />
+                        <TextBlock Text="{Binding Date}" />
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>

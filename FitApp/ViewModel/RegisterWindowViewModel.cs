@@ -79,7 +79,7 @@ namespace FitApp.ViewModel
         public ICommand RegisterNewUserCommand { get; }
         // Konstruktor
 
-        public RegisterWindowViewModel(UserManager userManager) // måste man ha denna som parameter?
+        public RegisterWindowViewModel() 
         {
             this.userManager = userManager; 
             CountryComboBox = new ObservableCollection<string> { "Sweden", "Norway", "Denmark", "Finland" };

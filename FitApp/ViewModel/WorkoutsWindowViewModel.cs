@@ -61,12 +61,16 @@ namespace FitApp.ViewModel
 
         }
 
+        public WorkoutsWindowViewModel()
+        {
+        }
+
         // Metoder
         public void AddWorkout()
         {
-            AddWorkoutWindow addWorkoutWindow = new AddWorkoutWindow();
-            addWorkoutWindow.Show(); // Öppnar nytt fönster
-
+            AddWorkoutWindowViewModel addWorkoutWindow = new AddWorkoutWindowViewModel();
+            //addWorkoutWindow.Show(); // Öppnar nytt fönster
+            Application.Current.MainWindow.Close();
             // Efter att fönstret stängs, lägg till ny workout.
             
         }
@@ -93,10 +97,10 @@ namespace FitApp.ViewModel
 
         public void SignOut()
         {
-            WorkoutsWindow workoutsWindow = new WorkoutsWindow(); 
-            workoutsWindow.Close();
-            MainWindow mainWindow = new MainWindow();
-            workoutsWindow.Show(); // Inte VM, kommer det funka?
+            WorkoutsWindowViewModel workoutsWindow = new WorkoutsWindowViewModel(); 
+            //workoutsWindow.Close();
+            MainWindowViewModel mainWindow = new MainWindowViewModel();
+            //workoutsWindow.Show(); // Inte VM, kommer det funka?
             
         }
     }

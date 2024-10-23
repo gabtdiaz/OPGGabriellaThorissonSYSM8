@@ -1,4 +1,5 @@
 ﻿using FitApp.MVVM;
+using FitApp.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,5 +11,9 @@ namespace FitApp.ViewModel
 {
     public class ForgotPasswordWindowViewModel : ViewModelBase
     {
+        public static implicit operator ForgotPasswordWindowViewModel(ForgotPasswordWindowVievModel v)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

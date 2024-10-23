@@ -22,8 +22,7 @@ namespace FitApp.View
         public SignInWindow()
         {
             InitializeComponent();
-            SignInWindow signInWindow = new SignInWindow();
-            DataContext = signInWindow;
+            
         }
     }
 }
