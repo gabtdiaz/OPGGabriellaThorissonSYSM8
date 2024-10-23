@@ -21,12 +21,10 @@ namespace FitApp.View
     /// </summary>
     public partial class WorkoutsWindow : Window
     {
-        private readonly User currentUser;
         public WorkoutsWindow(User user)
         {
             InitializeComponent();
-            currentUser = user; // Tilldela användaren som skickas in
-            var viewModel = new WorkoutsWindowViewModel(currentUser, this);
+            WorkoutsWindowViewModel viewModel = new WorkoutsWindowViewModel();
             DataContext = viewModel;
         }
     }

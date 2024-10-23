@@ -17,8 +17,8 @@ namespace FitApp.ViewModel
     {
         // Egenskaper
         
-        private readonly UserManager _userManager;
-        private readonly Window _registerWindow;
+        public UserManager userManager;
+        public Window registerWindow;
         public ObservableCollection<string> CountryComboBox { get; set; }
 
         private string confirmPasswordInput;
@@ -85,21 +85,19 @@ namespace FitApp.ViewModel
 
         public RegisterWindowViewModel(UserManager userManager, Window registerWindow) 
         {
-            _userManager = userManager; 
-            _registerWindow = registerWindow;
+            this.userManager = userManager;
+            this.registerWindow = registerWindow;
             CountryComboBox = new ObservableCollection<string> { "Sweden", "Norway", "Denmark", "Finland" };
             RegisterNewUserCommand = new RelayCommand(RegisterNewUser);
         }
 
-
-
         // Metod för att lägga till nya användare.
         public void RegisterNewUser()
         {
-            if (string.IsNullOrWhiteSpace(UsernameInput) || string.IsNullOrWhiteSpace(PasswordInput) ||
+            if (string.IsNullOrWhiteSpace(UsernameInput) || string.IsNullOrWhiteSpace(PasswordInput) || // Kontrollerar ifall textboxarna är tomma
             string.IsNullOrWhiteSpace(ConfirmPasswordInput) || SelectedCountry == null)
             {
-                MessageBox.Show("Please enter information correctly.","Error", MessageBoxButton.OK);
+                MessageBox.Show("Please enter all the information correctly.","Error", MessageBoxButton.OK);
                 return;
             }
             if (PasswordInput != ConfirmPasswordInput)
@@ -112,24 +110,16 @@ namespace FitApp.ViewModel
                 MessageBox.Show("Password must follow these requirements: \n - Minimun of 8 characters \n - At least one digit \n - At least one special character", "Felmeddelande", MessageBoxButton.OK);
                 return;
             }
-            else
-            {
-                _userManager.Users.Add(new User { Country = SelectedCountry, Username = UsernameInput, Password = PasswordInput });
-                
-                // Tömmer textboxarna på innehåll.
-                //UsernameInput = "";
-                //PasswordInput = "";
-                //ConfirmPasswordInput = "";
-                //SelectedCountry = null;
 
-                MessageBox.Show("Account created successfully. Navigating back to HomePage");
-                
-                // måste jag skapa nytt objekt varje gång jag vill öppna nytt fönster?
-                MainWindow mainWindowView = new MainWindow();
-                RegisterWindow _registerWindow = new RegisterWindow(_userManager);
-                _registerWindow.Close();
-                mainWindowView.Show();
+            User newUser = new User { Country = SelectedCountry, Username = UsernameInput, Password = PasswordInput };
+            userManager.Users.Add(newUser);
+            userManager.CurrentUser = newUser; // Sätt den nya användaren som inloggad
+
+            MessageBox.Show("Account created successfully. Navigating to Workouts.");
+
+            WorkoutsWindow workoutsWindow = new WorkoutsWindow(userManager.CurrentUser);
+            workoutsWindow.Show();
+            registerWindow.Close();
             }
         }
     }
-}

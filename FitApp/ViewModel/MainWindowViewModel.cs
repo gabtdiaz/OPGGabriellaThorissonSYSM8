@@ -65,24 +65,25 @@ namespace FitApp.ViewModel
             _mainWindow = mainWindow;   
         }
 
-        // Metoder som öppnar nya fönster och stänger MainWindow
+        // Metoder som hittar användare och stänger MainWindow och öppnar WorkoutWindow vid lyckad inloggning.
         public void SignIn() 
         {
-            if (usernameInput == "admin" && passwordInput == "abcd")
+            User user = userManager.FindUser(UsernameInput, PasswordInput); // Anropar metoden i UserManager
+
+            if (user != null)
             {
-                User testUser = new User { Username = "Admin" };
-                
-                WorkoutsWindow workoutsWindow = new WorkoutsWindow(testUser);
+                // Användare hittad
+                WorkoutsWindow workoutsWindow = new WorkoutsWindow(userManager.CurrentUser);
                 workoutsWindow.Show();
                 Application.Current.MainWindow.Close();
             }
             else
             {
-                MessageBox.Show("UserID does not exist, create new account.", "Felmeddelande", MessageBoxButton.OK);
-                // antingen fel lösenord, användarnamn eller så existerar kontot inte.
+                MessageBox.Show("Incorrect username or password.", "Login Failed", MessageBoxButton.OK);
             }
         }
         
+        // Metod som öppnar RegisterWindow
         public void Register() 
         {
             // Skapa OCH visa RegisterWindow

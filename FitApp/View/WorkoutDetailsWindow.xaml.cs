@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FitApp.Services;
+using FitApp.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,8 +25,8 @@ namespace FitApp.View
         {
             
             InitializeComponent();
-            //WorkoutDetailsWindowviewModel workoutDetails = new WorkoutDetailsWindowViewModel();
-            //DataContext = workoutDetails; 
+            //WorkoutDetailsWindow workoutDetailsWindow = new WorkoutDetailsWindow();
+            //this.DataContext = new WorkoutDetailsWindow();
         }
     }
 }

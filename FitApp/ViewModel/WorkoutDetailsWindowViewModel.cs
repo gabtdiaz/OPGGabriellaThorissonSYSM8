@@ -12,14 +12,14 @@ namespace FitApp.ViewModel
     public class WorkoutDetailsWindowViewModel : ViewModelBase
     {
         // Egenskaper
-        public Window _workoutDetailsWindow;
+        public Window workoutDetailsWindow;
         public Workout Workout {  get; set; }
 
         // Konstruktor
         public WorkoutDetailsWindowViewModel(Workout Workout, Window workoutDetailsWindow)
         {
             this.Workout = Workout; 
-            _workoutDetailsWindow = workoutDetailsWindow;
+            this.workoutDetailsWindow = workoutDetailsWindow;
         }
 
         // Metoder

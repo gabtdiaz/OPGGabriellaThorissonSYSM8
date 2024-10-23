@@ -1,5 +1,6 @@
 ﻿using FitApp.Model;
 using FitApp.MVVM;
+using FitApp.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,6 +16,7 @@ namespace FitApp.ViewModel
         // Egenskaper
 
         public Window _userDetailsWindow;
+        public UserManager userManager;
         public string UsernameInput { get; set; }
         public string PasswordInput { get; set; }
         public string ConfirmPasswordInput { get; set; }
@@ -25,21 +27,27 @@ namespace FitApp.ViewModel
         public ICommand CancelCommand { get; }
 
         // Konstruktor
-        public UserDetailsWindowViewModel(Window userDetailsWindow) // vilka egenskaper ska jag skicka med konstruktorn?
+        public UserDetailsWindowViewModel(Window userDetailsWindow, UserManager userManager) // vilka egenskaper ska jag skicka med konstruktorn?
         {
-
+            this.userManager = userManager;
+            _userDetailsWindow = userDetailsWindow;
             SaveUserDetailsCommand = new RelayCommand(SaveUserDetails);
             CancelCommand = new RelayCommand(Cancel);
-            _userDetailsWindow = userDetailsWindow;
+            this.userManager = userManager;
         }
 
         // Metoder
 
         public void SaveUserDetails() 
         {
-            if (PasswordInput == ConfirmPasswordInput) 
+            if (PasswordInput == ConfirmPasswordInput)
             {
-                // Hur ska jag spara usernameinput och passwordInput till användaren?
+                // Uppdatera nuvarande användarens uppgifter
+                userManager.CurrentUser.Password = PasswordInput;
+                userManager.CurrentUser.Username = UsernameInput;
+                userManager.CurrentUser.Country = CountryComboBox;
+
+                MessageBox.Show("Details updated successfully.");
             }
             else
             {

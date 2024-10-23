@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace FitApp.Services
 {
@@ -23,9 +24,27 @@ namespace FitApp.Services
         };
 
         }
-        public void GetUser(string currentUser)
+
+        // Metod för att matcha användare från listan, och sätta den som CurrentUser
+        public User FindUser(string username, string password)
         {
-            
+            foreach (User user in Users)
+            {
+                if (user.Username == username && user.Password == password)
+                {
+                    CurrentUser = user; 
+                    return CurrentUser;
+                }
+            }
+            return null; // Om ingen matchning finns
+        }
+
+
+        // Metod för att logga ut
+        public void SignOut()
+        {
+            CurrentUser = null; // Nollställ inloggad användare
         }
     }
+    
 }

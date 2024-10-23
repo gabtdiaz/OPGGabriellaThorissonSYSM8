@@ -1,5 +1,6 @@
 ﻿using FitApp.Model;
 using FitApp.MVVM;
+using FitApp.Services;
 using FitApp.View;
 using System;
 using System.Collections.Generic;
@@ -20,11 +21,10 @@ namespace FitApp.ViewModel
     {
         // Egenskaper
 
-        public Window _workoutsWindow;
-        //new List<Workout> WorkoutList = new List<Workout>();
+        public Window workoutsWindow;
+        public UserManager userManager;
         public ObservableCollection<Workout> Workouts { get; set; }
-
-        public User currentUser {  get; set; }
+        
         public ICommand AddWorkoutCommand { get; }
         public ICommand UserDetailsCommand { get; }
         public ICommand RemoveWorkoutCommand { get; }
@@ -46,16 +46,17 @@ namespace FitApp.ViewModel
             }
         }
 
-        // Konstruktor
-        public WorkoutsWindowViewModel(User currentUser, Window workoutsWindow) 
-        { 
-            this.currentUser = currentUser;
-            this._workoutsWindow = workoutsWindow;
+        // Konstruktor 
+        public WorkoutsWindowViewModel(UserManager userManager, Window workoutsWindow) 
+        {
+            this.userManager = userManager;
+            this.workoutsWindow = workoutsWindow;
             Workouts = new ObservableCollection<Workout>
         {
-            new CardioWorkout { Type = "HIIT Run", },
-            new StrengthWorkout { Type = "Full Body Strength", }
+            new CardioWorkout { Type = "HIIT Run", Distance = 5, Duration = new TimeSpan(0, 30, 0), CaloriesBurned = 300},
+            new StrengthWorkout { Type = "Full Body Strength", Repetitions = 10, Duration = new TimeSpan(0, 45, 0), CaloriesBurned = 400}
         };
+            // Commands
             AddWorkoutCommand = new RelayCommand(AddWorkout);
             RemoveWorkoutCommand = new RelayCommand(RemoveWorkout);
             UserDetailsCommand = new RelayCommand(UserDetails);
@@ -67,16 +68,15 @@ namespace FitApp.ViewModel
         {
         }
 
-        // Metoder
 
-        // Metod som gör det möjligt för användaren att lägga till träningspass
+        // Metod som öppnar AddWorkoutWindow
         public void AddWorkout()
         {
 
             AddWorkoutWindow addWorkoutWindow = new AddWorkoutWindow();
             addWorkoutWindow.Show(); // Öppnar nytt fönster
             Application.Current.MainWindow.Close();
-            // Efter att fönstret stängs, lägg till ny workout.
+            
             
         }
         // Metod som tar bort det valda träningspasset
@@ -120,9 +120,10 @@ namespace FitApp.ViewModel
             }
         }
 
-        // Metod som stänger ner fönstret och öppnar MainWindow - inloggningssidan.
+        // Metod som "nollställer" CurrentUser och navigerar till HomePage
         public void SignOut()
         {
+            userManager.SignOut();  // Nollställer CurrentUser
             MainWindow mainWindow = new MainWindow();
             mainWindow.Show();
             Application.Current.MainWindow.Close();
