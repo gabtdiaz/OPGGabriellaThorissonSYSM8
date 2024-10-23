@@ -8,14 +8,28 @@
         Title="UserDetailsWindow" Height="480" Width="320">
 
     <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="LightGray"/>
+                <GradientStop Color="LightGray" Offset="1"/>
+                <GradientStop Color="White" Offset="0.9"/>
+                <GradientStop Color="White" Offset="0.1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
         <Grid.RowDefinitions>
-            <RowDefinition Height="80"/>
-            <RowDefinition Height="150"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="100"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <TextBlock Text="Change User Details" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="30" />
-        
-        <StackPanel Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Center">
+        <!--Logga-->
+        <StackPanel Width="100" Height="60">
+            <Label Content="F I T" HorizontalAlignment="Center" FontSize="18" VerticalAlignment="Top" FontFamily="Arial Black" FontWeight="Bold" Foreground="#FF5B5B5B"/>
+            <Label Content="&#x2AF8;Track" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Arial" FontSize="13" Foreground="DarkOrange"/>
+        </StackPanel>
+        <TextBlock Text="Change User Details" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" Grid.Row="1" />
+
+
+        <StackPanel Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Center">
             <StackPanel Orientation="Horizontal">
                 <Label Content="Username"/>
                 <TextBox Text="{Binding UsernameInput}" HorizontalAlignment="Center" Width="200"/>
@@ -38,15 +52,15 @@
                 Background="Crimson" Foreground="AliceBlue" Grid.ColumnSpan="2"
             BorderBrush="#DC143C" BorderThickness="2" Padding="10" Width="80">
             <Button.Template>
-            <ControlTemplate TargetType="Button">
-                <Border Background="{TemplateBinding Background}" 
+                <ControlTemplate TargetType="Button">
+                    <Border Background="{TemplateBinding Background}" 
                     BorderBrush="{TemplateBinding BorderBrush}" 
                     BorderThickness="{TemplateBinding BorderThickness}" 
-                    CornerRadius="15">
-                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                </Border>
-            </ControlTemplate>
-        </Button.Template>
+                    CornerRadius="10">
+                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                </ControlTemplate>
+            </Button.Template>
         </Button>
         <Button Content="Cancel" Command="{Binding CancelCommand}" HorizontalAlignment="Right" 
             VerticalAlignment="Bottom" Margin="0,0,10,10" Grid.Row="2" Background="Crimson" 
@@ -57,7 +71,7 @@
                     <Border Background="{TemplateBinding Background}" 
                         BorderBrush="{TemplateBinding BorderBrush}" 
                         BorderThickness="{TemplateBinding BorderThickness}" 
-                        CornerRadius="15">
+                        CornerRadius="10">
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                     </Border>
                 </ControlTemplate>

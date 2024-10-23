@@ -8,11 +8,25 @@
         Title="RegisterWindow" Height="480" Width="320">
 
     <Grid Background="White">
-        
-        <StackPanel>
-            <Label Content="Join FitTrack today!" HorizontalAlignment="Center" FontSize="30" VerticalAlignment="Center" FontFamily="Arial" FontWeight="Bold" Margin="0,0,0,40"/>
 
-        <!-- Username input -->
+        <StackPanel>
+            <StackPanel.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="LightGray"/>
+                    <GradientStop Color="LightGray" Offset="1"/>
+                    <GradientStop Color="White" Offset="0.1"/>
+                    <GradientStop Color="#FFECECEC" Offset="0.9"/>
+                </LinearGradientBrush>
+            </StackPanel.Background>
+            <Label Content="Join Us!" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10,0,0,20"/>
+                
+            <!--Logga-->
+            <StackPanel Width="100" Height="100">
+                <Label Content="F I T" HorizontalAlignment="Center" FontSize="30" VerticalAlignment="Top" FontFamily="Arial Black" FontWeight="Bold" Foreground="#FF5B5B5B"/>
+                <Label Content="&#x2AF8;Track" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Arial" FontSize="20" Foreground="DarkOrange"/>
+            </StackPanel>
+            
+            <!-- Username input -->
         <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
                 <Label Content="Username" Height="25"/>
                 <TextBox Width="200" Height="20"
@@ -40,7 +54,7 @@
         </StackPanel>
 
         <!-- Skapa konto button -->
-        <Button Content="Create account" Width="130" Height="30"
+            <Button Content="Create account" Width="130" Height="30"
             Background="#DC143C" Foreground="AliceBlue"
             BorderBrush="#DC143C" BorderThickness="2" Padding="10" 
             VerticalAlignment="Center" Command="{Binding RegisterNewUserCommand}">

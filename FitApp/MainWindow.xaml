@@ -10,11 +10,11 @@
     <Grid>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                <GradientStop Color="#FF858585" Offset="1"/>
-                <GradientStop Color="#FFFFFBFB" Offset="0.93"/>
-                <GradientStop Color="White" Offset="0.07"/>
+                <GradientStop Color="LightGray" Offset="1"/>
+                <GradientStop Color="#FFFFFBFB" Offset="0.9"/>
+                <GradientStop Color="White" Offset="0.1"/>
                 <GradientStop Color="#FF858585" Offset="0"/>
-                <GradientStop Color="#FF797979"/>
+                <GradientStop Color="LightGray"/>
             </LinearGradientBrush>
         </Grid.Background>
 
@@ -50,7 +50,7 @@
         </StackPanel>
 
         <!--Logga in knapp-->
-        <Button x:Name="btnSignIn" Content="Sign In" Width="100" Height="30" 
+        <Button x:Name="btnSignIn" Content="Sign In" Width="100" Height="25" 
                 Background="Crimson" Foreground="AliceBlue" Grid.ColumnSpan="2"
                 BorderBrush="#DC143C" BorderThickness="2" Padding="10" Grid.Row="1" VerticalAlignment="Bottom" 
                 HorizontalAlignment="Center" Command="{Binding SignInCommand}">
@@ -59,7 +59,7 @@
                 <Border Background="{TemplateBinding Background}" 
                             BorderBrush="{TemplateBinding BorderBrush}" 
                             BorderThickness="{TemplateBinding BorderThickness}" 
-                            CornerRadius="15">
+                            CornerRadius="10">
                     <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                 </Border>
             </ControlTemplate>

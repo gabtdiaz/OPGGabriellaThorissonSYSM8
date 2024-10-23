@@ -7,6 +7,14 @@
         mc:Ignorable="d"
         Title="WorkoutsWindow" Height="480" Width="320">
     <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="LightGray"/>
+                <GradientStop Color="LightGray" Offset="1"/>
+                <GradientStop Color="White" Offset="0.1"/>
+                <GradientStop Color="White" Offset="0.9"/>
+            </LinearGradientBrush>
+        </Grid.Background>
         <!--Rader-->
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
@@ -14,33 +22,36 @@
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="300">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="300" Height="60">
 
             <!--Knapp som öppnar UserDetailsWindow-->
-            <Button x:Name="btnUser" Content="{Binding currentUser}" Width="94" Height="30"
+            <Button x:Name="btnUser" Content="User" Width="93" Height="25" Margin="5"
                 Background="Crimson" Foreground="AliceBlue" BorderBrush="Crimson" BorderThickness="2" 
                 Padding="10" Command="{Binding UserDetailsCommand}">
                 <Button.Template>
                     <ControlTemplate TargetType="{x:Type Button}">
                         <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" 
-                            BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="15">
+                            BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="10">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                     </ControlTemplate>
                 </Button.Template>
             </Button>
 
-            <!--Label FitTrack-->
-            <Label Content="FitTrack" FontSize="20" FontWeight="Bold" Margin="15,7,8,10"/>
+            <!--Logga-->
+            <StackPanel Width="100" Height="60">
+                <Label Content="F I T" HorizontalAlignment="Center" FontSize="18" VerticalAlignment="Top" FontFamily="Arial Black" FontWeight="Bold" Foreground="#FF5B5B5B"/>
+                <Label Content="&#x2AF8;Track" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Arial" FontSize="13" Foreground="DarkOrange"/>
+            </StackPanel>
 
             <!--Knapp som öppnar AddWorkoutsWindow-->
-            <Button x:Name="btnAddWorkout" Content="+ Add Workout" Width="93" Height="30" Background="Crimson" 
-                Foreground="AliceBlue" VerticalAlignment="Center" BorderBrush="Crimson" BorderThickness="2" 
+            <Button x:Name="btnAddWorkout" Content="+ Add Workout" Width="93" Height="25" Background="DarkGray" 
+                Foreground="AliceBlue" VerticalAlignment="Center" BorderBrush="LightGray" BorderThickness="2" 
                 Padding="10" Command="{Binding WorkoutsWindow}">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" 
-                            BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="15">
+                            BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="10">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                     </ControlTemplate>
@@ -63,56 +74,36 @@
 
         <!--Knappar för att se detaljer, ta bort träningspass eller logga ut-->
         <StackPanel Orientation="Horizontal" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Center" Height="50" Width="320" Margin="0,343,0,0">
-            <Button Content="Details" Command="{Binding OpenDetailsCommand}" Width="80" Height="30" 
-                Foreground="AliceBlue" VerticalAlignment="Center" BorderBrush="Crimson" BorderThickness="2" Padding="10" Margin="20,0,20,0">
-                <Button.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="White" Offset="1"/>
-                        <GradientStop Color="Crimson" Offset="0.7"/>
-                    </LinearGradientBrush>
-                </Button.Background>
+            <Button Content="Details" Command="{Binding OpenDetailsCommand}" Width="80" Height="25" 
+                Foreground="AliceBlue" VerticalAlignment="Center" BorderBrush="LightGray" BorderThickness="2" Padding="10" Margin="20,0,20,0" Background="DarkGray">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" 
-                            BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="15">
+                            BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="10">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                     </ControlTemplate>
                 </Button.Template>
             </Button>
-            <Button Content="Remove" Command="{Binding RemoveWorkoutCommand}" Width="80" Height="30" 
-                Foreground="AliceBlue" VerticalAlignment="Center" BorderBrush="Crimson" BorderThickness="2" 
-                Padding="10" Margin="0,0,20,0">
-                <Button.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="White" Offset="1"/>
-                        <GradientStop Color="Crimson" Offset="0.7"/>
-                    </LinearGradientBrush>
-                </Button.Background>
+            <Button Content="Remove" Command="{Binding RemoveWorkoutCommand}" Width="80" Height="25" 
+                Foreground="AliceBlue" VerticalAlignment="Center" BorderBrush="LightGray" BorderThickness="2" 
+                Padding="10" Margin="0,0,20,0" Background="DarkGray">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" 
-                            BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="15">
+                            BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="10">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                     </ControlTemplate>
                 </Button.Template>
             </Button>
-            <Button Content="Sign Out" Command="{Binding SignOutCommand}" Width="80" Height="30" 
-                Foreground="AliceBlue" VerticalAlignment="Center" BorderBrush="Crimson" BorderThickness="2" 
-                Padding="10" Margin="0,0,20,0">
-                <Button.Background>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="White" Offset="1"/>
-                        <GradientStop Color="Crimson" Offset="0.381"/>
-                        <GradientStop Color="Crimson"/>
-                        <GradientStop Color="Crimson" Offset="0.7"/>
-                    </LinearGradientBrush>
-                </Button.Background>
+            <Button Content="Sign Out" Command="{Binding SignOutCommand}" Width="80" Height="25" 
+                Foreground="AliceBlue" VerticalAlignment="Center" BorderBrush="LightGray" BorderThickness="2" 
+                Padding="10" Margin="0,0,20,0" Background="DarkGray">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" 
-                            BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="15">
+                            BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="10">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                     </ControlTemplate>

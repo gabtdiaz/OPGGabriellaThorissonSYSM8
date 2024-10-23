@@ -7,10 +7,23 @@
         mc:Ignorable="d"
         Title="AddWorkoutWindow" Height="480" Width="320">
     <Grid>
-        <StackPanel>
-            <ListBox x:Name="listBoxWorkouts" Height="200"/>
-            <Button x:Name="btnDetails" Height="30" Content="See details"/>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="LightGray"/>
+                <GradientStop Color="LightGray" Offset="1"/>
+                <GradientStop Color="White" Offset="0.1"/>
+                <GradientStop Color="White" Offset="0.9"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <!--Logga-->
+        <StackPanel Width="100" Height="60">
+            <Label Content="F I T" HorizontalAlignment="Center" FontSize="18" VerticalAlignment="Top" FontFamily="Arial Black" FontWeight="Bold" Foreground="#FF5B5B5B"/>
+            <Label Content="&#x2AF8;Track" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Arial" FontSize="13" Foreground="DarkOrange"/>
         </StackPanel>
-        
     </Grid>
 </Window>
