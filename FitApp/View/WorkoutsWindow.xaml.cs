@@ -1,4 +1,5 @@
-﻿using FitApp.ViewModel;
+﻿using FitApp.Model;
+using FitApp.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,11 +21,13 @@ namespace FitApp.View
     /// </summary>
     public partial class WorkoutsWindow : Window
     {
-        public WorkoutsWindow()
+        private readonly User currentUser;
+        public WorkoutsWindow(User user)
         {
             InitializeComponent();
-            WorkoutsWindowViewModel workoutsWindow = new WorkoutsWindowViewModel();
-            DataContext = workoutsWindow;
+            currentUser = user; // Tilldela användaren som skickas in
+            var viewModel = new WorkoutsWindowViewModel(currentUser, this);
+            DataContext = viewModel;
         }
     }
 }

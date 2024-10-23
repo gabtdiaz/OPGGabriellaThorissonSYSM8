@@ -70,7 +70,9 @@ namespace FitApp.ViewModel
         {
             if (usernameInput == "admin" && passwordInput == "abcd")
             {
-                WorkoutsWindow workoutsWindow = new WorkoutsWindow();
+                User testUser = new User { Username = "Admin" };
+                
+                WorkoutsWindow workoutsWindow = new WorkoutsWindow(testUser);
                 workoutsWindow.Show();
                 Application.Current.MainWindow.Close();
             }

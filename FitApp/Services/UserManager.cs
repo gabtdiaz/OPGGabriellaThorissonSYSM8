@@ -10,13 +10,22 @@ namespace FitApp.Services
 {
     public class UserManager : ViewModelBase
     {
-        public List<User> Users = new List<User>(); // Spara alla användare
-        //kan jag skita i och ha denna klassen? Eller måste jag ha alla user-relaterade metoder här?
+        public List<User> Users = new List<User>(); // Lista på alla användare
+                                                    
+        public User CurrentUser { get; private set; } // Hanterar inloggade användare
 
         public UserManager()
         {
-            // Lägga till en user
-            Users.Add(new User { Country = "Sweden", Username = "admin", Password = "abcd1234" });
+            // Lägger till admin
+            Users = new List<User>
+        {
+            new User { Username = "admin", Password = "abcd", Country = "Sweden" }
+        };
+
+        }
+        public void GetUser(string currentUser)
+        {
+            
         }
     }
 }

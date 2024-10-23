@@ -21,7 +21,7 @@ namespace FitApp.ViewModel
         // Egenskaper
 
         public Window _workoutsWindow;
-        new List<Workout> WorkoutList = new List<Workout>();
+        //new List<Workout> WorkoutList = new List<Workout>();
         public ObservableCollection<Workout> Workouts { get; set; }
 
         public User currentUser {  get; set; }
@@ -31,9 +31,9 @@ namespace FitApp.ViewModel
         public ICommand SignOutCommand { get; }
         public ICommand WorkoutDetailsCommand { get; }
 
-        private string selectedWorkout;
+        private Workout selectedWorkout;
 
-        public string SelectedWorkout 
+        public Workout SelectedWorkout 
         {
             get 
             { 
@@ -50,19 +50,17 @@ namespace FitApp.ViewModel
         public WorkoutsWindowViewModel(User currentUser, Window workoutsWindow) 
         { 
             this.currentUser = currentUser;
-            _workoutsWindow = workoutsWindow;
-            Workouts = new ObservableCollection<Workout>();
-            {
-                new CardioWorkout { Type = "Cardio", Distance = 5, Duration = new TimeSpan(0, 30, 0), CaloriesBurned = 300 };
-                new StrengthWorkout { Type = "Strength", Repetitions = 10, Duration = new TimeSpan(0, 45, 0), CaloriesBurned = 400 };
-            }; // tilldela direkt?
-
+            this._workoutsWindow = workoutsWindow;
+            Workouts = new ObservableCollection<Workout>
+        {
+            new CardioWorkout { Type = "HIIT Run", },
+            new StrengthWorkout { Type = "Full Body Strength", }
+        };
             AddWorkoutCommand = new RelayCommand(AddWorkout);
-            UserDetailsCommand = new RelayCommand(UserDetails);
             RemoveWorkoutCommand = new RelayCommand(RemoveWorkout);
+            UserDetailsCommand = new RelayCommand(UserDetails);
+            WorkoutDetailsCommand = new RelayCommand(() => WorkoutDetails(SelectedWorkout));
             SignOutCommand = new RelayCommand(SignOut);
-            WorkoutDetailsCommand = new RelayCommand(WorkoutDetails);
-
         }
 
         public WorkoutsWindowViewModel()
@@ -70,14 +68,18 @@ namespace FitApp.ViewModel
         }
 
         // Metoder
+
+        // Metod som gör det möjligt för användaren att lägga till träningspass
         public void AddWorkout()
         {
+
             AddWorkoutWindow addWorkoutWindow = new AddWorkoutWindow();
             addWorkoutWindow.Show(); // Öppnar nytt fönster
             Application.Current.MainWindow.Close();
             // Efter att fönstret stängs, lägg till ny workout.
             
         }
+        // Metod som tar bort det valda träningspasset
         public void RemoveWorkout()
         {
             if (SelectedWorkout != null)
@@ -90,22 +92,41 @@ namespace FitApp.ViewModel
             }
 
         }
+        // Metod som öppnar UserDetailsWindow och visar användarens uppgifter
         public void UserDetails () 
         {
-
+            if (SelectedWorkout != null) 
+            {
+                UserDetailsWindow userDetailsWindow = new UserDetailsWindow();
+                userDetailsWindow.Show();
+                Application.Current.MainWindow.Close();
+            }
         }
 
+        // Metod som öppnar WorkoutDetailsWindow visar ytterligare träningsdetajler
         public void WorkoutDetails(Workout workout) 
         {
+            {
+                if (SelectedWorkout != null)
+                {
+                    WorkoutDetailsWindow workoutDetailsWindow = new WorkoutDetailsWindow();
+                    workoutDetailsWindow.Show();
+                    Application.Current.MainWindow.Close();
+                }
+                else
+                {
+                    MessageBox.Show("Choose a Workout to see details","Error",MessageBoxButton.OK);
+                }
+            }
         }
 
+        // Metod som stänger ner fönstret och öppnar MainWindow - inloggningssidan.
         public void SignOut()
         {
-            WorkoutsWindow workoutsWindow = new WorkoutsWindow(); 
-            workoutsWindow.Close();
             MainWindow mainWindow = new MainWindow();
-            workoutsWindow.Show(); // Inte VM, kommer det funka?
-            
+            mainWindow.Show();
+            Application.Current.MainWindow.Close();
+
         }
     }
 }
