@@ -16,18 +16,20 @@ namespace FitApp.ViewModel
     public class RegisterWindowViewModel : ViewModelBase
     {
         // Egenskaper
-        
         public UserManager userManager;
         public Window registerWindow;
         public ObservableCollection<string> CountryComboBox { get; set; }
+
+        // Command för att skapa ny användare
+        public ICommand RegisterNewUserCommand { get; }
+
+        // Egenskaper för användarinmatning
 
         private string confirmPasswordInput;
         public string ConfirmPasswordInput
         {
             get
-            {
-                return confirmPasswordInput;
-            }
+            { return confirmPasswordInput; }
             set
             {
                 confirmPasswordInput = value;
@@ -38,10 +40,7 @@ namespace FitApp.ViewModel
         private string selectedCountry;
         public string SelectedCountry
         {
-            get
-            {
-                return selectedCountry;
-            }
+            get { return selectedCountry; }
             set
             {
                 selectedCountry = value;
@@ -52,10 +51,7 @@ namespace FitApp.ViewModel
         private string usernameInput;
         public string UsernameInput
         {
-            get
-            {
-                return usernameInput;
-            }
+            get { return usernameInput; }
             set
             {
                 usernameInput = value;
@@ -68,10 +64,7 @@ namespace FitApp.ViewModel
 
         public string PasswordInput
         {
-            get
-            {
-                return passwordInput;
-            }
+            get { return passwordInput; }
             set
             {
                 passwordInput = value;
@@ -79,14 +72,13 @@ namespace FitApp.ViewModel
             }
         }
 
-        // Skapa ny command, för binding i Registerknapp i XAML
-        public ICommand RegisterNewUserCommand { get; }
         // Konstruktor
 
         public RegisterWindowViewModel( Window registerWindow) 
         {
             this.registerWindow = registerWindow;
             CountryComboBox = new ObservableCollection<string> { "Sweden", "Norway", "Denmark", "Finland" };
+            // Initiera RegisterNewUserCommand
             RegisterNewUserCommand = new RelayCommand(RegisterNewUser);
         }
 

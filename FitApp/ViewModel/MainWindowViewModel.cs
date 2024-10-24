@@ -15,44 +15,42 @@ namespace FitApp.ViewModel
 {
     public class MainWindowViewModel : ViewModelBase // Måste ärva från ViewModelBase klassen för att kunna använda sig av OnPropertyChanged()
     {
+        // Egenskaper
         UserManager userManager = new UserManager();
-        public string LabelTitle { get; set; } = "FitTrack"; // Sätter standardvärde
+        public string LabelTitle { get; set; } = "FitTrack"; // Sätter standardvärd
+        
+        private string usernameInput; // Backing field
+        public string UsernameInput
+        {
+            get { return usernameInput;}
+            set
+            {
+                usernameInput = value;
+                OnPropertyChanged(UsernameInput); // Binding till View
+            }
+        }
+
+        private string passwordInput; // Backing field
+
+        public string PasswordInput 
+        {
+            get { return passwordInput; }
+            set 
+            { 
+                passwordInput = value;
+                OnPropertyChanged(PasswordInput); // Binding till View
+            }
+        }
+
+        // Commands
         public ICommand SignInCommand { get; }
         public ICommand RegisterCommand { get; set; }
         public ICommand ForgotPasswordCommand { get; }
 
-        private string usernameInput;
-        public string UsernameInput
-        {
-            get
-            {
-                return usernameInput;
-            }
-            set
-            {
-                usernameInput = value;
-                OnPropertyChanged(UsernameInput);
-            }
-        }
-
-        private string passwordInput;
-
-        public string PasswordInput 
-        {
-            get 
-            { 
-                return passwordInput; 
-            }
-            set 
-            { 
-                passwordInput = value;
-                OnPropertyChanged(PasswordInput);
-            }
-        }
-
         // Konstruktor
         public MainWindowViewModel(Window mainWindow)
         {
+            // Commands
             SignInCommand = new RelayCommand(SignIn);
             RegisterCommand = new RelayCommand(Register);
             ForgotPasswordCommand = new RelayCommand(ForgotPassword); 
