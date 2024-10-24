@@ -22,6 +22,7 @@ namespace FitApp.ViewModel
         // Egenskaper
 
         public Window workoutsWindow;
+        private Window workoutDetailsWindow;
         public UserManager userManager;
         public ObservableCollection<Workout> Workouts { get; set; }
         
@@ -64,24 +65,22 @@ namespace FitApp.ViewModel
             SignOutCommand = new RelayCommand(SignOut);
         }
 
-        public WorkoutsWindowViewModel()
-        {
-        }
+        public WorkoutsWindowViewModel() {}
 
 
         // Metod som öppnar AddWorkoutWindow
         public void AddWorkout()
         {
-
+            MessageBox.Show("Clicked");
             AddWorkoutWindow addWorkoutWindow = new AddWorkoutWindow();
             addWorkoutWindow.Show(); // Öppnar nytt fönster
             Application.Current.MainWindow.Close();
-            
-            
         }
+
         // Metod som tar bort det valda träningspasset
         public void RemoveWorkout()
         {
+            MessageBox.Show("Clicked");
             if (SelectedWorkout != null)
             {
                 Workouts.Remove(SelectedWorkout);
@@ -95,6 +94,7 @@ namespace FitApp.ViewModel
         // Metod som öppnar UserDetailsWindow och visar användarens uppgifter
         public void UserDetails () 
         {
+            MessageBox.Show("Clicked UserDetails");
             UserDetailsWindow userDetailsWindow = new UserDetailsWindow();
             userDetailsWindow.Show();
             Application.Current.MainWindow.Close();
@@ -103,23 +103,22 @@ namespace FitApp.ViewModel
         // Metod som öppnar WorkoutDetailsWindow visar ytterligare träningsdetajler
         public void WorkoutDetails(Workout workout) 
         {
+            MessageBox.Show("Clicked");
+            if (SelectedWorkout != null)
             {
-                if (SelectedWorkout != null)
-                {
-                    //WorkoutDetailsWindow workoutDetailsWindow = new WorkoutDetailsWindow();
-                   // workoutDetailsWindow.Show();
-                    Application.Current.MainWindow.Close();
-                }
-                else
-                {
-                    MessageBox.Show("Choose a Workout to see details","Error",MessageBoxButton.OK);
-                }
+                workoutDetailsWindow.Show();
+                Application.Current.MainWindow.Close();
+            }
+            else
+            {
+                MessageBox.Show("Choose a Workout to see details","Error",MessageBoxButton.OK);
             }
         }
 
         // Metod som "nollställer" CurrentUser och navigerar till HomePage
         public void SignOut()
         {
+            MessageBox.Show("Clicked");
             userManager.SignOut();  // Nollställer CurrentUser
             MainWindow mainWindow = new MainWindow();
             mainWindow.Show();

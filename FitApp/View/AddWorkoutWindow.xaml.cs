@@ -24,10 +24,8 @@ namespace FitApp.View
     {
         public AddWorkoutWindow()
         {
-
             InitializeComponent();
             this.DataContext = new AddWorkoutWindowViewModel(this);
-
         }
     }
 }

@@ -74,9 +74,10 @@ namespace FitApp.ViewModel
 
         // Konstruktor
 
-        public RegisterWindowViewModel(Window registerWindow)
+        public RegisterWindowViewModel(Window registerWindow, UserManager userManager)
         {
             this.registerWindow = registerWindow;
+            this.userManager = userManager; // ändrade!! 100000
             CountryComboBox = new ObservableCollection<string> { "Sweden", "Norway", "Denmark", "Finland" };
             // Initiera RegisterNewUserCommand
             RegisterNewUserCommand = new RelayCommand(RegisterNewUser);

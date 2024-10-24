@@ -80,7 +80,7 @@ namespace FitApp.ViewModel
         public void Register() 
         {
             // Skapa OCH visa RegisterWindow
-            RegisterWindow registerWindow = new RegisterWindow();
+            RegisterWindow registerWindow = new RegisterWindow(userManager); //ändrade 10000000
             registerWindow.Show();
             // Stäng ner nuvarande fönster
             Application.Current.MainWindow.Close();

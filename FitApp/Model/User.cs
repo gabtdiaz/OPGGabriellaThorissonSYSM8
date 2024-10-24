@@ -10,8 +10,8 @@ namespace FitApp.Model
     {
         // Egenskaper
         public string Country { get; set; }
-        public string SecurityQuestion { get; set; }
-        public string SecurityAnswer { get; set; }
+        public string SecurityQuestion { get; set; } = "What's your pets name?";
+        public string SecurityAnswer { get; set; } = "Cleo";
 
         public User() 
         {
