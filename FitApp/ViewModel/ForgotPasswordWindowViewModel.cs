@@ -14,9 +14,10 @@ namespace FitApp.ViewModel
 {
     public class ForgotPasswordWindowViewModel : ViewModelBase
     {
-        Window forgotPasswordWindow;
+        public Window forgotPasswordWindow;
+        public Window workoutsWindow;
         // Egenskaper 
-        private readonly UserManager userManager;
+        private UserManager userManager;
 
         // Command för att återställa lösenord
         public ICommand ResetPasswordCommand { get; }
@@ -72,7 +73,7 @@ namespace FitApp.ViewModel
         }
 
         // Konstruktor
-        public ForgotPasswordWindowViewModel(UserManager userManager)
+        public ForgotPasswordWindowViewModel(Window forgotPasswordWindow, UserManager userManager) // ändra från UserManager till Window
         {
 
             this.userManager = userManager;
@@ -86,6 +87,7 @@ namespace FitApp.ViewModel
         // Metod som körs när kommandot anropas
         private void ResetPassword()
         {
+            MessageBox.Show("Clicked");
             // Kontrollera om lösenorden matchar
             if (NewPassword != ConfirmPassword)
             {
@@ -94,11 +96,14 @@ namespace FitApp.ViewModel
             }
 
             // Försök att återställa lösenordet via UserManager
-            bool success = userManager.ResetPassword(Username, SecurityAnswer, NewPassword);
+            bool success = userManager.ResetPassword(Username, NewPassword, SecurityAnswer);
 
             if (success)
             {
-                MessageBox.Show("Password has been reset successfully.");
+                MessageBox.Show("Password has been reset successfully. Navigating to Workout Window");
+                WorkoutsWindow workoutsWindow = new WorkoutsWindow(userManager);
+                workoutsWindow.Show();
+                Application.Current.MainWindow.Close(); // fönstret stängs ej.
             }
             else
             {

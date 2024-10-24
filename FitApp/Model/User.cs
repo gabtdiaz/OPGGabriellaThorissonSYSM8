@@ -11,7 +11,7 @@ namespace FitApp.Model
         // Egenskaper
         public string Country { get; set; }
         public string SecurityQuestion { get; set; } = "What's your pets name?";
-        public string SecurityAnswer { get; set; } = "Cleo";
+        public string SecurityAnswer = "Cleo";
 
         public User() 
         {
@@ -22,8 +22,8 @@ namespace FitApp.Model
         public User(string Country, string Username, string Password)
         {
             this.Country = Country;
-            
-
+            this.Username = Username;
+            this.Password = Password;
         }
 
         // Metoder
@@ -32,9 +32,9 @@ namespace FitApp.Model
             
         }
 
-        public void ResetPassword(string SecurityAnswer)
-        {
-
-        }
+        //public void ResetPassword(string SecurityAnswer)
+        //{
+        
+        //}
     }
 }

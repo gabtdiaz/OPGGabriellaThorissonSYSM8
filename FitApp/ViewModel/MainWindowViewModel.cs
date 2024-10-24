@@ -66,7 +66,7 @@ namespace FitApp.ViewModel
             if (user != null)
             {
                 // Användare hittad
-                WorkoutsWindow workoutsWindow = new WorkoutsWindow(userManager.CurrentUser);
+                WorkoutsWindow workoutsWindow = new WorkoutsWindow(userManager); // TOG BORT PARAMETER UserManager... 
                 workoutsWindow.Show();
                 Application.Current.MainWindow.Close();
             }
@@ -80,7 +80,7 @@ namespace FitApp.ViewModel
         public void Register() 
         {
             // Skapa OCH visa RegisterWindow
-            RegisterWindow registerWindow = new RegisterWindow(userManager); //ändrade 10000000
+            RegisterWindow registerWindow = new RegisterWindow(userManager);
             registerWindow.Show();
             // Stäng ner nuvarande fönster
             Application.Current.MainWindow.Close();

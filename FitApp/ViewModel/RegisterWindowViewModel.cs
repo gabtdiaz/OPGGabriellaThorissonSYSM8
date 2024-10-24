@@ -109,7 +109,7 @@ namespace FitApp.ViewModel
 
             MessageBox.Show("Account created successfully. Navigating to Workouts.");
 
-            WorkoutsWindow workoutsWindow = new WorkoutsWindow(userManager.CurrentUser);
+            WorkoutsWindow workoutsWindow = new WorkoutsWindow(userManager); // TOG BORT PARAMETER
             workoutsWindow.Show();
             registerWindow.Close();
             }

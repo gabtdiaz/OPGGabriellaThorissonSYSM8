@@ -24,7 +24,7 @@ namespace FitApp.View
         public ForgotPasswordWindowVievModel(UserManager userManager)
         {
             InitializeComponent();
-            this.DataContext = new ForgotPasswordWindowViewModel(userManager);
+            this.DataContext = new ForgotPasswordWindowViewModel(this, userManager); //ändrade!!
         }
     }
 }

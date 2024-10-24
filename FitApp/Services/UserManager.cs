@@ -65,10 +65,10 @@ namespace FitApp.Services
                 {
                     user.Password = newPassword; // Uppdatera lösenord
                     return true; // Lösenord återställt
+                    MessageBox.Show("Password was reset successfully.");
                 }
             }
-
-            return false; // Om säkerhetssvaret var fel eller användaren inte hittades
+                return true; // Om säkerhetssvaret var fel eller användaren inte hittades
         }
 
         // Metod för att logga ut

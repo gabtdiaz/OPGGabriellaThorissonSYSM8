@@ -121,9 +121,10 @@ namespace FitApp.ViewModel
             MessageBox.Show("Clicked");
             userManager.SignOut();  // Nollställer CurrentUser
             MainWindow mainWindow = new MainWindow();
-            mainWindow.Show();
+            mainWindow.Show(); // Öppnar helt nytt random fönster LOL
             Application.Current.MainWindow.Close();
 
         }
+
     }
 }
