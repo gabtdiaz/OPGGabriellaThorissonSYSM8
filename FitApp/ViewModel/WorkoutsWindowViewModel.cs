@@ -125,6 +125,5 @@ namespace FitApp.ViewModel
             Application.Current.MainWindow.Close();
 
         }
-
     }
 }

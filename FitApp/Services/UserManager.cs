@@ -28,16 +28,19 @@ namespace FitApp.Services
             };
         }
 
-        
+
         // Metod för att matcha användare från listan, och sätta den som CurrentUser
-        public User FindUser(string username, string password)
+        public User FindUser(string username, string password = null)
         {
             foreach (User user in Users)
             {
-                if (user.Username == username && user.Password == password)
+                if (user.Username == username)
                 {
-                    CurrentUser = user; 
-                    return CurrentUser;
+                    // Om password är null, returnera användaren utan att kolla lösenordet
+                    if (password == null || user.Password == password)
+                    {
+                        return user; // Returnerar användaren om användarnamnet matchar
+                    }
                 }
             }
             return null; // Om ingen matchning finns

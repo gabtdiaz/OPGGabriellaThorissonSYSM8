@@ -20,6 +20,7 @@ namespace FitApp.ViewModel
         public Window registerWindow;
         public ObservableCollection<string> CountryComboBox { get; set; }
 
+
         // Command för att skapa ny användare
         public ICommand RegisterNewUserCommand { get; }
 
@@ -92,20 +93,28 @@ namespace FitApp.ViewModel
                 MessageBox.Show("Please enter all the information correctly.","Error", MessageBoxButton.OK);
                 return;
             }
+            // Kontrollera om användarnamnet redan existerar
+            if (userManager.FindUser(UsernameInput, null) != null) // null för lösenord, vi bryr oss bara om användarnamnet här
+            {
+                MessageBox.Show("The username is already taken. Please choose another username.", "Error", MessageBoxButton.OK);
+                return;
+            }
+            // Kontrollera att lösenorden matchar
             if (PasswordInput != ConfirmPasswordInput)
             {
                 MessageBox.Show("Passwords do not match.");
                 return;
             }
+            // Kontrollera att lösenordet uppfyller kraven
             if (PasswordInput.Length < 8 || !PasswordInput.Any(char.IsDigit) || !PasswordInput.Any(char.IsPunctuation))
             {
                 MessageBox.Show("Password must follow these requirements: \n - Minimum of 8 characters \n - At least one digit \n - At least one special character", "Felmeddelande", MessageBoxButton.OK);
                 return;
             }
-
+            // Skapa ny användare - Sätt till CurrentUser
             User newUser = new User { Country = SelectedCountry, Username = UsernameInput, Password = PasswordInput };
-            userManager.Users.Add(newUser);
-            userManager.CurrentUser = newUser; // Ska sätta den nya användaren till currentUser - alt bara spara till Users listan.
+            userManager.Users.Add(newUser); 
+            userManager.CurrentUser = newUser;
 
             MessageBox.Show("Account created successfully. Logging in..");
 
