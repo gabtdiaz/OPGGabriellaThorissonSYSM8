@@ -25,6 +25,8 @@ namespace FitApp.View
         {
             InitializeComponent();
             this.DataContext = new RegisterWindowViewModel(this);
+
+
         }
     }
 }

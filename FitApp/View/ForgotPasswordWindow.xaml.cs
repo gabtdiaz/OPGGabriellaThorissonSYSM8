@@ -23,8 +23,7 @@ namespace FitApp.View
         public ForgotPasswordWindowVievModel()
         {
             InitializeComponent();
-            ForgotPasswordWindowViewModel forgotPasswordWindow = new ForgotPasswordWindowVievModel();
-            this.DataContext = forgotPasswordWindow;
+            this.DataContext = new ForgotPasswordWindowViewModel(this);
         }
     }
 }
