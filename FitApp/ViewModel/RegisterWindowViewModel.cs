@@ -97,9 +97,9 @@ namespace FitApp.ViewModel
                 MessageBox.Show("Passwords do not match.");
                 return;
             }
-            if (PasswordInput.Length < 8 && !PasswordInput.Any(char.IsDigit) && !PasswordInput.Any(char.IsSymbol))
+            if (PasswordInput.Length < 8 || !PasswordInput.Any(char.IsDigit) || !PasswordInput.Any(char.IsPunctuation))
             {
-                MessageBox.Show("Password must follow these requirements: \n - Minimun of 8 characters \n - At least one digit \n - At least one special character", "Felmeddelande", MessageBoxButton.OK);
+                MessageBox.Show("Password must follow these requirements: \n - Minimum of 8 characters \n - At least one digit \n - At least one special character", "Felmeddelande", MessageBoxButton.OK);
                 return;
             }
 
@@ -107,7 +107,7 @@ namespace FitApp.ViewModel
             userManager.Users.Add(newUser);
             userManager.CurrentUser = newUser; // Ska sätta den nya användaren till currentUser - alt bara spara till Users listan.
 
-            MessageBox.Show("Account created successfully. Navigating to Workouts.");
+            MessageBox.Show("Account created successfully. Logging in..");
 
             WorkoutsWindow workoutsWindow = new WorkoutsWindow(userManager); // TOG BORT PARAMETER
             workoutsWindow.Show();
