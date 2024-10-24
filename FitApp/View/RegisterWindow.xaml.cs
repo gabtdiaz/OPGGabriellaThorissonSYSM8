@@ -21,11 +21,10 @@ namespace FitApp.View
     /// </summary>
     public partial class RegisterWindow : Window
     {
-        public RegisterWindow(UserManager userManager)
+        public RegisterWindow()
         {
             InitializeComponent();
-            RegisterWindow registerNewUserWindow = new RegisterWindow (userManager);
-            this.DataContext = new RegisterWindowViewModel(userManager, this);
+            this.DataContext = new RegisterWindowViewModel(this);
         }
     }
 }

@@ -53,8 +53,8 @@ namespace FitApp.ViewModel
             this.workoutsWindow = workoutsWindow;
             Workouts = new ObservableCollection<Workout>
         {
-            new CardioWorkout { Type = "HIIT Run", Distance = 5, Duration = new TimeSpan(0, 30, 0), CaloriesBurned = 300},
-            new StrengthWorkout { Type = "Full Body Strength", Repetitions = 10, Duration = new TimeSpan(0, 45, 0), CaloriesBurned = 400}
+            new CardioWorkout { Type = "HIIT Run"},
+            new StrengthWorkout { Type = "Full Body Strength"}
         };
             // Commands
             AddWorkoutCommand = new RelayCommand(AddWorkout);

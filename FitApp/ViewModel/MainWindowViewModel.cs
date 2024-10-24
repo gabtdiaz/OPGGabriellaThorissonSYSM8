@@ -16,9 +16,9 @@ namespace FitApp.ViewModel
     public class MainWindowViewModel : ViewModelBase // Måste ärva från ViewModelBase klassen för att kunna använda sig av OnPropertyChanged()
     {
         // Egenskaper
-        public Window _mainWindow;
-        public Window _registerWindow;
-        public Window _workoutsWindow;
+        //public Window _mainWindow;
+        //public Window _registerWindow;
+        //public Window _workoutsWindow;
         UserManager userManager = new UserManager();
 
         public string LabelTitle { get; set; } = "FitTrack"; // Sätter standardvärde
@@ -62,7 +62,7 @@ namespace FitApp.ViewModel
             SignInCommand = new RelayCommand(SignIn);
             RegisterCommand = new RelayCommand(Register);
             ForgotPasswordCommand = new RelayCommand(ForgotPassword);
-            _mainWindow = mainWindow;   
+            //_mainWindow = mainWindow;   
         }
 
         // Metoder som hittar användare och stänger MainWindow och öppnar WorkoutWindow vid lyckad inloggning.
@@ -87,7 +87,7 @@ namespace FitApp.ViewModel
         public void Register() 
         {
             // Skapa OCH visa RegisterWindow
-            RegisterWindow registerWindow = new RegisterWindow(userManager);
+            RegisterWindow registerWindow = new RegisterWindow();
             registerWindow.Show();
             // Stäng ner nuvarande fönster
             Application.Current.MainWindow.Close();
