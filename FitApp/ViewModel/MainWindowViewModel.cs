@@ -16,7 +16,8 @@ namespace FitApp.ViewModel
     public class MainWindowViewModel : ViewModelBase // Måste ärva från ViewModelBase klassen för att kunna använda sig av OnPropertyChanged()
     {
         // Egenskaper
-        UserManager userManager = new UserManager();
+        public UserManager userManager;
+        // UserManager userManager = new UserManager();
         public string LabelTitle { get; set; } = "FitTrack"; // Sätter standardvärd
         
         private string usernameInput; // Backing field
@@ -48,8 +49,9 @@ namespace FitApp.ViewModel
         public ICommand ForgotPasswordCommand { get; }
 
         // Konstruktor
-        public MainWindowViewModel(Window mainWindow)
+        public MainWindowViewModel(Window mainWindow, UserManager userManager)
         {
+            this.userManager = userManager;
             // Commands
             SignInCommand = new RelayCommand(SignIn);
             RegisterCommand = new RelayCommand(Register);
@@ -86,7 +88,7 @@ namespace FitApp.ViewModel
 
         public void ForgotPassword()
         {
-            ForgotPasswordWindowVievModel forgotPasswordWindow = new ForgotPasswordWindowVievModel();
+            ForgotPasswordWindowVievModel forgotPasswordWindow = new ForgotPasswordWindowVievModel(userManager);
             forgotPasswordWindow.Show();
             Application.Current.MainWindow.Close();
         }

@@ -13,7 +13,7 @@ namespace FitApp.ViewModel
     public class AddWorkoutWindowViewModel : ViewModelBase
     {
         // Egenskaper
-        Window _addWorkoutWindow;
+        Window addWorkoutWindow;
         public string WorkoutTypeComboBox {  get; set; }
         public TimeSpan DurationInput { get; set; }
         public int CaloriesBurnedInput { get; set; }
@@ -22,7 +22,7 @@ namespace FitApp.ViewModel
         // Konstruktor - Anropar både WorkoutsWindowViewModel och MainWindowViewModels konstruktorer
         public AddWorkoutWindowViewModel(Window addWorkoutWindow) 
         {
-            _addWorkoutWindow = addWorkoutWindow;
+            this.addWorkoutWindow = addWorkoutWindow;
         } 
 
         public void SaveWorkout() 

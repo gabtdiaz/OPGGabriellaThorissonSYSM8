@@ -15,7 +15,7 @@ namespace FitApp.ViewModel
     {
         // Egenskaper
 
-        public Window _userDetailsWindow;
+        public Window userDetailsWindow;
         public UserManager userManager;
         public string UsernameInput { get; set; }
         public string PasswordInput { get; set; }
@@ -30,7 +30,7 @@ namespace FitApp.ViewModel
         public UserDetailsWindowViewModel(Window userDetailsWindow, UserManager userManager) // vilka egenskaper ska jag skicka med konstruktorn?
         {
             this.userManager = userManager;
-            _userDetailsWindow = userDetailsWindow;
+            userDetailsWindow = userDetailsWindow;
             SaveUserDetailsCommand = new RelayCommand(SaveUserDetails);
             CancelCommand = new RelayCommand(Cancel);
             this.userManager = userManager;

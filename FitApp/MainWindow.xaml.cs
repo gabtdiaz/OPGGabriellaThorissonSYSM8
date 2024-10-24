@@ -21,8 +21,8 @@ namespace FitApp
     {
         public MainWindow()
         {
-            MainWindowViewModel mainViewModel = new MainWindowViewModel(this);
-            this.DataContext = new MainWindowViewModel(this);
+            UserManager userManager = new UserManager();
+            this.DataContext = new MainWindowViewModel(this, userManager);
 
         }
         //private void btnSignIn_Click(object sender, RoutedEventArgs e)

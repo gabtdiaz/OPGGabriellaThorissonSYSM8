@@ -74,7 +74,7 @@ namespace FitApp.ViewModel
 
         // Konstruktor
 
-        public RegisterWindowViewModel( Window registerWindow) 
+        public RegisterWindowViewModel(Window registerWindow)
         {
             this.registerWindow = registerWindow;
             CountryComboBox = new ObservableCollection<string> { "Sweden", "Norway", "Denmark", "Finland" };
@@ -104,7 +104,7 @@ namespace FitApp.ViewModel
 
             User newUser = new User { Country = SelectedCountry, Username = UsernameInput, Password = PasswordInput };
             userManager.Users.Add(newUser);
-            //userManager.CurrentUser = newUser; // Ska sätta den nya användaren till currentUser - alt bara spara till Users listan.
+            userManager.CurrentUser = newUser; // Ska sätta den nya användaren till currentUser - alt bara spara till Users listan.
 
             MessageBox.Show("Account created successfully. Navigating to Workouts.");
 

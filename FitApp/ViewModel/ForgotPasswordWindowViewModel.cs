@@ -14,6 +14,7 @@ namespace FitApp.ViewModel
 {
     public class ForgotPasswordWindowViewModel : ViewModelBase
     {
+        Window forgotPasswordWindow;
         // Egenskaper 
         private readonly UserManager userManager;
 
@@ -71,12 +72,15 @@ namespace FitApp.ViewModel
         }
 
         // Konstruktor
-        public ForgotPasswordViewModel(UserManager userManager)
+        public ForgotPasswordWindowViewModel(UserManager userManager)
         {
+
             this.userManager = userManager;
+            this.forgotPasswordWindow = forgotPasswordWindow;
 
             // Initiera ResetPasswordCommand
             ResetPasswordCommand = new RelayCommand(ResetPassword);
+            
         }
 
         // Metod som körs när kommandot anropas

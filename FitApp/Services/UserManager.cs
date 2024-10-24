@@ -16,7 +16,7 @@ namespace FitApp.Services
 
         public List<User> Users = new List<User>(); // Lista på alla användare
                                                     
-        public User CurrentUser { get; private set; } // Hanterar inloggade användare
+        public User CurrentUser { get; set; } // Hanterar inloggade användare
 
         public UserManager()
         {

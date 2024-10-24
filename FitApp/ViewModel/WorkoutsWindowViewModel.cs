@@ -95,12 +95,9 @@ namespace FitApp.ViewModel
         // Metod som öppnar UserDetailsWindow och visar användarens uppgifter
         public void UserDetails () 
         {
-            if (SelectedWorkout != null) 
-            {
-                UserDetailsWindow userDetailsWindow = new UserDetailsWindow();
-                userDetailsWindow.Show();
-                Application.Current.MainWindow.Close();
-            }
+            UserDetailsWindow userDetailsWindow = new UserDetailsWindow();
+            userDetailsWindow.Show();
+            Application.Current.MainWindow.Close();
         }
 
         // Metod som öppnar WorkoutDetailsWindow visar ytterligare träningsdetajler
@@ -109,8 +106,8 @@ namespace FitApp.ViewModel
             {
                 if (SelectedWorkout != null)
                 {
-                    WorkoutDetailsWindow workoutDetailsWindow = new WorkoutDetailsWindow();
-                    workoutDetailsWindow.Show();
+                    //WorkoutDetailsWindow workoutDetailsWindow = new WorkoutDetailsWindow();
+                   // workoutDetailsWindow.Show();
                     Application.Current.MainWindow.Close();
                 }
                 else

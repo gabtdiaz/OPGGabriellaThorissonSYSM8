@@ -1,4 +1,5 @@
-﻿using FitApp.ViewModel;
+﻿using FitApp.Services;
+using FitApp.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,10 +21,10 @@ namespace FitApp.View
     /// </summary>
     public partial class ForgotPasswordWindowVievModel : Window
     {
-        public ForgotPasswordWindowVievModel()
+        public ForgotPasswordWindowVievModel(UserManager userManager)
         {
             InitializeComponent();
-            this.DataContext = new ForgotPasswordWindowViewModel(this);
+            this.DataContext = new ForgotPasswordWindowViewModel(userManager);
         }
     }
 }
