@@ -16,10 +16,11 @@ namespace FitApp.ViewModel
     public class MainWindowViewModel : ViewModelBase // Måste ärva från ViewModelBase klassen för att kunna använda sig av OnPropertyChanged()
     {
         // Egenskaper
-        public UserManager userManager;
-        // UserManager userManager = new UserManager();
-        public string LabelTitle { get; set; } = "FitTrack"; // Sätter standardvärd
+        private readonly UserManager userManager;
         
+        public string LabelTitle { get; set; } = "FitTrack";
+        
+        // Egenskaper som returnerar användarinmatning
         private string usernameInput; // Backing field
         public string UsernameInput
         {
@@ -43,7 +44,7 @@ namespace FitApp.ViewModel
             }
         }
 
-        // Commands
+        // Commands 
         public ICommand SignInCommand { get; }
         public ICommand RegisterCommand { get; set; }
         public ICommand ForgotPasswordCommand { get; }
@@ -59,23 +60,25 @@ namespace FitApp.ViewModel
         }
 
         // Metoder som hittar användare och stänger MainWindow och öppnar WorkoutWindow vid lyckad inloggning.
-        public void SignIn() 
+        public void SignIn()
         {
             User user = userManager.FindUser(UsernameInput, PasswordInput); // Anropar metoden i UserManager
 
             if (user != null)
             {
-                // Användare hittad
-                WorkoutsWindow workoutsWindow = new WorkoutsWindow(userManager); // TOG BORT PARAMETER UserManager... 
+                // Användare hittad, sätt currentUser i UserManager
+                userManager.CurrentUser = user;
+
+                WorkoutsWindow workoutsWindow = new WorkoutsWindow(userManager); // Visa fönster
                 workoutsWindow.Show();
-                Application.Current.MainWindow.Close();
+                Application.Current.MainWindow.Close(); // Stäng nuvarande fönster
             }
             else
             {
                 MessageBox.Show("Incorrect username or password.", "Login Failed", MessageBoxButton.OK);
             }
         }
-        
+
         // Metod som öppnar RegisterWindow
         public void Register() 
         {

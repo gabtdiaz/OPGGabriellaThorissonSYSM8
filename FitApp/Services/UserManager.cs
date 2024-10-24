@@ -15,8 +15,20 @@ namespace FitApp.Services
         // Egenskaper
 
         public List<User> Users = new List<User>(); // Lista på alla användare
-                                                    
-        public User CurrentUser { get; set; } // Hanterar inloggade användare
+
+        private User currentUser; // Hanterar inloggade användare
+        public User CurrentUser
+        {
+            get { return currentUser; }
+            set
+            {
+                currentUser = value;
+                OnPropertyChanged(nameof(CurrentUser)); // Detta meddelar att CurrentUser har ändrats
+                OnPropertyChanged(nameof(CurrentUserName)); // Meddelar att CurrentUserName har ändrats
+
+            }
+        }
+        public string CurrentUserName => CurrentUser?.Username ?? "No User";
 
         public UserManager()
         {

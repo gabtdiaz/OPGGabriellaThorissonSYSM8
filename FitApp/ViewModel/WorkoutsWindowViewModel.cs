@@ -32,6 +32,25 @@ namespace FitApp.ViewModel
         public ICommand SignOutCommand { get; }
         public ICommand WorkoutDetailsCommand { get; }
 
+        // Egenskap som returnerar användarnamnet
+        public string CurrentUserName
+        {
+            get
+            {
+                // Kontrollera om CurrentUser är null innan du försöker få tillgång till Username
+                return userManager.CurrentUser?.Username ?? "No User";
+            }
+            set
+            {
+                // Detta kommer inte direkt sätta CurrentUserName, utan det behöver hanteras via CurrentUser
+                if (userManager.CurrentUser != null)
+                {
+                    userManager.CurrentUser.Username = value;
+                    OnPropertyChanged(nameof(CurrentUserName));
+                }
+            }
+        }
+        // Egenskap som returnerar det valda träningspasset
         private Workout selectedWorkout;
 
         public Workout SelectedWorkout 
@@ -53,9 +72,10 @@ namespace FitApp.ViewModel
             this.userManager = userManager;
             this.workoutsWindow = workoutsWindow;
             Workouts = new ObservableCollection<Workout>
+            // Skapar träningspass
         {
-            new CardioWorkout { Type = "HIIT Run"},
-            new StrengthWorkout { Type = "Full Body Strength"}
+            new CardioWorkout { Type = "HIIT Run", Duration = new TimeSpan(0, 30, 0), CaloriesBurned = 400, DateTime = new DateTime(2024, 10, 24, 08, 00, 0)},
+            new StrengthWorkout { Type = "Full Body Strength", Duration = new TimeSpan(0, 45, 0), CaloriesBurned = 300, DateTime = new DateTime(2024, 10, 20, 18, 30, 0)}
         };
             // Commands
             AddWorkoutCommand = new RelayCommand(AddWorkout);

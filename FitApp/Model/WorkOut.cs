@@ -9,7 +9,7 @@ namespace FitApp.Model
     public class Workout
     {
         // Egenskaper
-        public DateTime DateTime {  get; set; }
+        public DateTime DateTime {  get; set; } = DateTime.Now;
         public string Type { get; set; }
         public TimeSpan Duration { get; set; }
         public int CaloriesBurned { get; set; }
