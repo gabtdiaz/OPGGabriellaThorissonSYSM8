@@ -65,8 +65,8 @@
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel>
-                        <TextBlock Text="{Binding Type}"/>
                         <TextBlock Text="{Binding DateTime}"/>
+                        <TextBlock Text="{Binding Type}"/>
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
