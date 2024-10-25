@@ -76,8 +76,8 @@ namespace FitApp.ViewModel
             Workouts = new ObservableCollection<Workout>
             // Skapar träningspass
         {
-            new CardioWorkout { Type = "HIIT Run", Duration = new TimeSpan(0, 30, 0), CaloriesBurned = 400, DateTime = new DateTime(2024, 10, 24, 08, 00, 0), Notes = ""},
-            new StrengthWorkout { Type = "Full Body Strength", Duration = new TimeSpan(0, 45, 0), CaloriesBurned = 300, DateTime = new DateTime(2024, 10, 20, 18, 30, 0), Notes = ""}
+            new CardioWorkout { Type = "HIIT Cycle", Duration = new TimeSpan(0, 20, 0), CaloriesBurned = 300, DateTime = new DateTime(2024, 10, 24, 08, 00, 0), Notes = ""},
+            new StrengthWorkout { Type = "Strength", Duration = new TimeSpan(0, 45, 0), CaloriesBurned = 250, DateTime = new DateTime(2024, 10, 20, 18, 30, 0), Notes = ""}
         };
             // Commands
             AddWorkoutCommand = new RelayCommand(AddWorkout);
@@ -93,7 +93,7 @@ namespace FitApp.ViewModel
         // Metod som öppnar AddWorkoutWindow
         public void AddWorkout()
         {
-            AddWorkoutWindow addWorkoutWindow = new AddWorkoutWindow();
+            AddWorkoutWindow addWorkoutWindow = new AddWorkoutWindow(this);
             addWorkoutWindow.Show();
             workoutsWindow.Close();
         }

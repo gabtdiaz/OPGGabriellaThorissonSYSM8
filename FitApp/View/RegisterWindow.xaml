@@ -45,7 +45,7 @@
                 <TextBox Text = "{Binding ConfirmPasswordInput}"  x:Name="PasswordBoxConfirm" Width="200" Height="20"/>
         </StackPanel>
 
-        <!-- Välj land -->
+        <!-- Välj land ComboBox-->
             <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
                 <Label Content="Country   " Height="25"/>
                 <ComboBox Width="200" Height="20"

@@ -20,10 +20,6 @@ namespace FitApp.ViewModel
         public Window registerWindow;
         public ObservableCollection<string> CountryComboBox { get; set; }
 
-
-        // Command för att skapa ny användare
-        public ICommand RegisterNewUserCommand { get; }
-
         // Egenskaper för användarinmatning
 
         private string confirmPasswordInput;
@@ -73,8 +69,10 @@ namespace FitApp.ViewModel
             }
         }
 
-        // Konstruktor
+        // Command för att skapa ny användare
+        public ICommand RegisterNewUserCommand { get; }
 
+        // Konstruktor
         public RegisterWindowViewModel(Window registerWindow, UserManager userManager)
         {
             this.registerWindow = registerWindow;
