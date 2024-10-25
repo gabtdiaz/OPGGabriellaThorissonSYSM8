@@ -21,11 +21,13 @@ namespace FitApp.ViewModel
     {
         // Egenskaper
 
+       
         public Window workoutsWindow;
         private Window workoutDetailsWindow;
         public UserManager userManager;
         public ObservableCollection<Workout> Workouts { get; set; }
         
+        // Commands
         public ICommand AddWorkoutCommand { get; }
         public ICommand UserDetailsCommand { get; }
         public ICommand RemoveWorkoutCommand { get; }
@@ -37,7 +39,7 @@ namespace FitApp.ViewModel
         {
             get
             {
-                // Kontrollera om CurrentUser är null innan du försöker få tillgång till Username
+                // Kontrollera om CurrentUser är null innan jag försöker få tillgång till Username
                 return userManager.CurrentUser?.Username ?? "No User";
             }
             set
@@ -91,10 +93,9 @@ namespace FitApp.ViewModel
         // Metod som öppnar AddWorkoutWindow
         public void AddWorkout()
         {
-            MessageBox.Show("Clicked");
             AddWorkoutWindow addWorkoutWindow = new AddWorkoutWindow();
-            addWorkoutWindow.Show(); // Öppnar nytt fönster
-            Application.Current.MainWindow.Close();
+            addWorkoutWindow.Show();
+            workoutsWindow.Close();
         }
 
         // Metod som tar bort det valda träningspasset
@@ -117,7 +118,7 @@ namespace FitApp.ViewModel
             MessageBox.Show("Clicked UserDetails");
             UserDetailsWindow userDetailsWindow = new UserDetailsWindow();
             userDetailsWindow.Show();
-            Application.Current.MainWindow.Close();
+            workoutsWindow.Close();
         }
 
         // Metod som öppnar WorkoutDetailsWindow visar ytterligare träningsdetajler
@@ -127,7 +128,7 @@ namespace FitApp.ViewModel
             if (SelectedWorkout != null)
             {
                 workoutDetailsWindow.Show();
-                Application.Current.MainWindow.Close();
+                workoutsWindow.Close();
             }
             else
             {
@@ -138,11 +139,18 @@ namespace FitApp.ViewModel
         // Metod som "nollställer" CurrentUser och navigerar till HomePage
         public void SignOut()
         {
-            MessageBox.Show("Clicked");
             userManager.SignOut();  // Nollställer CurrentUser
+
+            // Återgå till MainWindow
             MainWindow mainWindow = new MainWindow();
-            mainWindow.Show(); // Öppnar helt nytt random fönster LOL
-            Application.Current.MainWindow.Close();
+            mainWindow.Show();
+
+            // Stänger WorkoutsWindow
+            workoutsWindow.Close();
+
+          
+
+
 
         }
     }

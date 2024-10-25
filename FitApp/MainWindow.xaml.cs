@@ -23,20 +23,6 @@ namespace FitApp
         {
             UserManager userManager = new UserManager();
             this.DataContext = new MainWindowViewModel(this, userManager);
-
-        }
-        //private void btnSignIn_Click(object sender, RoutedEventArgs e)
-        //{
-        //    var mainViewModel = DataContext as MainWindowViewModel;
-
-        //    if (mainViewModel != null)
-        //    {
-        //        // Läs av lösenordet från PasswordBox och skicka det till ViewModel
-        //        string enteredPassword = PasswordInput.Password;
-        //        mainViewModel.PasswordInput = enteredPassword;
-
-        //        // Kör inloggningslogiken i ViewModel
-        //        mainViewModel.SignIn();
-        //    }
         }
     }
+}

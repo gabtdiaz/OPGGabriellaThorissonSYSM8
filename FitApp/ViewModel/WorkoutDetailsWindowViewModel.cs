@@ -23,7 +23,15 @@ namespace FitApp.ViewModel
         }
 
         // Metoder
-        public void EditWorkout() { }
-        public void SaveWorkout() { }
+        public void EditWorkout() 
+        {
+            // listbox med träningar, man ska kunna redigera, lägga till och spara.
+        }
+        public void SaveWorkout() 
+        {
+            MainWindow mainWindow = new MainWindow();
+            mainWindow.Show();
+            Application.Current.MainWindow.Close();
+        }
     }
 }

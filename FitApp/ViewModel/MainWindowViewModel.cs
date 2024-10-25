@@ -62,22 +62,21 @@ namespace FitApp.ViewModel
         // Metoder som hittar användare och stänger MainWindow och öppnar WorkoutWindow vid lyckad inloggning.
         public void SignIn()
         {
-            User user = userManager.FindUser(UsernameInput, PasswordInput); // Anropar metoden i UserManager
+            User user = userManager.FindUser(UsernameInput, PasswordInput); // Kontrollera inloggning
 
             if (user != null)
             {
-                // Användare hittad, sätt currentUser i UserManager
-                userManager.CurrentUser = user;
-
-                WorkoutsWindow workoutsWindow = new WorkoutsWindow(userManager); // Visa fönster
+                userManager.CurrentUser = user; // Sätter användaren som inloggad i UserManager
+                WorkoutsWindow workoutsWindow = new WorkoutsWindow(userManager);
                 workoutsWindow.Show();
-                Application.Current.MainWindow.Close(); // Stäng nuvarande fönster
+                Application.Current.MainWindow.Close();
             }
             else
             {
                 MessageBox.Show("Incorrect username or password.", "Login Failed", MessageBoxButton.OK);
             }
         }
+
 
         // Metod som öppnar RegisterWindow
         public void Register() 
