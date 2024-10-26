@@ -15,6 +15,10 @@ namespace FitApp.Model
         public int CaloriesBurned { get; set; }
         public string Notes {  get; set; }
 
+        public int Distance { get; set; }
+        public int Repetitions { get; set; }
+        public int Sets { get; set; }
+
         // Konstruktor
 
         // Metod

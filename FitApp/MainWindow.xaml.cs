@@ -21,8 +21,17 @@ namespace FitApp
     {
         public MainWindow()
         {
+            InitializeComponent();
             UserManager userManager = new UserManager();
+            this.DataContext = new MainWindowViewModel(this, userManager);  
+        }
+        // Lägg till en andra konstruktor som tar UserManager som parameter
+        public MainWindow(UserManager userManager)
+        {
+            InitializeComponent();
             this.DataContext = new MainWindowViewModel(this, userManager);
         }
     }
 }
+
+ 

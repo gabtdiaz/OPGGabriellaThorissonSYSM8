@@ -87,13 +87,11 @@ namespace FitApp.ViewModel
         // Konstruktor
         public ForgotPasswordWindowViewModel(Window forgotPasswordWindow, UserManager userManager) // ändra från UserManager till Window
         {
-
             this.userManager = userManager;
             this.forgotPasswordWindow = forgotPasswordWindow;
 
             // Initiera ResetPasswordCommand
             ResetPasswordCommand = new RelayCommand(ResetPassword);
-            
         }
 
         // Metod som körs när kommandot anropas

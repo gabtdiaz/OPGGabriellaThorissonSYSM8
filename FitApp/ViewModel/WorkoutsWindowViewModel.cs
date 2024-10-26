@@ -76,8 +76,8 @@ namespace FitApp.ViewModel
             Workouts = new ObservableCollection<Workout>
             // Skapar träningspass
         {
-            new CardioWorkout { Type = "HIIT Cycle", Duration = new TimeSpan(0, 20, 0), CaloriesBurned = 300, DateTime = new DateTime(2024, 10, 24, 08, 00, 0), Notes = ""},
-            new StrengthWorkout { Type = "Strength", Duration = new TimeSpan(0, 45, 0), CaloriesBurned = 250, DateTime = new DateTime(2024, 10, 20, 18, 30, 0), Notes = ""}
+            new CardioWorkout { Type = "HIIT Cycle", Distance = 5,  Duration = new TimeSpan(0, 20, 0), CaloriesBurned = 250, DateTime = new DateTime(2024, 10, 24, 08, 00, 0), Notes = ""},
+            new StrengthWorkout { Type = "Strength", Repetitions = 10, Duration = new TimeSpan(0, 45, 0), CaloriesBurned = 300, DateTime = new DateTime(2024, 10, 20, 18, 30, 0), Notes = ""}
         };
             // Commands
             AddWorkoutCommand = new RelayCommand(AddWorkout);
@@ -101,7 +101,6 @@ namespace FitApp.ViewModel
         // Metod som tar bort det valda träningspasset
         public void RemoveWorkout()
         {
-            MessageBox.Show("Clicked");
             if (SelectedWorkout != null)
             {
                 Workouts.Remove(SelectedWorkout);
@@ -141,17 +140,13 @@ namespace FitApp.ViewModel
         {
             userManager.SignOut();  // Nollställer CurrentUser
 
-            // Återgå till MainWindow
-            MainWindow mainWindow = new MainWindow();
+            // Skapa nytt MainWindow 
+            MainWindow mainWindow = new MainWindow(userManager);  // Använd den existerande userManager
+            Application.Current.MainWindow = mainWindow;
             mainWindow.Show();
 
             // Stänger WorkoutsWindow
             workoutsWindow.Close();
-
-          
-
-
-
         }
     }
 }
