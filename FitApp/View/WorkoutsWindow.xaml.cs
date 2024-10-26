@@ -22,10 +22,10 @@ namespace FitApp.View
     /// </summary>
     public partial class WorkoutsWindow : Window
     {
-        public WorkoutsWindow(UserManager userManager) // ÄNDRADE från user user till UserManager userManager
+        public WorkoutsWindow(UserManager userManager)
         {
             InitializeComponent();
-            this.DataContext = new WorkoutsWindowViewModel(userManager, this); // ändra från tom till this, userManager
+            this.DataContext = new WorkoutsWindowViewModel(userManager, this); 
         }
     }
 }

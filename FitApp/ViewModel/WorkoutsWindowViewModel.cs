@@ -115,7 +115,7 @@ namespace FitApp.ViewModel
         public void UserDetails () 
         {
             MessageBox.Show("Clicked UserDetails");
-            UserDetailsWindow userDetailsWindow = new UserDetailsWindow();
+            UserDetailsWindow userDetailsWindow = new UserDetailsWindow(userManager);
             userDetailsWindow.Show();
             workoutsWindow.Close();
         }

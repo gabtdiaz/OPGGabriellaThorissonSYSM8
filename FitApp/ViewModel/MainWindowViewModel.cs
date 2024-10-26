@@ -90,7 +90,7 @@ namespace FitApp.ViewModel
 
         public void ForgotPassword()
         {
-            ForgotPasswordWindowVievModel forgotPasswordWindow = new ForgotPasswordWindowVievModel(userManager);
+            ForgotPasswordWindow forgotPasswordWindow = new ForgotPasswordWindow(userManager);
             forgotPasswordWindow.Show();
             Application.Current.MainWindow.Close();
         }

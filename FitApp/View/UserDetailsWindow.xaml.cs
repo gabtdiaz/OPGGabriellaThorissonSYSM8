@@ -21,11 +21,11 @@ namespace FitApp.View
     /// </summary>
     public partial class UserDetailsWindow : Window
     {
-        public UserDetailsWindow()
+        public UserDetailsWindow(UserManager userManager)
         {
             InitializeComponent();
-            UserDetailsWindow userDetailsWindow = new UserDetailsWindow();
-            this.DataContext = new UserDetailsWindow();
+            this.DataContext = new UserDetailsWindowViewModel(this, userManager); // Corrected
         }
     }
 }
+

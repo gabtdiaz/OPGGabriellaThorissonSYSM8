@@ -19,12 +19,12 @@ namespace FitApp.View
     /// <summary>
     /// Interaction logic for ForgotPasswordWindow.xaml
     /// </summary>
-    public partial class ForgotPasswordWindowVievModel : Window
+    public partial class ForgotPasswordWindow : Window
     {
-        public ForgotPasswordWindowVievModel(UserManager userManager)
+        public ForgotPasswordWindow(UserManager userManager)
         {
             InitializeComponent();
-            this.DataContext = new ForgotPasswordWindowViewModel(this, userManager); //ändrade!!
+            this.DataContext = new ForgotPasswordWindowViewModel(this, userManager);
         }
     }
 }

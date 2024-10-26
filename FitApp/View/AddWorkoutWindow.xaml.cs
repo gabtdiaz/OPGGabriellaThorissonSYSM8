@@ -22,10 +22,10 @@ namespace FitApp.View
     /// </summary>
     public partial class AddWorkoutWindow : Window
     {
-        public AddWorkoutWindow(WorkoutsWindowViewModel workoutsViewModel)
+        public AddWorkoutWindow(WorkoutsWindowViewModel workoutsWindow)
         {
             InitializeComponent();
-            this.DataContext = new AddWorkoutWindowViewModel(this, workoutsViewModel);
+            this.DataContext = new AddWorkoutWindowViewModel(this, workoutsWindow);
         }
     }
 }

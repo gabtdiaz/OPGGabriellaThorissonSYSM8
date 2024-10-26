@@ -20,7 +20,12 @@ namespace FitApp.ViewModel
         public Window addWorkoutWindow;
 
         public ObservableCollection<string> WorkoutTypeComboBox { get; set; }
-       
+
+        public ObservableCollection<Workout> Workouts
+        {
+            get => workoutsWindow.Workouts;
+        }
+
         // Synlighets-egenskaper
         private Visibility cardioVisibility;
         public Visibility CardioVisibility
@@ -66,7 +71,7 @@ namespace FitApp.ViewModel
             set 
             {
                 dateinput = value;
-                OnPropertyChanged(DateInput.ToString());
+                OnPropertyChanged(nameof(DateInput));
             }
         }
 
@@ -78,7 +83,7 @@ namespace FitApp.ViewModel
             set 
             { 
                 durationInput = value;
-                OnPropertyChanged(DurationInput.ToString());
+                OnPropertyChanged(nameof(DurationInput));
             }
         }
         private int caloriesBurnedInput;
@@ -89,7 +94,7 @@ namespace FitApp.ViewModel
             set 
             { 
                 caloriesBurnedInput = value; 
-                OnPropertyChanged(CaloriesBurnedInput.ToString());
+                OnPropertyChanged(nameof(CaloriesBurnedInput));
             }
         }
         private string notesInput;
