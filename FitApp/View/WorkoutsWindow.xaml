@@ -79,7 +79,7 @@
 
         <!--Knappar för att se detaljer, ta bort träningspass eller logga ut-->
         <StackPanel Orientation="Horizontal" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Center" Height="50" Width="320" Margin="0,343,0,0">
-            <Button Content="Details" Command="{Binding OpenDetailsCommand}" Width="80" Height="25" 
+            <Button Content="See details" Command="{Binding WorkoutDetailsCommand}" Width="80" Height="25" 
                 Foreground="AliceBlue" VerticalAlignment="Center" BorderBrush="LightGray" BorderThickness="2" Padding="10" Margin="20,0,20,0" Background="DarkGray">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">

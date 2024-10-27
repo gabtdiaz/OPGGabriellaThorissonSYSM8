@@ -127,6 +127,7 @@ namespace FitApp.ViewModel
             MessageBox.Show("Clicked");
             if (SelectedWorkout != null)
             {
+                WorkoutDetailsWindow workoutDetailsWindow = new WorkoutDetailsWindow(workout, workoutsWindow); 
                 workoutDetailsWindow.Show();
                 workoutsWindow.Close();
             }
@@ -141,12 +142,10 @@ namespace FitApp.ViewModel
         {
             userManager.SignOut();  // Nollställer CurrentUser
 
-            // Skapa nytt MainWindow 
-            MainWindow mainWindow = new MainWindow(userManager);  // Använd den existerande userManager
+            
+            MainWindow mainWindow = new MainWindow(userManager); // öppnar MainWindow
             Application.Current.MainWindow = mainWindow;
             mainWindow.Show();
-
-            // Stänger WorkoutsWindow
             workoutsWindow.Close();
         }
     }
