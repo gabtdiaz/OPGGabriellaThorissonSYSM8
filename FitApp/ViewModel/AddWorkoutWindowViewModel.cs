@@ -154,20 +154,35 @@ namespace FitApp.ViewModel
         // Metod som sparar träningspass förutsatt att varje fält är ifyllt.
         public void SaveWorkout() 
         {
-            if (string.IsNullOrWhiteSpace(DateInput.ToString()) || string.IsNullOrWhiteSpace(DurationInput.ToString()) || // Kontrollerar ifall textboxarna är tomma
-            string.IsNullOrWhiteSpace(CaloriesBurnedInput.ToString()) || string.IsNullOrWhiteSpace(NotesInput) || WorkoutTypeComboBox == null)
+            // Kontrollerar ifall fälten är tomma
+            if (string.IsNullOrWhiteSpace(DateInput.ToString()) ||
+                string.IsNullOrWhiteSpace(DurationInput.ToString()) ||
+                string.IsNullOrWhiteSpace(CaloriesBurnedInput.ToString()) ||
+                string.IsNullOrWhiteSpace(NotesInput) ||
+                WorkoutTypeComboBox == null)
             {
-
                 MessageBox.Show("Please enter all the information correctly.", "Error", MessageBoxButton.OK);
                 return;
             }
 
-            if ( SelectedWorkout == "Cardio" && Distance == 0 || selectedWorkout == "Strength" && Sets == 0 || Repetitions == 0)
+            // Kontrollerar fälten utefter träningstyp
+            if (SelectedWorkout == "Cardio")
             {
-                MessageBox.Show("Please enter distance or sets & reps", "Error", MessageBoxButton.OK);
-                return;
+                if (Distance == 0)
+                {
+                    MessageBox.Show("Please enter distance", "Error", MessageBoxButton.OK);
+                    return;
+                }
             }
-  
+            else if (SelectedWorkout == "Strength")
+            {
+                if (Sets == 0 || Repetitions == 0)
+                {
+                    MessageBox.Show("Please enter sets & reps", "Error", MessageBoxButton.OK);
+                    return;
+                }
+            }
+
             // Spara träningspasset i Workouts listan från WorkoutsWindowViewModel
             Workout newWorkout = SelectedWorkout == "Cardio" ? new CardioWorkout() : new StrengthWorkout();
             newWorkout.Type = SelectedWorkout;
@@ -190,6 +205,11 @@ namespace FitApp.ViewModel
             Distance = 0;
             Repetitions = 0;
             Sets = 0;
+
+            // Öppna WorkoutsWindow igen och stäng AddWorkoutWindow
+            WorkoutsWindow newWorkoutsWindow = new WorkoutsWindow(workoutsWindow.userManager, workoutsWindow);
+            newWorkoutsWindow.Show();
+            addWorkoutWindow.Close();
         }
 
         // Metod som gör att Cardio eller Strength "egenskaper" uppdateras varje gång SelectedWorkout ändras.

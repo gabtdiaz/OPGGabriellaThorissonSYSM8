@@ -22,10 +22,17 @@ namespace FitApp.View
     /// </summary>
     public partial class WorkoutsWindow : Window
     {
-        public WorkoutsWindow(UserManager userManager)
+        public WorkoutsWindow(UserManager userManager, WorkoutsWindowViewModel existingViewModel = null)
         {
             InitializeComponent();
-            this.DataContext = new WorkoutsWindowViewModel(userManager, this); 
+            if (existingViewModel != null)
+            {
+                this.DataContext = existingViewModel;
+            }
+            else
+            {
+                this.DataContext = new WorkoutsWindowViewModel(userManager, this);
+            }
         }
     }
 }

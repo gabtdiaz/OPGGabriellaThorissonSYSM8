@@ -17,7 +17,7 @@
         </Grid.Background>
         <!--Rader-->
         <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="60"/>
             <RowDefinition Height="420"/>
         </Grid.RowDefinitions>
 
@@ -57,17 +57,22 @@
                 </Button.Template>
             </Button>
 
-            <!--ListBox med Träningspass-->
+        <!--ListBox med Träningspass-->
         </StackPanel>
-        <Label Content ="Your workouts" FontSize="12" FontFamily="Arial" Grid.Row="1" HorizontalAlignment="Center" Margin="0,20"/>
-        <ListBox ItemsSource="{Binding Workouts}" SelectedItem="{Binding SelectedWorkout}" Height="280" Width="280"
-                 Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,40,0,0">
+        <Label Content ="Your workouts" FontSize="12" FontFamily="Arial" Grid.Row="1" HorizontalAlignment="Center" Margin="0,10"/>
+        <ListBox ItemsSource="{Binding Workouts}" SelectedItem="{Binding SelectedWorkout, Mode=TwoWay}" 
+         Height="280" Width="280" Grid.Row="1" HorizontalAlignment="Center" 
+         VerticalAlignment="Top" Margin="0,40">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel>
-                        <TextBlock Text="{Binding DateTime}"/>
-                        <TextBlock Text="{Binding Type}"/>
-                    </StackPanel>
+                    <Border BorderBrush="LightGray" BorderThickness="0,0,0,1" Padding="2">
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{Binding Type}" Width="60" Margin="0,0,5,0" FontSize="10"/>
+                            <TextBlock Text="{Binding DateTime, StringFormat=yyyy-MM-dd}" Width="70" Margin="0,0,5,0" FontSize="10"/>
+                            <TextBlock Text="{Binding Duration}" Width="50" Margin="0,0,5,0" FontSize="10"/>
+                            <TextBlock Text="{Binding Notes}" Width="50" Margin="0,0,5,0" FontSize="10"/>
+                        </StackPanel>
+                     </Border>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>

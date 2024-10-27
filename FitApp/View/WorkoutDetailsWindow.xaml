@@ -17,66 +17,130 @@
         </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>
-            <RowDefinition/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
-        
-        <!--Logga-->
+
+        <!-- Logo -->
         <StackPanel Width="100" Height="60">
-            <Label Content="F I T" HorizontalAlignment="Center" FontSize="18" VerticalAlignment="Top" FontFamily="Arial Black" FontWeight="Bold" Foreground="#FF5B5B5B"/>
-            <Label Content="&#x2AF8;Track" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Arial" FontSize="13" Foreground="DarkOrange"/>
+            <Label Content="F I T" HorizontalAlignment="Center" FontSize="18" 
+                   VerticalAlignment="Top" FontFamily="Arial Black" 
+                   FontWeight="Bold" Foreground="#FF5B5B5B"/>
+            <Label Content="&#x2AF8;Track" HorizontalAlignment="Center" 
+                   VerticalAlignment="Top" FontFamily="Arial" 
+                   FontSize="13" Foreground="DarkOrange"/>
         </StackPanel>
 
-        <!--TextBlocks-->
-        <StackPanel Grid.Row="1" Grid.RowSpan="4">
-            <StackPanel Orientation="Horizontal" Grid.Row="1" Background="LightGray">
-                <TextBlock x:Name="txtBlockType" Text="Type" VerticalAlignment="Top" Width="60"/>
-                <TextBlock x:Name="txtBlockDateTime" Text="Date"  VerticalAlignment="Top" Width="60"/>
-                <TextBlock x:Name="txtBlockDuration" Text="Duration" VerticalAlignment="Top" Width="60" />
-                <TextBlock x:Name="txtBlockCaloriesBurned" Text="Cal" VerticalAlignment="Top" Width="60"/>
-                <TextBlock x:Name="txtBlockNotes" Text="Notes" VerticalAlignment="Top" Width="60"/>
-            </StackPanel>
+        <!-- Headers -->
+        <Grid Grid.Row="1" Background="LightGray" Margin="20,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Text="Type" Grid.Column="0" Padding="5"/>
+            <TextBlock Text="Date" Grid.Column="1" Padding="5"/>
+            <TextBlock Text="Duration" Grid.Column="2" Padding="5"/>
+            <TextBlock Text="Calories" Grid.Column="3" Padding="5"/>
+            <TextBlock Text="Notes" Grid.Column="4" Padding="5"/>
+        </Grid>
 
-            <!--Textboxar för användarinmatning-->
-            <StackPanel Orientation="Horizontal" Grid.Row="1">
-                <ComboBox x:Name="comboBoxType" ItemsSource="{Binding WorkoutTypeComboBox}" SelectedItem="{Binding SelectedWorkout}" VerticalAlignment="Top" Width="60"/>
-                <TextBox x:Name="txtBoxDateTime" Text="{Binding Date}" VerticalAlignment="Top" Width="60" Height="21"/>
-                <TextBox x:Name="txtBoxDuration" Text="{Binding Duration}" VerticalAlignment="Top" Width="60" Height="21"/>
-                <TextBox x:Name="txtBoxCaloriesBurned" Text="{Binding CaloriesBurned}" VerticalAlignment="Top" Width="60" Height="21"/>
-                <TextBox x:Name="txtBoxNotes" Text="{Binding Notes}" VerticalAlignment="Top" Width="80" Height="21"/>
-            </StackPanel>
+        <!-- Input Fields -->
+        <Grid Grid.Row="2" Margin="20,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <ComboBox Grid.Column="0" 
+                      ItemsSource="{Binding WorkoutTypeComboBox}" 
+                      SelectedItem="{Binding SelectedWorkout.Type}"
+                      IsEnabled="False"
+                      Margin="2"/>
+            <TextBox Grid.Column="1" 
+                     Text="{Binding SelectedWorkout.DateTime}"
+                     IsReadOnly="True"
+                     Margin="2"/>
+            <TextBox Grid.Column="2" 
+                     Text="{Binding SelectedWorkout.Duration}"
+                     IsReadOnly="True"
+                     Margin="2"/>
+            <TextBox Grid.Column="3" 
+                     Text="{Binding SelectedWorkout.CaloriesBurned}"
+                     IsReadOnly="True"
+                     Margin="2"/>
+            <TextBox Grid.Column="4" 
+                     Text="{Binding SelectedWorkout.Notes}"
+                     IsReadOnly="True"
+                     Margin="2"/>
+        </Grid>
 
-        <!--ListBox för att visa träningspass-->
-        </StackPanel>
-        <ListBox ItemsSource="{Binding Workouts}" SelectedItem="{Binding SelectedWorkout}" Height="280" Width="280"
-                   Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Top" Margin="0,60,0,0" Grid.RowSpan="3"/>
-        <StackPanel Grid.Row="3" Orientation="Horizontal" VerticalAlignment="Top" Margin="0,11,0,0" Grid.RowSpan="2">
+        <!-- ListBox -->
+        <ListBox Grid.Row="3" 
+                 ItemsSource="{Binding Workouts}" 
+                 SelectedItem="{Binding SelectedWorkout}"
+                 Margin="20,10">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Text="{Binding Type}" Grid.Column="0" Padding="5"/>
+                        <TextBlock Text="{Binding DateTime}" Grid.Column="1" Padding="5"/>
+                        <TextBlock Text="{Binding Duration}" Grid.Column="2" Padding="5"/>
+                        <TextBlock Text="{Binding CaloriesBurned}" Grid.Column="3" Padding="5"/>
+                        <TextBlock Text="{Binding Notes}" Grid.Column="4" Padding="5"/>
+                    </Grid>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
 
-            <!--Buttons för att ändra och spara träningspass-->
-            <Button Content="Edit" Command="{Binding EditWorkout}" Width="80" Height="25" 
-              Foreground="AliceBlue" VerticalAlignment="Center" BorderBrush="Red" BorderThickness="2" 
-                  Padding="10" Margin="20,0,120,0" Background="Crimson">
+        <!-- Buttons -->
+        <StackPanel Grid.Row="4" Orientation="Horizontal" 
+                    HorizontalAlignment="Center" Margin="0,10,0,20">
+            <Button Content="Edit" Command="{Binding EditWorkout}" 
+                    Width="80" Height="25" Margin="0,0,20,0"
+                    Foreground="AliceBlue" Background="Crimson"
+                    BorderBrush="Red" BorderThickness="2">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" 
-                      BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="10">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                CornerRadius="10">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center"/>
                         </Border>
                     </ControlTemplate>
                 </Button.Template>
             </Button>
-            <Button Content="Save" Command="{Binding SaveWorkout}" Width="80" Height="25" 
-              Foreground="AliceBlue" VerticalAlignment="Center" BorderBrush="Red" BorderThickness="2" 
-              Padding="10" Margin="0,0,20,0" Background="Crimson">
+            <Button Content="Save" Command="{Binding SaveWorkout}" 
+                    Width="80" Height="25"
+                    Foreground="AliceBlue" Background="Crimson"
+                    BorderBrush="Red" BorderThickness="2">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" 
-                  BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="10">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <Border Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                CornerRadius="10">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center"/>
                         </Border>
                     </ControlTemplate>
                 </Button.Template>
             </Button>
         </StackPanel>
-
     </Grid>
 </Window>

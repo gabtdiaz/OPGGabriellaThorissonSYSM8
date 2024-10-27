@@ -76,8 +76,8 @@ namespace FitApp.ViewModel
             Workouts = new ObservableCollection<Workout>
             // Skapar träningspass
         {
-            new CardioWorkout { Type = "HIIT Cycle", Distance = 5,  Duration = new TimeSpan(0, 20, 0), CaloriesBurned = 250, DateTime = new DateTime(2024, 10, 24, 08, 00, 0), Notes = ""},
-            new StrengthWorkout { Type = "Strength", Repetitions = 10, Duration = new TimeSpan(0, 45, 0), CaloriesBurned = 300, DateTime = new DateTime(2024, 10, 20, 18, 30, 0), Notes = ""}
+            new CardioWorkout { Type = "Cardio", Distance = 5,  Duration = new TimeSpan(0, 20, 0), CaloriesBurned = 250, DateTime = new DateTime(2024, 10, 24, 08, 00, 0), Notes = "Run"},
+            new StrengthWorkout { Type = "Strength", Repetitions = 10, Duration = new TimeSpan(0, 45, 0), CaloriesBurned = 300, DateTime = new DateTime(2024, 10, 20, 18, 30, 0), Notes = "Gym"}
         };
             // Commands
             AddWorkoutCommand = new RelayCommand(AddWorkout);
@@ -96,6 +96,7 @@ namespace FitApp.ViewModel
             AddWorkoutWindow addWorkoutWindow = new AddWorkoutWindow(this);
             addWorkoutWindow.Show();
             workoutsWindow.Close();
+            
         }
 
         // Metod som tar bort det valda träningspasset
