@@ -30,7 +30,7 @@ namespace FitApp.ViewModel
         private Visibility cardioVisibility;
         public Visibility CardioVisibility
         {
-            get => cardioVisibility;
+            get { return cardioVisibility; }
             set
             {
                 cardioVisibility = value;
@@ -41,7 +41,7 @@ namespace FitApp.ViewModel
         private Visibility strengthVisibility;
         public Visibility StrengthVisibility
         {
-            get => strengthVisibility;
+            get { return strengthVisibility; }
             set
             {
                 strengthVisibility = value;
@@ -54,7 +54,7 @@ namespace FitApp.ViewModel
 
         public string SelectedWorkout
         {
-            get => selectedWorkout;
+            get { return selectedWorkout; }
             set
             {
                 selectedWorkout = value;
@@ -140,7 +140,9 @@ namespace FitApp.ViewModel
                 OnPropertyChanged(nameof(Sets));
             }
         }
-        public ICommand SaveCommand { get; }
+
+        // Initialisera command
+        public ICommand SaveCommand => new RelayCommand(SaveWorkout);
 
         // Konstruktor - Anropar både WorkoutsWindowViewModel och MainWindowViewModels konstruktorer
         public AddWorkoutWindowViewModel(Window addWorkoutWindow, WorkoutsWindowViewModel workoutsWindow) 
@@ -148,9 +150,6 @@ namespace FitApp.ViewModel
             this.addWorkoutWindow = addWorkoutWindow;
             this.workoutsWindow = workoutsWindow;
             WorkoutTypeComboBox = new ObservableCollection<string> { "Cardio", "Strength" };
-
-            // Initialisera command
-            SaveCommand = new RelayCommand(SaveWorkout);
         } 
 
         // Metod som sparar träningspass förutsatt att varje fält är ifyllt.

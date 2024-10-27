@@ -8,6 +8,7 @@
         Title="MainWindow" Height="480" Width="320">
 
     <Grid>
+        <!--Bakgrund-->
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <GradientStop Color="LightGray" Offset="1"/>
@@ -32,9 +33,11 @@
         <!--Titel-->
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center" 
                     Orientation="Vertical" Grid.ColumnSpan="2">
-            <TextBlock Text="F I T" FontSize="45" FontStyle="Normal" FontFamily="Arial Black" 
+            <TextBlock Text="F I T" FontSize="45" FontStyle="Normal" 
+                       FontFamily="Arial Black" 
                        HorizontalAlignment="Center" Foreground="#FF4C4C4C"/>
-            <TextBlock Text="&#x2AF8;Track" FontSize="30" FontStyle="Normal" FontFamily="Arial" Foreground="DarkOrange"/>
+            <TextBlock Text="&#x2AF8;Track" FontSize="30" FontStyle="Normal" FontFamily="Arial" 
+                       Foreground="DarkOrange"/>
         </StackPanel>
 
         <!--Label Username och Password-->
@@ -68,7 +71,7 @@
 
         <!--Glömt lösenord knapp-->
         <Button Content="Forgot Password?" Width="150" Height="30" 
-         Background="White" Foreground="Blue"
+         Background="White" Foreground="Blue" Margin="0,10"
          BorderThickness="0" Grid.Row="2" Command="{Binding ForgotPasswordCommand}" Grid.ColumnSpan="2" VerticalAlignment="Top">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
@@ -85,8 +88,8 @@
         <!--Skapa konto knapp-->
         <Button Content="No account? Register here" Height="30" 
                 Background="White" Foreground="Blue"
-                BorderBrush="White" Padding="10" 
-                Grid.Row="2" VerticalAlignment="Center" Command="{Binding RegisterCommand}" Margin="66,0,66,0" Grid.ColumnSpan="2">
+                BorderBrush="White" Padding="10"
+                Grid.Row="2" VerticalAlignment="Center" Command="{Binding RegisterCommand}" Margin="66,10,66,0" Grid.ColumnSpan="2">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
                     <Border Background="{TemplateBinding Background}" 
