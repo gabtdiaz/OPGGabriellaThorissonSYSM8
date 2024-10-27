@@ -58,34 +58,23 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <ComboBox Grid.Column="0" 
-                      ItemsSource="{Binding WorkoutTypeComboBox}" 
-                      SelectedItem="{Binding SelectedWorkout.Type}"
-                      IsEnabled="False"
-                      Margin="2"/>
-            <TextBox Grid.Column="1" 
-                     Text="{Binding SelectedWorkout.DateTime}"
-                     IsReadOnly="True"
-                     Margin="2"/>
-            <TextBox Grid.Column="2" 
-                     Text="{Binding SelectedWorkout.Duration}"
-                     IsReadOnly="True"
-                     Margin="2"/>
-            <TextBox Grid.Column="3" 
-                     Text="{Binding SelectedWorkout.CaloriesBurned}"
-                     IsReadOnly="True"
-                     Margin="2"/>
-            <TextBox Grid.Column="4" 
-                     Text="{Binding SelectedWorkout.Notes}"
-                     IsReadOnly="True"
-                     Margin="2"/>
+
+            <ComboBox Grid.Column="0" ItemsSource="{Binding WorkoutTypeComboBox}" 
+                      SelectedItem="{Binding Workout.Type}" 
+                      IsEnabled="{Binding IsEditing}" Margin="2"/>
+            <TextBox Grid.Column="1" Text="{Binding Workout.DateTime}" 
+                     IsEnabled="{Binding IsEditing}" Margin="2"/>
+            <TextBox Grid.Column="2" Text="{Binding Workout.Duration}" 
+                     IsEnabled="{Binding IsEditing}" Margin="2"/>
+            <TextBox Grid.Column="3" Text="{Binding Workout.CaloriesBurned}" 
+                     IsEnabled="{Binding IsEditing}" Margin="2"/>
+            <TextBox Grid.Column="4" Text="{Binding Workout.Notes}" 
+                     IsEnabled="{Binding IsEditing}" Margin="2"/>
         </Grid>
 
         <!-- ListBox -->
-        <ListBox Grid.Row="3" 
-                 ItemsSource="{Binding Workouts}" 
-                 SelectedItem="{Binding SelectedWorkout}"
-                 Margin="20,10">
+        <ListBox Grid.Row="3" ItemsSource="{Binding Workouts}" 
+                 SelectedItem="{Binding SelectedWorkout}" Margin="20,10">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid>

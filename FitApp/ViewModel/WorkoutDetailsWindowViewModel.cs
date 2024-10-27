@@ -14,8 +14,9 @@ namespace FitApp.ViewModel
     public class WorkoutDetailsWindowViewModel : ViewModelBase
     {
         // Egenskaper
-        public Window workoutDetailsWindow;
-        public Workout Workout { get; set; }
+        public Window workoutsWindow { get; set; }
+        public Window workoutDetailsWindow { get; set; }
+        public Workout workout { get; set; }
 
         // Egenskaper som kontrollerar redigeringsläge
         private bool isEditing;
@@ -34,10 +35,11 @@ namespace FitApp.ViewModel
         public ICommand SaveWorkoutCommand { get; }
 
         // Konstruktor
-        public WorkoutDetailsWindowViewModel(Workout selectedWorkout, Window workoutDetailsWindow)
+        public WorkoutDetailsWindowViewModel(Workout workout, Window workoutDetailsWindow, Window workoutsWindow)
         {
-            Workout = selectedWorkout;
+            this.workout = workout;
             this.workoutDetailsWindow = workoutDetailsWindow;
+            this.workoutsWindow = workoutsWindow;   
 
             // Initialisera commands
             EditWorkoutCommand = new RelayCommand(EditWorkout);
@@ -59,10 +61,8 @@ namespace FitApp.ViewModel
             // Stäng WorkoutDetailsWindow och öppna WorkoutsWindow
             IsEditing = false; // Lås fälten igen
 
-            workoutDetailsWindow.Close();
-            WorkoutsWindow workoutsWindow = new WorkoutsWindow();
             workoutsWindow.Show();
-            Application.Current.MainWindow.Close();
+            workoutDetailsWindow.Close();
         }
     }
 }
