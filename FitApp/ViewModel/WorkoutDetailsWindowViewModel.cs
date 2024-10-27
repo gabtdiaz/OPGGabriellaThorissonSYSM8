@@ -47,14 +47,22 @@ namespace FitApp.ViewModel
             IsEditing = false; // Fälten är låsta i början
         }
 
+        // Metod för att redigera valt träningspass
         private void EditWorkout()
         {
             IsEditing = true; // Låser upp fälten för att kunna redigera
         }
 
+        // Metod för att spara redigeringar, samt återgå till WorkoutsWindow
         private void SaveWorkout()
         {
+            // Stäng WorkoutDetailsWindow och öppna WorkoutsWindow
+            IsEditing = false; // Lås fälten igen
 
+            workoutDetailsWindow.Close();
+            WorkoutsWindow workoutsWindow = new WorkoutsWindow();
+            workoutsWindow.Show();
+            Application.Current.MainWindow.Close();
         }
     }
 }
