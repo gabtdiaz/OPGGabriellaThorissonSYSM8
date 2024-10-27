@@ -1,11 +1,13 @@
 ﻿using FitApp.Model;
 using FitApp.MVVM;
+using FitApp.View;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 
 namespace FitApp.ViewModel
 {
@@ -13,25 +15,46 @@ namespace FitApp.ViewModel
     {
         // Egenskaper
         public Window workoutDetailsWindow;
-        public Workout Workout {  get; set; }
+        public Workout Workout { get; set; }
+
+        // Egenskaper som kontrollerar redigeringsläge
+        private bool isEditing;
+        public bool IsEditing
+        {
+            get => isEditing;
+            private set
+            {
+                isEditing = value;
+                OnPropertyChanged(nameof(IsEditing));
+            }
+        }
+
+        // Commands
+        public ICommand EditWorkoutCommand { get; }
+        public ICommand SaveWorkoutCommand { get; }
 
         // Konstruktor
-        public WorkoutDetailsWindowViewModel(Workout Workout, Window workoutDetailsWindow)
+        public WorkoutDetailsWindowViewModel(Workout selectedWorkout, Window workoutDetailsWindow)
         {
-            this.Workout = Workout; 
+            Workout = selectedWorkout;
             this.workoutDetailsWindow = workoutDetailsWindow;
+
+            // Initialisera commands
+            EditWorkoutCommand = new RelayCommand(EditWorkout);
+            SaveWorkoutCommand = new RelayCommand(SaveWorkout);
+
+
+            IsEditing = false; // Fälten är låsta i början
         }
 
-        // Metoder
-        public void EditWorkout() 
+        private void EditWorkout()
         {
-            // listbox med träningar, man ska kunna redigera, lägga till och spara.
+            IsEditing = true; // Låser upp fälten för att kunna redigera
         }
-        public void SaveWorkout() 
+
+        private void SaveWorkout()
         {
-            MainWindow mainWindow = new MainWindow();
-            mainWindow.Show();
-            Application.Current.MainWindow.Close();
+
         }
     }
 }
