@@ -23,7 +23,7 @@ namespace FitApp.ViewModel
 
        
         public Window workoutsWindow;
-        private Window workoutDetailsWindow;
+        public Window workoutDetailsWindow;
         public UserManager userManager;
         public ObservableCollection<Workout> Workouts { get; set; }
         
@@ -124,17 +124,13 @@ namespace FitApp.ViewModel
         // Metod som öppnar WorkoutDetailsWindow visar ytterligare träningsdetajler
         public void WorkoutDetails(Workout workout) 
         {
-            MessageBox.Show("Clicked");
-            if (SelectedWorkout != null)
-            {
-                WorkoutDetailsWindow workoutDetailsWindow = new WorkoutDetailsWindow(workout, workoutsWindow); 
-                workoutDetailsWindow.Show();
-                workoutsWindow.Close();
-            }
-            else
-            {
-                MessageBox.Show("Choose a Workout to see details","Error",MessageBoxButton.OK);
-            }
+        
+            // Skapa och visa WorkoutDetailsWindow och spara referensen i workoutDetailsWindow
+            workoutDetailsWindow = new WorkoutDetailsWindow(workout, this);
+            workoutDetailsWindow.Show();
+            
+            workoutsWindow.Close();
+            
         }
 
         // Metod som "nollställer" CurrentUser och navigerar till HomePage

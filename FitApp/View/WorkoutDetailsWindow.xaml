@@ -34,7 +34,7 @@
         </StackPanel>
 
         <!-- Headers -->
-        <Grid Grid.Row="1" Background="LightGray" Margin="20,10">
+        <Grid Grid.Row="1" Background="LightGray" Margin="20,5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -50,7 +50,7 @@
         </Grid>
 
         <!-- Input Fields -->
-        <Grid Grid.Row="2" Margin="20,10">
+        <Grid Grid.Row="2" Margin="20,0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
@@ -67,6 +67,12 @@
             <TextBox Grid.Column="2" Text="{Binding Workout.Duration}" 
                      IsEnabled="{Binding IsEditing}" Margin="2"/>
             <TextBox Grid.Column="3" Text="{Binding Workout.CaloriesBurned}" 
+                     IsEnabled="{Binding IsEditing}" Margin="2"/>
+            <TextBox Grid.Column="3" Text="{Binding Workout.Distance}" 
+                     IsEnabled="{Binding IsEditing}" Margin="2"/>
+            <TextBox Grid.Column="3" Text="{Binding Workout.Repetitions}" 
+                     IsEnabled="{Binding IsEditing}" Margin="2"/>
+            <TextBox Grid.Column="3" Text="{Binding Workout.Sets}" 
                      IsEnabled="{Binding IsEditing}" Margin="2"/>
             <TextBox Grid.Column="4" Text="{Binding Workout.Notes}" 
                      IsEnabled="{Binding IsEditing}" Margin="2"/>
@@ -89,6 +95,9 @@
                         <TextBlock Text="{Binding DateTime}" Grid.Column="1" Padding="5"/>
                         <TextBlock Text="{Binding Duration}" Grid.Column="2" Padding="5"/>
                         <TextBlock Text="{Binding CaloriesBurned}" Grid.Column="3" Padding="5"/>
+                        <TextBlock Text="{Binding Distance}" Grid.Column="4" Padding="5"/>
+                        <TextBlock Text="{Binding Sets}" Grid.Column="4" Padding="5"/>
+                        <TextBlock Text="{Binding Repetitions}" Grid.Column="4" Padding="5"/>
                         <TextBlock Text="{Binding Notes}" Grid.Column="4" Padding="5"/>
                     </Grid>
                 </DataTemplate>
@@ -98,7 +107,7 @@
         <!-- Buttons -->
         <StackPanel Grid.Row="4" Orientation="Horizontal" 
                     HorizontalAlignment="Center" Margin="0,10,0,20">
-            <Button Content="Edit" Command="{Binding EditWorkout}" 
+            <Button Content="Edit" Command="{Binding EditWorkoutCommand}" 
                     Width="80" Height="25" Margin="0,0,20,0"
                     Foreground="AliceBlue" Background="Crimson"
                     BorderBrush="Red" BorderThickness="2">
@@ -114,8 +123,8 @@
                     </ControlTemplate>
                 </Button.Template>
             </Button>
-            <Button Content="Save" Command="{Binding SaveWorkout}" 
-                    Width="80" Height="25"
+            <Button Content="Save" Command="{Binding SaveWorkoutCommand}" 
+                    Width="80" Height="25" Margin="0,0,20,0"
                     Foreground="AliceBlue" Background="Crimson"
                     BorderBrush="Red" BorderThickness="2">
                 <Button.Template>
@@ -130,6 +139,23 @@
                     </ControlTemplate>
                 </Button.Template>
             </Button>
+            <Button Content="Candel" Command="{Binding CancelCommand}" 
+                    Width="80" Height="25"
+                    Foreground="AliceBlue" Background="Crimson"
+                BorderBrush="Red" BorderThickness="2">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" 
+                    BorderBrush="{TemplateBinding BorderBrush}" 
+                    BorderThickness="{TemplateBinding BorderThickness}" 
+                    CornerRadius="10">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                VerticalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+
         </StackPanel>
     </Grid>
 </Window>

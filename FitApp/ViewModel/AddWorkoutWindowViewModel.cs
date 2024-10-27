@@ -16,11 +16,11 @@ namespace FitApp.ViewModel
     public class AddWorkoutWindowViewModel : ViewModelBase
     {
         // Egenskaper
-        private WorkoutsWindowViewModel workoutsWindow; // Använd WorkoutsWindowViewModel
         public Window addWorkoutWindow;
-
         public ObservableCollection<string> WorkoutTypeComboBox { get; set; }
 
+        // Egenskap för att få tillgång till Workouts från WorkoutsWindowViewModel
+        private WorkoutsWindowViewModel workoutsWindow;
         public ObservableCollection<Workout> Workouts
         {
             get => workoutsWindow.Workouts;
@@ -145,9 +145,11 @@ namespace FitApp.ViewModel
         // Konstruktor - Anropar både WorkoutsWindowViewModel och MainWindowViewModels konstruktorer
         public AddWorkoutWindowViewModel(Window addWorkoutWindow, WorkoutsWindowViewModel workoutsWindow) 
         {
+            this.addWorkoutWindow = addWorkoutWindow;
             this.workoutsWindow = workoutsWindow;
             WorkoutTypeComboBox = new ObservableCollection<string> { "Cardio", "Strength" };
-            this.addWorkoutWindow = addWorkoutWindow;
+
+            // Initialisera command
             SaveCommand = new RelayCommand(SaveWorkout);
         } 
 
