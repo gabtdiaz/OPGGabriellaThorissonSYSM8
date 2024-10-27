@@ -10,16 +10,17 @@ namespace FitApp.Model
     {
         // Egenskaper
         public DateTime DateTime {  get; set; } = DateTime.Now;
-        public string Type { get; set; }
-        public TimeSpan Duration { get; set; }
-        public int CaloriesBurned { get; set; }
-        public string Notes {  get; set; }
+        public string Type { get; set; } = string.Empty;
+        public TimeSpan Duration { get; set; } = TimeSpan.Zero;
+        public int CaloriesBurned { get; set; } = 0;
+        public string Notes {  get; set; } = string.Empty;
 
-        public int Distance { get; set; }
-        public int Repetitions { get; set; }
-        public int Sets { get; set; }
+        public int Distance { get; set; } = 0;
+        public int Repetitions { get; set; } = 0;
+        public int Sets { get; set; } = 0;
 
-        // Konstruktor
+        // Konstruktor    
+        public Workout() { }    
 
         // Metod
         public virtual int CalculateCaloriesBurned()

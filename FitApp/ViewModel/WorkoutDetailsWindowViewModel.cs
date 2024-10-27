@@ -15,12 +15,14 @@ namespace FitApp.ViewModel
 {
     public class WorkoutDetailsWindowViewModel : ViewModelBase
     {
-        // Referenser
+        //  Referenser
         private readonly Window workoutDetailsWindow;
         private readonly WorkoutsWindowViewModel workoutsWindow;
 
         // Ursprungligt workout-objekt
         private readonly Workout originalWorkout;
+        public ObservableCollection<Workout> Workouts => workoutsWindow.Workouts;
+        public ObservableCollection<string> WorkoutTypeComboBox { get; set; }
 
         // Binding egenskaper för UI
         public string WorkoutType { get; private set; }
@@ -64,7 +66,7 @@ namespace FitApp.ViewModel
 
         // Kommandon
         public ICommand EditWorkoutCommand => new RelayCommand(EditWorkout);
-        public ICommand SaveWorkoutCommand => new RelayCommand(SaveWorkout)
+        public ICommand SaveWorkoutCommand => new RelayCommand(SaveWorkout);
 
         // Konstruktor
         public WorkoutDetailsWindowViewModel(Workout workout, Window workoutDetailsWindow, WorkoutsWindowViewModel workoutsWindow)
@@ -72,9 +74,12 @@ namespace FitApp.ViewModel
             originalWorkout = workout;
             this.workoutDetailsWindow = workoutDetailsWindow;
             this.workoutsWindow = workoutsWindow;
-            SelectedWorkout = workout; // Sätter valt träningspass
 
+            SelectedWorkout = workout; // Sätter valt träningspass
             IsEditing = false; // Redigeringsläge avstängt från början
+
+            // Anropa OnPropertyChanged för Workouts för att informera UI
+            OnPropertyChanged(nameof(Workouts));
         }
 
         // Metod för att kopiera träningspasset till bindbara egenskaper
@@ -100,7 +105,11 @@ namespace FitApp.ViewModel
         // Startar redigeringsläge
         private void EditWorkout()
         {
-            IsEditing = true;
+            if (SelectedWorkout != null)
+            {
+                IsEditing = true; // Lås upp fälten för att kunna redigera
+                CopyWorkout();    // Kopiera data till bindbara egenskaper
+            }
         }
 
         // Sparar ändringar och återgår till huvudfönstret
