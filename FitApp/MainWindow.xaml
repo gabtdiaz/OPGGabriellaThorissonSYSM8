@@ -53,20 +53,15 @@
         </StackPanel>
 
         <!--Logga in knapp-->
-        <Button x:Name="btnSignIn" Content="Sign In" Width="100" Height="25" 
-                Background="Crimson" Foreground="AliceBlue" Grid.ColumnSpan="2"
-                BorderBrush="#DC143C" BorderThickness="2" Padding="10" Grid.Row="1" VerticalAlignment="Bottom" 
-                HorizontalAlignment="Center" Command="{Binding SignInCommand}">
-        <Button.Template>
-            <ControlTemplate TargetType="Button">
-                <Border Background="{TemplateBinding Background}" 
-                            BorderBrush="{TemplateBinding BorderBrush}" 
-                            BorderThickness="{TemplateBinding BorderThickness}" 
-                            CornerRadius="10">
-                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                </Border>
-            </ControlTemplate>
-        </Button.Template>
+        <Button Content="Sign In" Command="{Binding SignInCommand}" 
+                Width="110" Height="30" Foreground="AliceBlue" Grid.Row="1"
+                Background="Crimson" BorderBrush="Red" BorderThickness="2"
+                VerticalAlignment="Bottom" HorizontalAlignment="Center" Grid.ColumnSpan="2">
+            <Button.Resources>
+                <Style TargetType="Border">
+                    <Setter Property="CornerRadius" Value="15"/>
+                </Style>
+            </Button.Resources>
         </Button>
 
         <!--Glömt lösenord knapp-->

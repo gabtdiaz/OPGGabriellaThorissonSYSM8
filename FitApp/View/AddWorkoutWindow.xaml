@@ -128,17 +128,14 @@
             </ListBox>
 
             <!--Knapp för att lägga till träningspass-->
-            <Button x:Name="btnSave" Content="Save" Command="{Binding SaveCommand}" Foreground="AliceBlue" 
-                BorderBrush="Red" BorderThickness="2" Grid.Row="2" Padding="10" Background="Crimson" 
-                HorizontalAlignment="Center" VerticalAlignment="Center" Height="25" Width="80">
-                <Button.Template>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" 
-                                BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="10">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Button.Template>
+            <Button Content="Save" Command="{Binding SaveCommand}" 
+                Width="110" Height="30" Margin="0,0,10,0" Background="Crimson" 
+                Foreground="White" BorderThickness="0">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="15"/>
+                    </Style>
+                </Button.Resources>
             </Button>
         </StackPanel>
     </Grid>

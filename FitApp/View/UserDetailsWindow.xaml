@@ -34,24 +34,25 @@
 
         <!-- Titel -->
         <TextBlock Text="My User Information" HorizontalAlignment="Center" 
-               VerticalAlignment="Center" FontSize="26" 
+               VerticalAlignment="Top" FontSize="26" 
                FontWeight="SemiBold" Foreground="#454545" Grid.Row="1" />
 
         <StackPanel Grid.Row="3">
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Background="LightGray" Margin="0,0,0,20">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" 
+                        Margin="0,0,0,10">
                 
              <!-- Username -->
             <StackPanel Margin="0,0,0,15">
                 <Label Content="Username" FontWeight="SemiBold" Foreground="#454545"/>
-                <TextBlock x:Name="txtBoxCurrentUsername" Text="{Binding CurrentUsername}" Height="25" Padding="5" 
-                            Width="100"/>
+                <TextBlock x:Name="txtBoxCurrentUsername" Text="{Binding CurrentUsername}" 
+                           Height="25" Padding="5" Width="100" Background="LightGray"/>
             </StackPanel>
                 
             <!-- Current Password -->
             <StackPanel Margin="0,0,0,15">
                 <Label Content="Password" FontWeight="SemiBold" Foreground="#454545"/>
-                    <TextBlock x:Name="txtBoxCurrentPassword" Text="{Binding CurrentPassword}" Height="25" Padding="5" 
-                             Width="100"/>
+                    <TextBlock x:Name="txtBoxCurrentPassword" Text="{Binding CurrentPassword}" 
+                               Height="25" Padding="5" Width="100" Background="LightGray"/>
             </StackPanel>
 
             <!-- Country -->
@@ -89,22 +90,22 @@
         <!-- Knappar -->
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" 
                 VerticalAlignment="Bottom" Margin="0,0,0,20">
-            <Button Content="Spara" Command="{Binding SaveUserDetailsCommand}" 
-                Width="120" Height="40" Margin="0,0,10,0" Background="Crimson" 
+            <Button Content="Save" Command="{Binding SaveUserDetailsCommand}" 
+                Width="110" Height="30" Margin="0,0,10,0" Background="Crimson" 
                 Foreground="White" BorderThickness="0">
                 <Button.Resources>
                     <Style TargetType="Border">
-                        <Setter Property="CornerRadius" Value="20"/>
+                        <Setter Property="CornerRadius" Value="15"/>
                     </Style>
                 </Button.Resources>
             </Button>
 
-            <Button Content="Avbryt" Command="{Binding CancelCommand}" 
-                Width="120" Height="40" Background="LightGray" 
+            <Button Content="Cancel" Command="{Binding CancelCommand}" 
+                Width="110" Height="30" Background="LightGray" 
                 Foreground="#454545" BorderThickness="1" BorderBrush="#ddd">
                 <Button.Resources>
                     <Style TargetType="Border">
-                        <Setter Property="CornerRadius" Value="20"/>
+                        <Setter Property="CornerRadius" Value="15"/>
                     </Style>
                 </Button.Resources>
             </Button>
