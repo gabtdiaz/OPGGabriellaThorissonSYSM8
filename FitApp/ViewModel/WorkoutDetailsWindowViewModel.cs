@@ -71,7 +71,7 @@ namespace FitApp.ViewModel
         // Konstruktor
         public WorkoutDetailsWindowViewModel(Workout workout, Window workoutDetailsWindow, WorkoutsWindowViewModel workoutsWindow)
         {
-            originalWorkout = workout;
+            this.originalWorkout = workout;
             this.workoutDetailsWindow = workoutDetailsWindow;
             this.workoutsWindow = workoutsWindow;
 
@@ -115,7 +115,23 @@ namespace FitApp.ViewModel
         // Sparar ändringar och återgår till huvudfönstret
         private void SaveWorkout()
         {
-            IsEditing = false;
+            IsEditing = false; // Lås fälten igen
+
+            // Kontrollera om vi redigerar ett befintligt träningspass
+            if (originalWorkout != null)
+            {
+                // Skriv över egenskaperna i det befintliga träningspasset med de nya värdena
+                originalWorkout.Type = WorkoutType;
+                originalWorkout.DateTime = WorkoutDateTime;
+                originalWorkout.Duration = WorkoutDuration;
+                originalWorkout.CaloriesBurned = CaloriesBurned;
+                originalWorkout.Notes = Notes;
+            }
+            else
+            {
+                MessageBox.Show("Skriv in giltiga värden", "Error", MessageBoxButton.OK);
+                return;
+            }
 
             // Öppnar huvudfönstret igen och stänger det aktuella fönstret
             WorkoutsWindow newWorkoutsWindow = new WorkoutsWindow(workoutsWindow.userManager, workoutsWindow);

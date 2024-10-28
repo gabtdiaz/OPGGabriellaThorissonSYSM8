@@ -95,14 +95,20 @@
                 <TextBox x:Name="txtBoxSets" Text="{Binding SelectedWorkout.Sets}" Width="58" IsEnabled="{Binding IsEditing}"/>
             </StackPanel>
         </StackPanel>
-
-        <!-- ListBox för workouts -->
+        
+        <!--Listbox items-->
         <ListBox Grid.Row="4" ItemsSource="{Binding Workouts}" 
          SelectedItem="{Binding SelectedWorkout}" Margin="20,10">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <Grid>
                         <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
@@ -117,15 +123,22 @@
                         <TextBlock Text="{Binding CaloriesBurned}" Grid.Column="3" Padding="5"/>
                         <TextBlock Text="{Binding Notes}" Grid.Column="4" Padding="5"/>
 
-                        <!-- Kontrollera och visa Cardio- eller Strength-egenskaper baserat på typ -->
-                        <TextBlock Text="{Binding Distance}" Grid.Column="4" Padding="5" Visibility="{Binding CardioVisibility}"/>
-                        <TextBlock Text="{Binding Sets}" Grid.Column="4" Padding="5" Visibility="{Binding StrengthVisibility}"/>
-                        <TextBlock Text="{Binding Repetitions}" Grid.Column="4" Padding="5" Visibility="{Binding StrengthVisibility}"/>
+                        <!-- Rubriker och värden för Cardio- och Strength-egenskaper -->
+                        <!-- Cardio: Distance (D:) -->
+                        <TextBlock Text="D:" Grid.Column="5" Padding="5" Visibility="{Binding CardioVisibility}"/>
+                        <TextBlock Text="{Binding Distance}" Grid.Column="6" Padding="5" Visibility="{Binding CardioVisibility}"/>
+
+                        <!-- Strength: Repetitions (R:) och Sets (S:) -->
+                        <TextBlock Text="R:" Grid.Column="7" Padding="5" Visibility="{Binding StrengthVisibility}"/>
+                        <TextBlock Text="{Binding Repetitions}" Grid.Column="8" Padding="5" Visibility="{Binding StrengthVisibility}"/>
+
+                        <TextBlock Text="S:" Grid.Column="9" Padding="5" Visibility="{Binding StrengthVisibility}"/>
+                        <TextBlock Text="{Binding Sets}" Grid.Column="10" Padding="5" Visibility="{Binding StrengthVisibility}"/>
                     </Grid>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-
+        
         <!-- Buttons -->
         <StackPanel Grid.Row="5" Orientation="Horizontal" 
                     HorizontalAlignment="Center">
