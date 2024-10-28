@@ -1,8 +1,10 @@
 ﻿using FitApp.Model;
 using FitApp.MVVM;
 using FitApp.Services;
+using FitApp.View;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,78 +15,164 @@ namespace FitApp.ViewModel
 {
     public class UserDetailsWindowViewModel : ViewModelBase
     {
-        // Referenser
-        public Window userDetailsWindow;
-        public UserManager userManager;
+        // Egenskaper 
 
-        // Egenskaper
-        public List<string> Countries { get; set; }
+        private readonly Window userDetailsWindow;
 
-        public string CountryComboBox { get; set; }
-
-        // Commands
-        public ICommand SaveUserDetailsCommand => new RelayCommand(SaveUserDetails);
-        public ICommand CancelCommand => new RelayCommand(Cancel);
+        // Referenser 
+        private readonly WorkoutsWindowViewModel workoutsWindow;
+        private readonly RegisterWindowViewModel registerWindow;
+        private readonly UserManager userManager;
+        public ObservableCollection<string> CountryComboBox
+        {
+            get { return registerWindow.CountryComboBox; }
+        }
 
         // Egenskaper för användarinmatning
-        private string usernameInput;
-        public string UsernameInput
+
+        private string currentUsername;
+        public string CurrentUsername
         {
-            get => usernameInput;
-            set { usernameInput = value; OnPropertyChanged(); }
+            get { return currentUsername; }
+            set
+            {
+                if (currentUsername != value)
+                {
+                    currentUsername = value;
+                    OnPropertyChanged(nameof(CurrentUsername));
+                }
+            }
         }
 
-        public string passwordInput;
-        public string PasswordInput
+        private string currentPassword;
+        public string CurrentPassword
         {
-            get => passwordInput;
-            set { passwordInput = value; OnPropertyChanged(); }
-        }
-
-        public string confirmPasswordInput;
-        public string ConfirmPasswordInput
-        {
-            get => confirmPasswordInput;
-            set { confirmPasswordInput = value; OnPropertyChanged(); }
+            get { return currentPassword; }
+            set
+            {
+                if (currentPassword != value)
+                {
+                    currentPassword = value;
+                    OnPropertyChanged(nameof(CurrentPassword));
+                }
+            }
         }
 
         private string selectedCountry;
         public string SelectedCountry
         {
-            get => selectedCountry;
-            set { selectedCountry = value; OnPropertyChanged(); }
+            get { return selectedCountry; }
+            set
+            {
+                if (selectedCountry != value)
+                {
+                    selectedCountry = value;
+                    OnPropertyChanged(nameof(SelectedCountry));
+                }
+            }
         }
 
-        // Konstruktor
-        public UserDetailsWindowViewModel(Window userDetailsWindow, UserManager userManager) // vilka egenskaper ska jag skicka med konstruktorn?
+        private string newUsername;
+        public string NewUsername
         {
-            this.userManager = userManager;
+            get { return newUsername; }
+            set
+            {
+                if (newUsername != value)
+                {
+                    newUsername = value;
+                    OnPropertyChanged(nameof(NewUsername));
+                }
+            }
+        }
+
+        private string newPassword;
+        public string NewPassword
+        {
+            get { return newPassword; }
+            set
+            {
+                if (newPassword != value)
+                {
+                    newPassword = value;
+                    OnPropertyChanged(nameof(NewPassword));
+                }
+            }
+        }
+
+        private string confirmPassword;
+        public string ConfirmPassword
+        {
+            get { return confirmPassword; }
+            set
+            {
+                if (confirmPassword != value)
+                {
+                    confirmPassword = value;
+                    OnPropertyChanged(nameof(ConfirmPassword));
+                }
+            }
+        }
+
+        // Commands 
+
+        public ICommand SaveUserDetailsCommand { get; }
+        public ICommand CancelCommand { get; }
+
+        public UserDetailsWindowViewModel(Window userDetailsWindow, UserManager userManager)
+        {
             this.userDetailsWindow = userDetailsWindow;
             this.userManager = userManager;
+
+            // Initiera egenskaperna från userManager
+            currentUsername = userManager.CurrentUser.Username;
+            currentPassword = userManager.CurrentUser.Password;
+            selectedCountry = userManager.CurrentUser.Country;
+
+            SaveUserDetailsCommand = new RelayCommand(SaveUserDetails);
+            CancelCommand = new RelayCommand(Cancel);
         }
 
-        // Metoder
 
-        public void SaveUserDetails() 
+        private void SaveUserDetails()
         {
-            if (PasswordInput == ConfirmPasswordInput)
-            {
-                // Uppdatera nuvarande användarens uppgifter
-                userManager.CurrentUser.Password = PasswordInput;
-                userManager.CurrentUser.Username = UsernameInput;
-                userManager.CurrentUser.Country = CountryComboBox;
 
-                MessageBox.Show("Details updated successfully.");
+            if (newPassword == confirmPassword)
+            {
+
+                // Uppdatera användarens uppgifter
+                if (currentUsername != newUsername)
+                    userManager.CurrentUser.Username = newUsername;
+
+                if (currentPassword != newPassword)
+                    userManager.CurrentUser.Password = newPassword;
+
+                if (selectedCountry != userManager.CurrentUser.Country)
+                    userManager.CurrentUser.Country = selectedCountry;
+
+                // Stäng fönstret
+               // registerWindow.RegisterNewUser(); //behöver jag denna? eller ska jag lägga till i Useramanager istället
+               
             }
             else
             {
-                MessageBox.Show("Passwords do not match.");
+                MessageBox.Show("Something went wrong, please try again", "Error", MessageBoxButton.OK);
             }
+
+
+            WorkoutsWindow workoutsWindow = new WorkoutsWindow(userManager);
+            workoutsWindow.Show();
+            // Stäng fönstret
+            userDetailsWindow.Close();
+
         }
 
-        public void Cancel() 
+        private void Cancel()
         {
-            // Gå tillbaka till WorkoutsWindow?
+            // Stäng fönstret utan att spara ändringar
+            userDetailsWindow.Close();
+
+
         }
     }
 }

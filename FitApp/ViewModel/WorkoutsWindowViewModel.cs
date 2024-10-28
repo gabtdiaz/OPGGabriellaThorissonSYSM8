@@ -20,7 +20,6 @@ namespace FitApp.ViewModel
     public class WorkoutsWindowViewModel : ViewModelBase
     {
         // Egenskaper
-
        
         public Window workoutsWindow;
         public Window workoutDetailsWindow;

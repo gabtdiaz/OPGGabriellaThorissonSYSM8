@@ -62,8 +62,8 @@
 
             <!-- Workout Type (ComboBox) -->
             <ComboBox Grid.Column="0" ItemsSource="{Binding Workouts}" 
-                      SelectedItem="{Binding SelectedWorkoutItem, Mode=TwoWay}"
-              IsEnabled="{Binding IsEditing}" Margin="2"/>
+                      SelectedItem="{Binding SelectedWorkout, Mode=TwoWay}"
+              IsEnabled="{Binding IsEditing}" Margin="2" SelectedIndex="0"/>
 
             <!-- Datum, Tid och Duration -->
             <TextBox Grid.Column="1" Text="{Binding SelectedWorkout.DateTime}" 
