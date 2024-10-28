@@ -13,26 +13,53 @@ namespace FitApp.ViewModel
 {
     public class UserDetailsWindowViewModel : ViewModelBase
     {
-        // Egenskaper
-
+        // Referenser
         public Window userDetailsWindow;
         public UserManager userManager;
-        public string UsernameInput { get; set; }
-        public string PasswordInput { get; set; }
-        public string ConfirmPasswordInput { get; set; }
+
+        // Egenskaper
         public List<string> Countries { get; set; }
+
         public string CountryComboBox { get; set; }
 
-        public ICommand SaveUserDetailsCommand { get; }
-        public ICommand CancelCommand { get; }
+        // Commands
+        public ICommand SaveUserDetailsCommand => new RelayCommand(SaveUserDetails);
+        public ICommand CancelCommand => new RelayCommand(Cancel);
+
+        // Egenskaper för användarinmatning
+        private string usernameInput;
+        public string UsernameInput
+        {
+            get => usernameInput;
+            set { usernameInput = value; OnPropertyChanged(); }
+        }
+
+        public string passwordInput;
+        public string PasswordInput
+        {
+            get => passwordInput;
+            set { passwordInput = value; OnPropertyChanged(); }
+        }
+
+        public string confirmPasswordInput;
+        public string ConfirmPasswordInput
+        {
+            get => confirmPasswordInput;
+            set { confirmPasswordInput = value; OnPropertyChanged(); }
+        }
+
+        private string selectedCountry;
+        public string SelectedCountry
+        {
+            get => selectedCountry;
+            set { selectedCountry = value; OnPropertyChanged(); }
+        }
 
         // Konstruktor
         public UserDetailsWindowViewModel(Window userDetailsWindow, UserManager userManager) // vilka egenskaper ska jag skicka med konstruktorn?
         {
             this.userManager = userManager;
-            userDetailsWindow = userDetailsWindow;
-            SaveUserDetailsCommand = new RelayCommand(SaveUserDetails);
-            CancelCommand = new RelayCommand(Cancel);
+            this.userDetailsWindow = userDetailsWindow;
             this.userManager = userManager;
         }
 

@@ -18,64 +18,96 @@
         </Grid.Background>
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>
-            <RowDefinition Height="100"/>
+            <RowDefinition Height="60"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <!--Logga-->
+
+        <!-- Logga -->
         <StackPanel Width="100" Height="60">
-            <Label Content="F I T" HorizontalAlignment="Center" FontSize="18" VerticalAlignment="Top" FontFamily="Arial Black" FontWeight="Bold" Foreground="#FF5B5B5B"/>
-            <Label Content="&#x2AF8;Track" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Arial" FontSize="13" Foreground="DarkOrange"/>
+            <Label Content="F I T" HorizontalAlignment="Center" 
+                  FontSize="20" VerticalAlignment="Top" FontFamily="Arial Black" 
+                 FontWeight="Bold" Foreground="#454545"/>
+            <Label Content="⫸Track" HorizontalAlignment="Center" 
+               VerticalAlignment="Top" FontFamily="Arial" 
+               FontSize="14" Foreground="#FF8C00"/>
         </StackPanel>
-        <TextBlock Text="Change User Details" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" Grid.Row="1" />
+
+        <!-- Titel -->
+        <TextBlock Text="My User Information" HorizontalAlignment="Center" 
+               VerticalAlignment="Center" FontSize="26" 
+               FontWeight="SemiBold" Foreground="#454545" Grid.Row="1" />
+
+        <StackPanel Grid.Row="3">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Background="LightGray" Margin="0,0,0,20">
+                
+             <!-- Username -->
+            <StackPanel Margin="0,0,0,15">
+                <Label Content="Username" FontWeight="SemiBold" Foreground="#454545"/>
+                <TextBlock x:Name="txtBoxCurrentUsername" Text="{Binding CurrentUsername}" Height="25" Padding="5" 
+                            Width="100"/>
+            </StackPanel>
+                
+            <!-- Current Password -->
+            <StackPanel Margin="0,0,0,15">
+                <Label Content="Password" FontWeight="SemiBold" Foreground="#454545"/>
+                    <TextBlock x:Name="txtBoxCurrentPassword" Text="{Binding CurrentPassword}" Height="25" Padding="5" 
+                             Width="100"/>
+            </StackPanel>
+
+            <!-- Country -->
+            <StackPanel Margin="0,0,0,15">
+                <Label Content="Country" FontWeight="SemiBold" Foreground="#454545" Width="100"/>
+                <ComboBox ItemsSource="{Binding Countries}" SelectedItem="{Binding SelectedCountry}"
+                      Height="25" Padding="5" BorderThickness="1" BorderBrush="#ddd"/>
+            </StackPanel>
+            </StackPanel>
+
+            <!-- New Username -->
+            <StackPanel Margin="0,0,0,15">
+                <Label Content="New Username" FontWeight="SemiBold" Foreground="#454545"/>
+                <TextBox x:Name="txtBoxNewUsername" Height="25" Padding="5"
+                        BorderThickness="1" BorderBrush="#ddd" Text="{Binding NewPassword}"/>
+            </StackPanel>
+            
+            <!-- New Password -->
+            <StackPanel Margin="0,0,0,15">
+                <Label Content="New Password" FontWeight="SemiBold" Foreground="#454545"/>
+                <TextBox x:Name="NewPasswordTextBox" Height="25" Padding="5"
+                            BorderThickness="1" BorderBrush="#ddd" Text="{Binding NewPassword}"/>
+            </StackPanel>
+
+            <!-- Confirm Password -->
+            <StackPanel Margin="0,0,0,15">
+                <Label Content="Confirm New Password" FontWeight="SemiBold" Foreground="#454545"/>
+                <TextBox x:Name="ConfirmPasswordTextBox" Height="25" Padding="5"
+                         BorderThickness="1" BorderBrush="#ddd"/>
+            </StackPanel>
 
 
-        <StackPanel Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Center">
-            <StackPanel Orientation="Horizontal">
-                <Label Content="Username"/>
-                <TextBox Text="{Binding UsernameInput}" HorizontalAlignment="Center" Width="200"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <Label Content="Password "/>
-                <TextBox Text="{Binding PasswordInput}" HorizontalAlignment="Center"  Width="200"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <Label Content="Password "/>
-                <TextBox Text="{Binding ConfirmPasswordInput}" HorizontalAlignment="Center" Width="200"/>
-            </StackPanel>
-            <StackPanel Orientation="Horizontal">
-                <Label Content="Country   "/>
-                <ComboBox ItemsSource="{Binding Countries}" SelectedItem="{Binding CountryComboBox}" HorizontalAlignment="Center" Width="200" />
-            </StackPanel>
         </StackPanel>
-        <Button Content="Save" Command="{Binding SaveUserDetailsCommand}" HorizontalAlignment="Left" 
-                VerticalAlignment="Bottom" Margin="10,0,0,10" Grid.Row="2"
-                Background="Crimson" Foreground="AliceBlue" Grid.ColumnSpan="2"
-            BorderBrush="#DC143C" BorderThickness="2" Padding="10" Width="80">
-            <Button.Template>
-                <ControlTemplate TargetType="Button">
-                    <Border Background="{TemplateBinding Background}" 
-                    BorderBrush="{TemplateBinding BorderBrush}" 
-                    BorderThickness="{TemplateBinding BorderThickness}" 
-                    CornerRadius="10">
-                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    </Border>
-                </ControlTemplate>
-            </Button.Template>
-        </Button>
-        <Button Content="Cancel" Command="{Binding CancelCommand}" HorizontalAlignment="Right" 
-            VerticalAlignment="Bottom" Margin="0,0,10,10" Grid.Row="2" Background="Crimson" 
-                Foreground="AliceBlue" Grid.ColumnSpan="2" BorderBrush="#DC143C" 
-                BorderThickness="2" Padding="10" Width="80">
-            <Button.Template>
-                <ControlTemplate TargetType="Button">
-                    <Border Background="{TemplateBinding Background}" 
-                        BorderBrush="{TemplateBinding BorderBrush}" 
-                        BorderThickness="{TemplateBinding BorderThickness}" 
-                        CornerRadius="10">
-                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    </Border>
-                </ControlTemplate>
-            </Button.Template>
-        </Button>
+
+        <!-- Knappar -->
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" 
+                VerticalAlignment="Bottom" Margin="0,0,0,20">
+            <Button Content="Spara" Command="{Binding SaveUserDetailsCommand}" 
+                Width="120" Height="40" Margin="0,0,10,0" Background="Crimson" 
+                Foreground="White" BorderThickness="0">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="20"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+
+            <Button Content="Avbryt" Command="{Binding CancelCommand}" 
+                Width="120" Height="40" Background="LightGray" 
+                Foreground="#454545" BorderThickness="1" BorderBrush="#ddd">
+                <Button.Resources>
+                    <Style TargetType="Border">
+                        <Setter Property="CornerRadius" Value="20"/>
+                    </Style>
+                </Button.Resources>
+            </Button>
+        </StackPanel>
     </Grid>
 </Window>
