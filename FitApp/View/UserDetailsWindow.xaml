@@ -28,20 +28,20 @@
                   FontSize="20" VerticalAlignment="Top" FontFamily="Arial Black" 
                  FontWeight="Bold" Foreground="#454545"/>
             <Label Content="⫸Track" HorizontalAlignment="Center" 
-               VerticalAlignment="Top" FontFamily="Arial" 
-               FontSize="14" Foreground="#FF8C00"/>
+                   VerticalAlignment="Top" FontFamily="Arial" 
+                    FontSize="14" Foreground="#FF8C00"/>
         </StackPanel>
 
         <!-- Titel -->
         <TextBlock Text="My User Information" HorizontalAlignment="Center" 
-               VerticalAlignment="Top" FontSize="26" 
-               FontWeight="SemiBold" Foreground="#454545" Grid.Row="1" />
+                   VerticalAlignment="Top" FontSize="26" 
+                   FontWeight="SemiBold" Foreground="#454545" Grid.Row="1" />
 
         <StackPanel Grid.Row="3">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" 
                         Margin="0,0,0,10">
                 
-             <!-- Username -->
+            <!-- Username -->
             <StackPanel Margin="0,0,0,15">
                 <Label Content="Username" FontWeight="SemiBold" Foreground="#454545"/>
                 <TextBlock x:Name="txtBoxCurrentUsername" Text="{Binding CurrentUsername}" 
@@ -52,7 +52,7 @@
             <StackPanel Margin="0,0,0,15">
                 <Label Content="Password" FontWeight="SemiBold" Foreground="#454545"/>
                     <TextBlock x:Name="txtBoxCurrentPassword" Text="{Binding CurrentPassword}" 
-                               Height="25" Padding="5" Width="100" Background="LightGray"/>
+                           Height="25" Padding="5" Width="100" Background="LightGray"/>
             </StackPanel>
 
             <!-- Country -->
@@ -69,22 +69,20 @@
                 <TextBox x:Name="txtBoxNewUsername" Height="25" Padding="5"
                         BorderThickness="1" BorderBrush="#ddd" Text="{Binding NewPassword}"/>
             </StackPanel>
-            
+        
             <!-- New Password -->
             <StackPanel Margin="0,0,0,15">
                 <Label Content="New Password" FontWeight="SemiBold" Foreground="#454545"/>
                 <TextBox x:Name="NewPasswordTextBox" Height="25" Padding="5"
-                            BorderThickness="1" BorderBrush="#ddd" Text="{Binding NewPassword}"/>
+                         BorderThickness="1" BorderBrush="#ddd" Text="{Binding NewPassword}"/>
             </StackPanel>
 
             <!-- Confirm Password -->
             <StackPanel Margin="0,0,0,15">
                 <Label Content="Confirm New Password" FontWeight="SemiBold" Foreground="#454545"/>
                 <TextBox x:Name="ConfirmPasswordTextBox" Height="25" Padding="5"
-                         BorderThickness="1" BorderBrush="#ddd"/>
+                            BorderThickness="1" BorderBrush="#ddd"/>
             </StackPanel>
-
-
         </StackPanel>
 
         <!-- Knappar -->
