@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -19,7 +20,7 @@ namespace FitApp.Services
 
 
         private User currentUser; // Hanterar inloggade användare
-        public User CurrentUser
+        public User? CurrentUser
         {
             get { return currentUser; }
             set
@@ -27,7 +28,6 @@ namespace FitApp.Services
                 currentUser = value;
                 OnPropertyChanged(nameof(CurrentUser)); // Detta meddelar att CurrentUser har ändrats
                 OnPropertyChanged(nameof(CurrentUserName)); // Meddelar att CurrentUserName har ändrats
-
             }
         }
 
@@ -87,20 +87,27 @@ namespace FitApp.Services
 
 
         // Metod för att matcha användare från listan, och sätta den som CurrentUser
-        public User FindUser(string username, string password = null)
+        public User FindUser(string username, string? password = null)
         {
-            foreach (User user in Users)
+            try
             {
-                if (user.Username == username)
+                foreach (User user in Users)
                 {
-                    // Om password är null, returnera användaren utan att kolla lösenordet
-                    if (password == null || user.Password == password)
+                    if (user.Username == username)
                     {
-                        return user; // Returnerar användaren om användarnamnet matchar
+                        // Om password är null, returnera användaren utan att kolla lösenordet
+                        if (password == null || user.Password == password)
+                        {
+                            return user; // Returnerar användaren om användarnamnet matchar
+                        }
                     }
                 }
             }
-            return null; // Om ingen matchning finns
+            catch (Exception ex) 
+            {
+                MessageBox.Show($"Error finding user: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            return null;//Om ingen matchning finns;
         }
 
         // Metod för att återställa lösenordet.
@@ -108,7 +115,7 @@ namespace FitApp.Services
         {
             // Hitta användaren baserat på användarnamn
             //User user = null; // Skapa en variabel med ev. tillfälligt värde
-            User user = Users.FirstOrDefault(u => u.Username == username && u.SecurityAnswer == securityAnswer);
+            User? user = Users.FirstOrDefault(u => u.Username == username && u.SecurityAnswer == securityAnswer);
 
             foreach (User u in Users) // Iterera över alla användare i listan Users
             {

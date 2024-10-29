@@ -57,7 +57,7 @@ namespace FitApp.ViewModel
         }
 
         private string passwordInput;
-        
+
 
         public string PasswordInput
         {
@@ -70,7 +70,7 @@ namespace FitApp.ViewModel
         }
 
         // Command för att skapa ny användare
-        public ICommand RegisterNewUserCommand {  get; set; }
+        public ICommand RegisterNewUserCommand { get; set; }
 
         // Konstruktor
         public RegisterWindowViewModel(Window registerWindow, UserManager userManager)
@@ -86,40 +86,59 @@ namespace FitApp.ViewModel
         // Metod för att lägga till nya användare.
         public void RegisterNewUser()
         {
-            if (string.IsNullOrWhiteSpace(UsernameInput) || string.IsNullOrWhiteSpace(PasswordInput) || // Kontrollerar ifall textboxarna är tomma
-            string.IsNullOrWhiteSpace(ConfirmPasswordInput) || SelectedCountry == null)
+            try
             {
-                MessageBox.Show("Please enter all the information correctly.","Error", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
-            // Kontrollera om användarnamnet redan existerar
-            if (userManager.FindUser(UsernameInput, null) != null) // null för lösenord, vi bryr oss bara om användarnamnet här
-            {
-                MessageBox.Show("The username is already taken. Please choose another username.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
-            // Kontrollera att lösenorden matchar
-            if (PasswordInput != ConfirmPasswordInput)
-            {
-                MessageBox.Show("Passwords do not match.");
-                return;
-            }
-            // Kontrollera att lösenordet uppfyller kraven
-            if (PasswordInput.Length < 8 || !PasswordInput.Any(char.IsDigit) || !PasswordInput.Any(char.IsPunctuation))
-            {
-                MessageBox.Show("Password must follow these requirements: \n - Minimum of 8 characters \n - At least one digit \n - At least one special character", "Felmeddelande", MessageBoxButton.OK, MessageBoxImage.Information);
-                return;
-            }
-            // Skapa ny användare - Sätt till CurrentUser
-            User newUser = new User { Country = SelectedCountry, Username = UsernameInput, Password = PasswordInput };
-            userManager.Users.Add(newUser); 
-            userManager.CurrentUser = newUser;
 
-            MessageBox.Show("Account created successfully. Logging in..", "Success");
+                if (string.IsNullOrWhiteSpace(UsernameInput) || string.IsNullOrWhiteSpace(PasswordInput) || // Kontrollerar ifall textboxarna är tomma
+                string.IsNullOrWhiteSpace(ConfirmPasswordInput) || SelectedCountry == null)
+                {
+                    MessageBox.Show("Please enter all the information correctly.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+                // Kontrollera om användarnamnet redan existerar
+                if (userManager.FindUser(UsernameInput, null) != null) // null för lösenord, vi bryr oss bara om användarnamnet här
+                {
+                    MessageBox.Show("The username is already taken. Please choose another username.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return;
+                }
+                // Kontrollera att lösenorden matchar
+                if (PasswordInput != ConfirmPasswordInput)
+                {
+                    MessageBox.Show("Passwords do not match.");
+                    return;
+                }
+                // Kontrollera att lösenordet uppfyller kraven
+                if (PasswordInput.Length < 8 || !PasswordInput.Any(char.IsDigit) || !PasswordInput.Any(char.IsPunctuation))
+                {
+                    MessageBox.Show("Password must follow these requirements: \n - Minimum of 8 characters " +
+                        "\n - At least one digit \n - At least one special character", "Felmeddelande", MessageBoxButton.OK, MessageBoxImage.Information);
+                    return;
+                }
+                // Skapa ny användare - Sätt till CurrentUser
+                User newUser = new User { Country = SelectedCountry, Username = UsernameInput, Password = PasswordInput };
+                userManager.Users.Add(newUser);
+                userManager.CurrentUser = newUser;
 
-            WorkoutsWindow workoutsWindow = new WorkoutsWindow(userManager); 
-            workoutsWindow.Show();
-            registerWindow.Close();
+                MessageBox.Show("Account created successfully. Logging in..", "Success");
+
+                WorkoutsWindow workoutsWindow = new WorkoutsWindow(userManager);
+                workoutsWindow.Show();
+                registerWindow.Close();
             }
+
+            catch (ArgumentException ex)
+            {
+                MessageBox.Show($"Invalid input: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (InvalidOperationException ex)
+            {
+                MessageBox.Show($"Operation error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"An unexpected error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+
         }
     }
+}

@@ -36,6 +36,7 @@ namespace FitApp.ViewModel
         public ICommand RemoveWorkoutCommand { get; }
         public ICommand SignOutCommand { get; }
         public ICommand WorkoutDetailsCommand { get; }
+        public ICommand InfoCommand { get; }
 
         public ICollectionView FilteredWorkouts { get; private set; }
         public ICommand FilterCommand { get; }
@@ -92,30 +93,37 @@ namespace FitApp.ViewModel
 
         // Initiera Workouts 
         Workouts = new ObservableCollection<Workout>();
-    
-        // Hämta träningspass baserat på om användaren är admin eller ej
-        if (userManager.IsCurrentUserAdmin)
-        {
-            foreach (User user in userManager.Users)
+
+        try
+        { 
+            // Hämta träningspass baserat på om användaren är admin eller ej
+            if (userManager.IsCurrentUserAdmin)
             {
-                foreach (Workout workout in user.Workouts)
+                foreach (User user in userManager.Users)
                 {
-                // Lägg till användarnamn i anteckningarna för admin
-                Workout workoutCopy = workout;
-                workoutCopy.Notes += $"(User: {user.Username})";
-                Workouts.Add(workoutCopy);
+                    foreach (Workout workout in user.Workouts)
+                    {
+                        // Lägg till användarnamn i anteckningarna för admin
+                        Workout workoutCopy = workout;
+                        workoutCopy.Notes += $"(User: {user.Username})";
+                        Workouts.Add(workoutCopy);
+                    }
+                }
+            }
+            else
+            {
+                // visar vanliga användares träningspass
+                foreach (Workout? workout in userManager.CurrentUser.Workouts)
+                {
+                    Workouts.Add(workout);
                 }
             }
         }
-        else
+        catch (Exception ex)
         {
-            // visar vanliga användares träningspass
-            foreach (Workout workout in userManager.CurrentUser.Workouts)
-            {
-                Workouts.Add(workout);
-            }
+            MessageBox.Show($"Failed to load workouts: {ex.Message}", 
+                "Error", MessageBoxButton.OK, MessageBoxImage.Error);         
         }
-
         // Initiera FilteredWorkouts
         FilteredWorkouts = CollectionViewSource.GetDefaultView(Workouts);
         FilteredWorkouts.Filter = FilterWorkouts;
@@ -126,10 +134,12 @@ namespace FitApp.ViewModel
         UserDetailsCommand = new RelayCommand(UserDetails);
         WorkoutDetailsCommand = new RelayCommand(() => WorkoutDetails(SelectedWorkout));
         SignOutCommand = new RelayCommand(SignOut);
+        InfoCommand = new RelayCommand(Info);
         FilterCommand = new RelayCommand(ApplyFilter);
         ClearFilterCommand = new RelayCommand(ClearFilter);
         }
-        public WorkoutsWindowViewModel() {}
+
+        //public WorkoutsWindowViewModel() {}
 
 
         // Metod som öppnar AddWorkoutWindow
@@ -140,7 +150,7 @@ namespace FitApp.ViewModel
             workoutsWindow.Close();
         }
 
-        // Metod som tar bort det valda träningspasset
+        // Metod som tar bort valt träningspass
         public void RemoveWorkout()
         {
             if (SelectedWorkout != null)
@@ -149,64 +159,65 @@ namespace FitApp.ViewModel
             }
             else
             {
-                MessageBox.Show("You must choose a workout to remove.", "Error", MessageBoxButton.OK);
+                MessageBox.Show("You must choose a workout to remove.", "Error",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
             }
-
         }
-        // Metod som öppnar UserDetailsWindow och visar användarens uppgifter
-        public void UserDetails () 
+
+        // Metod som öppnar användardetaljer
+        public void UserDetails()
         {
             UserDetailsWindow userDetailsWindow = new UserDetailsWindow(userManager, registerWindow);
             userDetailsWindow.Show();
             workoutsWindow.Close();
         }
 
-        // Metod som öppnar WorkoutDetailsWindow visar ytterligare träningsdetajler
-        public void WorkoutDetails(Workout workout) 
+        // Metod som öppnar träningsdetaljer
+        public void WorkoutDetails(Workout workout)
         {
-        
-            // Skapa och visa WorkoutDetailsWindow och spara referensen i workoutDetailsWindow
             workoutDetailsWindow = new WorkoutDetailsWindow(workout, this);
             workoutDetailsWindow.Show();
-            
-            workoutsWindow.Close();
-            
+            workoutsWindow?.Close();
         }
 
-        // Metod som "nollställer" CurrentUser och navigerar till HomePage
+        // Metod för utloggning
         public void SignOut()
         {
-            userManager.SignOut();  // Nollställer CurrentUser
-
-            
-            MainWindow mainWindow = new MainWindow(userManager); // öppnar MainWindow
+            userManager.SignOut();
+            MainWindow mainWindow = new MainWindow(userManager);
             Application.Current.MainWindow = mainWindow;
             mainWindow.Show();
             workoutsWindow.Close();
         }
+
+        // Metod för filtrering av träningspass
         private bool FilterWorkouts(object obj)
         {
-            if (obj is not Workout workout) return false;
+            try
+            {
+                if (obj is not Workout workout) return false;
 
-            // Filtrera på datum
-            if (FilterDate.HasValue && workout.DateTime.Date != FilterDate.Value.Date) return false;
+                if (FilterDate.HasValue && workout.DateTime.Date != FilterDate.Value.Date) return false;
+                if (!string.IsNullOrEmpty(FilterType) && !workout.Type.Equals(FilterType, StringComparison.OrdinalIgnoreCase)) return false;
+                if (FilterDuration.HasValue && workout.Duration < FilterDuration.Value) return false;
 
-            // Filtrera på typ
-            if (!string.IsNullOrEmpty(FilterType) && !workout.Type.Equals(FilterType, StringComparison.OrdinalIgnoreCase)) return false;
-
-            // Filtrera på varaktighet
-            if (FilterDuration.HasValue && workout.Duration < FilterDuration.Value) return false;
-
-            return true;
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Filter operation failed: {ex.Message}", "Error",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+                return false;
+            }
         }
 
-        // Använder filter baserat på användarinmatning
+        // Metod som använder filter
         private void ApplyFilter()
         {
             FilteredWorkouts.Refresh();
         }
 
-        // Rensar filter
+        // Metod som rensar filter
         private void ClearFilter()
         {
             FilterDate = null;
@@ -215,5 +226,15 @@ namespace FitApp.ViewModel
             FilteredWorkouts.Refresh();
         }
 
+        // Metod som visar hjälpinformation
+        public void Info()
+        {
+            MessageBox.Show("Welcome to the FitTack!\n\n" +
+                "- Use the 'User' button to access your profile.\n" +
+                "- Click '+ Add Workout' to add a new workout.\n" +
+                "- Use the 'Remove' button to delete a workout.\n" +
+                "- To view workout details click 'Details'.",
+                "App Instructions", MessageBoxButton.OK, MessageBoxImage.Information);
+        }
     }
 }

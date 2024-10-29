@@ -28,7 +28,26 @@
 
         <!-- Sektion med Userknapp, logga och lägg till träning-knapp -->
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="300" Height="60" Grid.Row="0">
-            <Button x:Name="btnUser" Content="{Binding CurrentUserName}" Width="93" Height="30" Margin="5"
+            <Button Content="?" Width="25" Height="25" Margin="5,0,0,0"
+            Background="DarkOrange" Foreground="White" 
+            Command="{Binding InfoCommand}">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" CornerRadius="15">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="DarKOrange"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#FFFFD19A"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button x:Name="btnUser" Content="{Binding CurrentUserName}" Width="60" Height="30" Margin="5"
                     Background="Crimson" Foreground="White"
                     Command="{Binding UserDetailsCommand}">
                 <Button.Template>
@@ -78,6 +97,8 @@
                 </Button.Template>
             </Button>
         </StackPanel>
+        
+        
 
         <!-- Träningspass-listbox-->
         <Border Grid.Row="2" Background="#10000000" Margin="10,5" CornerRadius="10">
