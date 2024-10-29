@@ -28,8 +28,7 @@ namespace FitApp.Services
 
             }
         }
-        public string CurrentUserName => CurrentUser?.Username ?? "No User";
-
+        
         public UserManager()
         {
             // Lägger till användare direkt i listan.
@@ -38,7 +37,7 @@ namespace FitApp.Services
                 new User { Username = "admin", Password = "abcd", Country = "Sweden" },
                 new User { Username = "gabriella", Password = "abc123", Country = "Finland" }
             };
-        }
+    }
 
 
         // Metod för att matcha användare från listan, och sätta den som CurrentUser
@@ -62,7 +61,8 @@ namespace FitApp.Services
         public bool ResetPassword(string username, string newPassword, string securityAnswer)
         {
             // Hitta användaren baserat på användarnamn
-            User user = null; // Skapa en variabel med ev. tillfälligt värde
+            //User user = null; // Skapa en variabel med ev. tillfälligt värde
+            User user = Users.FirstOrDefault(u => u.Username == username && u.SecurityAnswer == securityAnswer);
 
             foreach (User u in Users) // Iterera över alla användare i listan Users
             {
@@ -78,13 +78,14 @@ namespace FitApp.Services
                 // Kontrollera om säkerhetssvaret matchar 
                 if (user.SecurityAnswer.ToLower() == securityAnswer.ToLower())
                 {
-                    user.Password = newPassword; // Uppdatera lösenord
-                    return true; // Lösenord återställt
-                    MessageBox.Show("Password was reset successfully.");
+                    user.Password = newPassword;  // Återställ lösenordet
+                    CurrentUser = user;           // Sätt CurrentUser till den funna användaren
+                    return true;
                 }
             }
-                return true; // Om säkerhetssvaret var fel eller användaren inte hittades
+                return false; // Om säkerhetssvaret var fel eller användaren inte hittades
         }
+        public string CurrentUserName => CurrentUser?.Username ?? "No User";
 
         // Metod för att logga ut
         public void SignOut()

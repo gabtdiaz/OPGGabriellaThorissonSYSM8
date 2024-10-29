@@ -69,10 +69,14 @@ namespace FitApp.ViewModel
             if (user != null)
             {
                 Start2FA();
-                userManager.CurrentUser = user; // Sätter användaren som inloggad i UserManager
-                WorkoutsWindow workoutsWindow = new WorkoutsWindow(userManager);
-                workoutsWindow.Show();
-                Application.Current.MainWindow.Close();
+                if (validation)
+                {
+                    userManager.CurrentUser = user; // Sätter användaren som inloggad i UserManager
+
+                    WorkoutsWindow workoutsWindow = new WorkoutsWindow(userManager);
+                    workoutsWindow.Show();
+                    Application.Current.MainWindow.Close();
+                }
             }
             else
             {
@@ -124,6 +128,7 @@ namespace FitApp.ViewModel
         }
 
         // Metod som ber användaren om inmatning av kod
+        bool validation = false;
         private void AskForCodeInput()
         {
             // Inmatningsdialog för verifieringskoden
@@ -134,10 +139,12 @@ namespace FitApp.ViewModel
             if (userInput == verifyCode)
             {
                 MessageBox.Show("Login Successful!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                validation = true;
             }
             else
             {
                 MessageBox.Show("Wrong code, try again.", "Login failed", MessageBoxButton.OK, MessageBoxImage.Error);
+                validation = false;
             }
         }
     }

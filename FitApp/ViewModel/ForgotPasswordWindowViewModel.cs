@@ -59,18 +59,6 @@ namespace FitApp.ViewModel
             }
         }
 
-        //private string securityQuestion;
-
-        //public string SecurityQuestion
-        //{
-        //    get { return securityQuestion; }
-        //    set 
-        //    { 
-        //        securityQuestion = value; 
-        //        OnPropertyChanged(SecurityQuestion);
-        //    }
-        //}
-
 
         private string securityAnswer;
 
@@ -85,7 +73,7 @@ namespace FitApp.ViewModel
         }
 
         // Konstruktor
-        public ForgotPasswordWindowViewModel(Window forgotPasswordWindow, UserManager userManager) // ändra från UserManager till Window
+        public ForgotPasswordWindowViewModel(Window forgotPasswordWindow, UserManager userManager)
         {
             this.userManager = userManager;
             this.forgotPasswordWindow = forgotPasswordWindow;
@@ -100,13 +88,13 @@ namespace FitApp.ViewModel
             // Kontrollera om lösenorden matchar
             if (NewPassword != ConfirmPassword)
             {
-                MessageBox.Show("Passwords do not match","Error",MessageBoxButton.OK);
+                MessageBox.Show("Passwords do not match","Error",MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
         
             if (NewPassword.Length < 8 || !NewPassword.Any(char.IsDigit) || !NewPassword.Any(char.IsPunctuation))
             {
-                MessageBox.Show("Password must follow these requirements: \n - Minimun of 8 characters \n - At least one digit \n - At least one special character", "Error", MessageBoxButton.OK);
+                MessageBox.Show("Password must follow these requirements: \n - Minimun of 8 characters \n - At least one digit \n - At least one special character", "Error", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
             // Försök att återställa lösenordet via UserManager
@@ -114,14 +102,14 @@ namespace FitApp.ViewModel
 
             if (success)
             {
-                MessageBox.Show("Password has been reset successfully! Logging in..");
+                MessageBox.Show("Password has been reset successfully! Logging in..","Success",MessageBoxButton.OK);
                 WorkoutsWindow workoutsWindow = new WorkoutsWindow(userManager);
                 workoutsWindow.Show();
-                Application.Current.MainWindow.Close(); // fönstret stängs ej.
+                Application.Current.MainWindow.Close(); // fönstret stängs ej. "No User"
             }
             else
             {
-                MessageBox.Show("Invalid username or security answer.");
+                MessageBox.Show("Invalid username or security answer.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
     }

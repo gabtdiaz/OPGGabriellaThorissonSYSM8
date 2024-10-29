@@ -99,7 +99,7 @@
                 <Button Content="Apply Filter" Command="{Binding FilterCommand}" Width="100" Margin="5,0">
                     <Button.Template>
                     <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}" CornerRadius="15">
+                        <Border Background="{TemplateBinding Background}">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                     </ControlTemplate>
@@ -108,7 +108,7 @@
                 <Button Content="Clear Filter" Command="{Binding ClearFilterCommand}" Width="100" Margin="5,0">
                     <Button.Template>
                         <ControlTemplate TargetType="Button">
-                            <Border Background="{TemplateBinding Background}" CornerRadius="15">
+                            <Border Background="{TemplateBinding Background}">
                                 <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                             </Border>
                         </ControlTemplate>
