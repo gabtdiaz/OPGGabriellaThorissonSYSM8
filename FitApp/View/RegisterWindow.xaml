@@ -119,8 +119,6 @@
                     <ControlTemplate TargetType="Button">
                         <Border x:Name="border" 
                                 Background="#DC143C" 
-                                BorderThickness="2"
-                                BorderBrush="#DC143C"
                                 CornerRadius="15">
                             <ContentPresenter HorizontalAlignment="Center" 
                                             VerticalAlignment="Center">
@@ -136,7 +134,7 @@
                                 <Setter TargetName="border" Property="Background" Value="#FFB00020"/>
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="border" Property="Background" Value="#FFDD1133"/>
+                                <Setter TargetName="border" Property="Background" Value="Red"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>

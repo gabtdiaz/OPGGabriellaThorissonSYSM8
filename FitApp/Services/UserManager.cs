@@ -39,7 +39,7 @@ namespace FitApp.Services
             var admin = new AdminUser("Sweden", "admin", "abcd");
             var user1 = new User { Username = "gabriella", Password = "abc123", Country = "Finland" };
             var user2 = new User { Username = "erik", Password = "abc123", Country = "Norway" };
-
+            
             // Lägg till träningspass för Gabriella
             user1.Workouts.Add(new CardioWorkout
             {

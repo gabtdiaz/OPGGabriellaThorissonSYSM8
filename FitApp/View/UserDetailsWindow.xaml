@@ -111,7 +111,7 @@
                                 <Setter TargetName="border" Property="Background" Value="#FFB00020"/>
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="border" Property="Background" Value="#FFDD1133"/>
+                                <Setter TargetName="border" Property="Background" Value="red"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>

@@ -43,15 +43,15 @@
 
         <!-- Labels för inloggningsfält -->
         <StackPanel Grid.Row="1">
-            <Label Content="Username"/>
-            <Label Content="Password" Height="25"/>
+            <Label Content="Username" Height="24" Margin="0,0,0,8"/>
+            <Label Content="Password" Height="24"/>
         </StackPanel>
 
         <!-- Inmatningsfält för användarnamn och lösenord -->
         <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Width="180" HorizontalAlignment="Center">
-            <TextBox Text="{Binding UsernameInput}" Height="20" Margin="0,0,0,10"
+            <TextBox Text="{Binding UsernameInput}" Height="24" Margin="0,0,0,10"
                      Padding="5,2"/>
-            <TextBox Text="{Binding PasswordInput}" Height="20"
+            <TextBox Text="{Binding PasswordInput}" Height="24"
                      Padding="5,2"/>
         </StackPanel>
 
@@ -61,8 +61,7 @@
                 VerticalAlignment="Bottom" HorizontalAlignment="Center" Grid.ColumnSpan="2">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
-                    <Border x:Name="border" Background="Crimson" 
-                            BorderBrush="Red" BorderThickness="2"
+                    <Border x:Name="border" Background="Crimson"
                             CornerRadius="15">
                         <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center">
                             <ContentPresenter.Resources>
@@ -77,7 +76,7 @@
                             <Setter TargetName="border" Property="Background" Value="#FFB00020"/>
                         </Trigger>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="#FFDD1133"/>
+                            <Setter TargetName="border" Property="Background" Value="red"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -102,7 +101,7 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="#FFF5F5F5"/>
+                            <Setter TargetName="border" Property="Background" Value="LightGray"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
@@ -128,7 +127,7 @@
                     </Border>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter TargetName="border" Property="Background" Value="#FFF5F5F5"/>
+                            <Setter TargetName="border" Property="Background" Value="Lightgray"/>
                         </Trigger>
                     </ControlTemplate.Triggers>
                 </ControlTemplate>
