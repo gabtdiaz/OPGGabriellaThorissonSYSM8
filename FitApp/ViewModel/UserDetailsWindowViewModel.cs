@@ -23,12 +23,26 @@ namespace FitApp.ViewModel
         private readonly WorkoutsWindowViewModel workoutsWindow;
         private readonly RegisterWindowViewModel registerWindow;
         private readonly UserManager userManager;
-        public ObservableCollection<string> CountryComboBox
+
+        // Egenskaper för användarinmatning
+        public ObservableCollection<string> Countries // Egenskap för att få tillgång till länder i RegisterWindow
         {
             get { return registerWindow.CountryComboBox; }
         }
 
-        // Egenskaper för användarinmatning
+        private string selectedCountry;
+        public string SelectedCountry
+        {
+            get { return selectedCountry; }
+            set
+            {
+                if (selectedCountry != value)
+                {
+                    selectedCountry = value;
+                    OnPropertyChanged(nameof(SelectedCountry));
+                }
+            }
+        }
 
         private string currentUsername;
         public string CurrentUsername
@@ -54,20 +68,6 @@ namespace FitApp.ViewModel
                 {
                     currentPassword = value;
                     OnPropertyChanged(nameof(CurrentPassword));
-                }
-            }
-        }
-
-        private string selectedCountry;
-        public string SelectedCountry
-        {
-            get { return selectedCountry; }
-            set
-            {
-                if (selectedCountry != value)
-                {
-                    selectedCountry = value;
-                    OnPropertyChanged(nameof(SelectedCountry));
                 }
             }
         }
@@ -119,11 +119,11 @@ namespace FitApp.ViewModel
         public ICommand SaveUserDetailsCommand { get; }
         public ICommand CancelCommand { get; }
 
-        public UserDetailsWindowViewModel(Window userDetailsWindow, UserManager userManager)
+        public UserDetailsWindowViewModel(Window userDetailsWindow, UserManager userManager, RegisterWindowViewModel registerWindow)
         {
             this.userDetailsWindow = userDetailsWindow;
             this.userManager = userManager;
-
+            this.registerWindow = registerWindow;
             // Initiera egenskaperna från userManager
             currentUsername = userManager.CurrentUser.Username;
             currentPassword = userManager.CurrentUser.Password;
@@ -134,44 +134,101 @@ namespace FitApp.ViewModel
         }
 
 
+        private bool ValidateInput()
+        {
+            // Validate username
+            if (string.IsNullOrEmpty(NewUsername) || NewUsername.Length < 3)
+            {
+                MessageBox.Show("Username must be at least 3 characters long.",
+                              "Validation Error", MessageBoxButton.OK,MessageBoxImage.Warning);
+                return false;
+            }
+
+            // Check if username already exists
+            if (userManager.Users.Any(u => u.Username.Equals(NewUsername, StringComparison.OrdinalIgnoreCase))
+                && !NewUsername.Equals(currentUsername, StringComparison.OrdinalIgnoreCase))
+            {
+                MessageBox.Show("Username already exists. Please choose another username.",
+                              "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                return false;
+            }
+
+            // Validate password
+            if (!string.IsNullOrEmpty(NewPassword))
+            {
+                if (NewPassword.Length < 8)
+                {
+                    MessageBox.Show("Password must be at least 8 characters long.",
+                                  "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return false;
+                }
+
+                if (!NewPassword.Any(char.IsLetter) || !NewPassword.Any(char.IsDigit))
+                {
+                    MessageBox.Show("Password must contain at least one letter and one number.",
+                                  "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return false;
+                }
+
+                if (NewPassword != ConfirmPassword)
+                {
+                    MessageBox.Show("Passwords do not match.", "Validation Error",
+                                  MessageBoxButton.OK, MessageBoxImage.Warning);
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
         private void SaveUserDetails()
         {
-
-            if (newPassword == confirmPassword)
+            if (!ValidateInput())
             {
+                return;
+            }
 
-                // Uppdatera användarens uppgifter
-                if (currentUsername != newUsername)
-                    userManager.CurrentUser.Username = newUsername;
+            try
+            {
+                // Uppdatera användarnamn och lösenord
+                if (!string.IsNullOrEmpty(NewUsername))
+                {
+                    userManager.CurrentUser.Username = NewUsername;
+                }
 
-                if (currentPassword != newPassword)
-                    userManager.CurrentUser.Password = newPassword;
+                if (!string.IsNullOrEmpty(NewPassword))
+                {
+                    userManager.CurrentUser.Password = NewPassword;
+                }
 
                 if (selectedCountry != userManager.CurrentUser.Country)
+                {
                     userManager.CurrentUser.Country = selectedCountry;
+                }
 
-                // Stäng fönstret
-               // registerWindow.RegisterNewUser(); //behöver jag denna? eller ska jag lägga till i Useramanager istället
-               
+                MessageBox.Show("User details updated successfully!",
+                              "Success",
+                              MessageBoxButton.OK,
+                              MessageBoxImage.Information);
+
+                // Open WorkoutsWindow and close current window
+                WorkoutsWindow workoutsWindow = new WorkoutsWindow(userManager);
+                workoutsWindow.Show();
+                userDetailsWindow.Close();
             }
-            else
+            catch (Exception ex)
             {
-                MessageBox.Show("Something went wrong, please try again", "Error", MessageBoxButton.OK);
+                MessageBox.Show($"An error occurred while saving user details: {ex.Message}",
+                              "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
-
-
-            WorkoutsWindow workoutsWindow = new WorkoutsWindow(userManager);
-            workoutsWindow.Show();
-            // Stäng fönstret
-            userDetailsWindow.Close();
-
         }
 
         private void Cancel()
         {
-            // Stäng fönstret utan att spara ändringar
+            // Open WorkoutsWindow and close current window
+            WorkoutsWindow workoutsWindow = new WorkoutsWindow(userManager);
+            workoutsWindow.Show();
             userDetailsWindow.Close();
-
 
         }
     }

@@ -70,14 +70,15 @@ namespace FitApp.ViewModel
         }
 
         // Command för att skapa ny användare
-        public ICommand RegisterNewUserCommand { get; }
+        public ICommand RegisterNewUserCommand {  get; set; }
 
         // Konstruktor
         public RegisterWindowViewModel(Window registerWindow, UserManager userManager)
         {
             this.registerWindow = registerWindow;
-            this.userManager = userManager; // ändrade!! 100000
+            this.userManager = userManager;
             CountryComboBox = new ObservableCollection<string> { "Sweden", "Norway", "Denmark", "Finland" };
+
             // Initiera RegisterNewUserCommand
             RegisterNewUserCommand = new RelayCommand(RegisterNewUser);
         }

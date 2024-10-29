@@ -58,7 +58,7 @@
             <!-- Country -->
             <StackPanel Margin="0,0,0,15">
                 <Label Content="Country" FontWeight="SemiBold" Foreground="#454545" Width="100"/>
-                <ComboBox ItemsSource="{Binding Countries}" SelectedItem="{Binding SelectedCountry}"
+                <ComboBox ItemsSource="{Binding CountryComboBox}" SelectedItem="{Binding SelectedCountry}"
                       Height="25" Padding="5" BorderThickness="1" BorderBrush="#ddd"/>
             </StackPanel>
             </StackPanel>
@@ -67,7 +67,7 @@
             <StackPanel Margin="0,0,0,15">
                 <Label Content="New Username" FontWeight="SemiBold" Foreground="#454545"/>
                 <TextBox x:Name="txtBoxNewUsername" Height="25" Padding="5"
-                        BorderThickness="1" BorderBrush="#ddd" Text="{Binding NewPassword}"/>
+                        BorderThickness="1" BorderBrush="#ddd" Text="{Binding NewUsername}"/>
             </StackPanel>
         
             <!-- New Password -->
@@ -81,7 +81,7 @@
             <StackPanel Margin="0,0,0,15">
                 <Label Content="Confirm New Password" FontWeight="SemiBold" Foreground="#454545"/>
                 <TextBox x:Name="ConfirmPasswordTextBox" Height="25" Padding="5"
-                            BorderThickness="1" BorderBrush="#ddd"/>
+                            BorderThickness="1" BorderBrush="#ddd" Text="{Binding ConfirmPassword}"/>
             </StackPanel>
         </StackPanel>
 

@@ -21,9 +21,11 @@ namespace FitApp.ViewModel
     {
         // Egenskaper
        
+        // Referenser
         public Window workoutsWindow;
         public Window workoutDetailsWindow;
         public UserManager userManager;
+        private RegisterWindowViewModel registerWindow;
         public ObservableCollection<Workout> Workouts { get; set; }
         
         // Commands
@@ -114,8 +116,7 @@ namespace FitApp.ViewModel
         // Metod som öppnar UserDetailsWindow och visar användarens uppgifter
         public void UserDetails () 
         {
-            MessageBox.Show("Clicked UserDetails");
-            UserDetailsWindow userDetailsWindow = new UserDetailsWindow(userManager);
+            UserDetailsWindow userDetailsWindow = new UserDetailsWindow(userManager, registerWindow);
             userDetailsWindow.Show();
             workoutsWindow.Close();
         }
