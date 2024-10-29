@@ -5,6 +5,7 @@ using FitApp.View;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.ComponentModel;
 using System.Configuration;
 using System.Linq;
 using System.Text;
@@ -12,6 +13,7 @@ using System.Threading.Tasks;
 using System.Web;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media.Media3D;
 
@@ -34,6 +36,15 @@ namespace FitApp.ViewModel
         public ICommand RemoveWorkoutCommand { get; }
         public ICommand SignOutCommand { get; }
         public ICommand WorkoutDetailsCommand { get; }
+
+        public ICollectionView FilteredWorkouts { get; private set; }
+        public ICommand FilterCommand { get; }
+        public ICommand ClearFilterCommand { get; }
+
+        // Filteregenskaper
+        public DateTime? FilterDate { get; set; }
+        public string FilterType { get; set; }
+        public TimeSpan? FilterDuration { get; set; }
 
         // Egenskap som returnerar användarnamnet
         public string CurrentUserName
@@ -86,6 +97,11 @@ namespace FitApp.ViewModel
             UserDetailsCommand = new RelayCommand(UserDetails);
             WorkoutDetailsCommand = new RelayCommand(() => WorkoutDetails(SelectedWorkout));
             SignOutCommand = new RelayCommand(SignOut);
+            FilteredWorkouts = CollectionViewSource.GetDefaultView(Workouts);
+            FilteredWorkouts.Filter = FilterWorkouts;
+
+            FilterCommand = new RelayCommand(ApplyFilter);
+            ClearFilterCommand = new RelayCommand(ClearFilter);
         }
 
         public WorkoutsWindowViewModel() {}
@@ -144,5 +160,36 @@ namespace FitApp.ViewModel
             mainWindow.Show();
             workoutsWindow.Close();
         }
+        private bool FilterWorkouts(object obj)
+        {
+            if (obj is not Workout workout) return false;
+
+            // Filtrera på datum
+            if (FilterDate.HasValue && workout.DateTime.Date != FilterDate.Value.Date) return false;
+
+            // Filtrera på typ
+            if (!string.IsNullOrEmpty(FilterType) && !workout.Type.Equals(FilterType, StringComparison.OrdinalIgnoreCase)) return false;
+
+            // Filtrera på varaktighet
+            if (FilterDuration.HasValue && workout.Duration < FilterDuration.Value) return false;
+
+            return true;
+        }
+
+        // Använder filter baserat på användarinmatning
+        private void ApplyFilter()
+        {
+            FilteredWorkouts.Refresh();
+        }
+
+        // Rensar filter
+        private void ClearFilter()
+        {
+            FilterDate = null;
+            FilterType = null;
+            FilterDuration = null;
+            FilteredWorkouts.Refresh();
+        }
+
     }
 }
