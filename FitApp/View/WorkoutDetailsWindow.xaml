@@ -97,18 +97,18 @@
             <StackPanel Orientation="Horizontal" Visibility="{Binding CardioVisibility}">
                 <TextBlock Text="Distance:" Background="LightGray" Padding="5,2"/>
                 <TextBox x:Name="txtBoxDistance" Text="{Binding SelectedWorkout.Distance}" 
-                         Width="58" IsEnabled="{Binding IsEditing}" Padding="5,2"/>
+                         Width="48" IsEnabled="{Binding IsEditing}" Padding="5,2"/>
             </StackPanel>
 
             <!-- Strength-specifika fält -->
-            <StackPanel Orientation="Horizontal" Visibility="{Binding StrengthVisibility}">
+            <StackPanel Orientation="Horizontal" Visibility="{Binding StrengthVisibility}" Background="LightGray">
                 <TextBlock Text="Reps:" Background="LightGray" Padding="5,2"/>
                 <TextBox x:Name="txtBoxRepetitions" Text="{Binding SelectedWorkout.Repetitions}" 
-                         Width="58" IsEnabled="{Binding IsEditing}" Padding="5,2"/>
+                         Width="48" IsEnabled="{Binding IsEditing}" Padding="5,2"/>
 
-                <TextBlock Text="Sets:" Background="LightGray" Margin="5,0,0,0" Padding="5,2"/>
+                <TextBlock Text="Sets:" Background="LightGray" Margin="20,0,0,0" Padding="5,2"/>
                 <TextBox x:Name="txtBoxSets" Text="{Binding SelectedWorkout.Sets}" 
-                         Width="58" IsEnabled="{Binding IsEditing}" Padding="5,2"/>
+                         Width="48" IsEnabled="{Binding IsEditing}" Padding="5,2"/>
             </StackPanel>
         </StackPanel>
 
