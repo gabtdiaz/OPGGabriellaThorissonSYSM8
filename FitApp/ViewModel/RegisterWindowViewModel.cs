@@ -89,13 +89,13 @@ namespace FitApp.ViewModel
             if (string.IsNullOrWhiteSpace(UsernameInput) || string.IsNullOrWhiteSpace(PasswordInput) || // Kontrollerar ifall textboxarna är tomma
             string.IsNullOrWhiteSpace(ConfirmPasswordInput) || SelectedCountry == null)
             {
-                MessageBox.Show("Please enter all the information correctly.","Error", MessageBoxButton.OK);
+                MessageBox.Show("Please enter all the information correctly.","Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
             // Kontrollera om användarnamnet redan existerar
             if (userManager.FindUser(UsernameInput, null) != null) // null för lösenord, vi bryr oss bara om användarnamnet här
             {
-                MessageBox.Show("The username is already taken. Please choose another username.", "Error", MessageBoxButton.OK);
+                MessageBox.Show("The username is already taken. Please choose another username.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
             // Kontrollera att lösenorden matchar
@@ -107,7 +107,7 @@ namespace FitApp.ViewModel
             // Kontrollera att lösenordet uppfyller kraven
             if (PasswordInput.Length < 8 || !PasswordInput.Any(char.IsDigit) || !PasswordInput.Any(char.IsPunctuation))
             {
-                MessageBox.Show("Password must follow these requirements: \n - Minimum of 8 characters \n - At least one digit \n - At least one special character", "Felmeddelande", MessageBoxButton.OK);
+                MessageBox.Show("Password must follow these requirements: \n - Minimum of 8 characters \n - At least one digit \n - At least one special character", "Felmeddelande", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
             // Skapa ny användare - Sätt till CurrentUser
@@ -115,7 +115,7 @@ namespace FitApp.ViewModel
             userManager.Users.Add(newUser); 
             userManager.CurrentUser = newUser;
 
-            MessageBox.Show("Account created successfully. Logging in..");
+            MessageBox.Show("Account created successfully. Logging in..", "Success");
 
             WorkoutsWindow workoutsWindow = new WorkoutsWindow(userManager); // TOG BORT PARAMETER
             workoutsWindow.Show();

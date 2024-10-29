@@ -17,7 +17,9 @@ namespace FitApp.ViewModel
     {
         // Egenskaper
         private readonly UserManager userManager;
-        
+
+        private string verifyCode;
+
         public string LabelTitle { get; set; } = "FitTrack";
         
         // Egenskaper som returnerar användarinmatning
@@ -66,6 +68,7 @@ namespace FitApp.ViewModel
 
             if (user != null)
             {
+                Start2FA();
                 userManager.CurrentUser = user; // Sätter användaren som inloggad i UserManager
                 WorkoutsWindow workoutsWindow = new WorkoutsWindow(userManager);
                 workoutsWindow.Show();
@@ -73,10 +76,9 @@ namespace FitApp.ViewModel
             }
             else
             {
-                MessageBox.Show("Incorrect username or password.", "Login Failed", MessageBoxButton.OK);
+                MessageBox.Show("Incorrect username or password.", "Login Failed", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
-
 
         // Metod som öppnar RegisterWindow
         public void Register() 
@@ -99,5 +101,45 @@ namespace FitApp.ViewModel
         {
             throw new NotImplementedException();
         }
+
+        // Metod för att starta tvåfaktorautentisering
+        private void Start2FA()
+        {
+            // Generera en slumpmässig 6-siffrig kod
+            verifyCode = GenerateVerificationCode();
+
+            // Skicka koden via "e-post" (simuleras här)
+            MessageBox.Show($"Verification code sent: {verifyCode}");
+
+            // Be användaren mata in koden via en popup
+            AskForCodeInput();
+        }
+
+        // Metod för att generera en sllumpmässig 6-siffrig kod
+        private string GenerateVerificationCode()
+        {
+            // Genererar en slumpmässig 6-siffrig kod
+            Random random = new Random();
+            return random.Next(100000, 999999).ToString();
+        }
+
+        // Metod som ber användaren om inmatning av kod
+        private void AskForCodeInput()
+        {
+            // Inmatningsdialog för verifieringskoden
+            string userInput = Microsoft.VisualBasic.Interaction.InputBox(
+                "Enter verification code that was sent to your E-mail:", "Two-factor authentication","");
+
+            // Kontrollera om koden är korrekt
+            if (userInput == verifyCode)
+            {
+                MessageBox.Show("Login Successful!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            else
+            {
+                MessageBox.Show("Wrong code, try again.", "Login failed", MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
     }
 }
+
