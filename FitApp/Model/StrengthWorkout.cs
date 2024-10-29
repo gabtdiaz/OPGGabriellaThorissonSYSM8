@@ -12,7 +12,7 @@ namespace FitApp.Model
 
         public override int CalculateCaloriesBurned()
         {
-            return 0;
+            return (int)(Repetitions * Sets * 5); ;
         }
         public override string ToString() 
         {

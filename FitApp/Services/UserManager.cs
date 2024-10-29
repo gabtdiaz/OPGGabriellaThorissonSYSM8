@@ -2,6 +2,7 @@
 using FitApp.MVVM;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +15,8 @@ namespace FitApp.Services
     {
         // Egenskaper
 
-        public List<User> Users = new List<User>(); // Lista på alla användare
+        public List<User> Users = new List<User>(); // Lista på alla användar
+
 
         private User currentUser; // Hanterar inloggade användare
         public User CurrentUser
@@ -79,7 +81,7 @@ namespace FitApp.Services
                 if (user.SecurityAnswer.ToLower() == securityAnswer.ToLower())
                 {
                     user.Password = newPassword;  // Återställ lösenordet
-                    CurrentUser = user;           // Sätt CurrentUser till den funna användaren
+                    CurrentUser = user;           // Sätt CurrentUser till den hittade användaren
                     return true;
                 }
             }

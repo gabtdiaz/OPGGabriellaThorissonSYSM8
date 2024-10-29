@@ -14,15 +14,18 @@ namespace FitApp.ViewModel
 {
     public class ForgotPasswordWindowViewModel : ViewModelBase
     {
-        public Window forgotPasswordWindow;
+        // Egenskaper
+
+        private readonly Window forgotPasswordWindow;
+
+        // Referenser
         public Window workoutsWindow;
-        // Egenskaper 
         private UserManager userManager;
 
-        // Command för att återställa lösenord
+        // Kommando för att återställa lösenord
         public ICommand ResetPasswordCommand { get; }
 
-        // Egenskaper för användarinmatning
+        // Egenskaper för binding till UI
         private string username;
 
         public string Username
@@ -85,7 +88,7 @@ namespace FitApp.ViewModel
         // Metod som körs när kommandot anropas
         private void ResetPassword()
         {
-            // Kontrollera om lösenorden matchar
+            // Första valideringar för att kunna återställa lösenord
             if (NewPassword != ConfirmPassword)
             {
                 MessageBox.Show("Passwords do not match","Error",MessageBoxButton.OK, MessageBoxImage.Warning);
@@ -97,7 +100,8 @@ namespace FitApp.ViewModel
                 MessageBox.Show("Password must follow these requirements: \n - Minimun of 8 characters \n - At least one digit \n - At least one special character", "Error", MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
-            // Försök att återställa lösenordet via UserManager
+
+            // Återställa lösenordet via UserManager
             bool success = userManager.ResetPassword(Username, NewPassword, SecurityAnswer);
 
             if (success)
@@ -105,7 +109,7 @@ namespace FitApp.ViewModel
                 MessageBox.Show("Password has been reset successfully! Logging in..","Success",MessageBoxButton.OK);
                 WorkoutsWindow workoutsWindow = new WorkoutsWindow(userManager);
                 workoutsWindow.Show();
-                Application.Current.MainWindow.Close(); // fönstret stängs ej. "No User"
+                forgotPasswordWindow.Close();
             }
             else
             {

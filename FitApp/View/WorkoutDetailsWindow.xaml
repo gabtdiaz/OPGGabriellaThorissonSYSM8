@@ -143,9 +143,8 @@
         <StackPanel Grid.Row="5" Orientation="Horizontal" 
                     HorizontalAlignment="Center">
             <Button Content="Edit" Command="{Binding EditWorkoutCommand}" 
-                    Width="80" Height="25" Margin="0,0,20,0"
-                    Foreground="AliceBlue" Background="Crimson"
-                    BorderBrush="Red" BorderThickness="2">
+                    Width="80" Height="30" Margin="0,0,20,0"
+                    Foreground="AliceBlue" Background="Crimson">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="15"/>
@@ -153,9 +152,8 @@
                 </Button.Resources>
             </Button>
             <Button Content="Save" Command="{Binding SaveWorkoutCommand}" 
-                    Width="80" Height="25"
-                    Foreground="AliceBlue" Background="Crimson"
-                    BorderBrush="Red" BorderThickness="2">
+                    Width="80" Height="30"
+                    Foreground="AliceBlue" Background="Crimson">
                 <Button.Resources>
                     <Style TargetType="Border">
                         <Setter Property="CornerRadius" Value="15"/>

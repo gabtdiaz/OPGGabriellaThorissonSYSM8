@@ -32,9 +32,5 @@ namespace FitApp.Model
             
         }
 
-        //public void ResetPassword(string SecurityAnswer)
-        //{
-        
-        //}
     }
 }

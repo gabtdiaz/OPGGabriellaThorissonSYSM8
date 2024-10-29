@@ -16,10 +16,12 @@ namespace FitApp.ViewModel
     public class AddWorkoutWindowViewModel : ViewModelBase
     {
         // Egenskaper
+
         public Window addWorkoutWindow;
         public ObservableCollection<string> WorkoutTypeComboBox { get; set; }
 
-        // Egenskap för att få tillgång till Workouts från WorkoutsWindowViewModel
+        // Referenser
+
         private WorkoutsWindowViewModel workoutsWindow;
         public ObservableCollection<Workout> Workouts
         {
@@ -27,6 +29,7 @@ namespace FitApp.ViewModel
         }
 
         // Synlighets-egenskaper
+
         private Visibility cardioVisibility;
         public Visibility CardioVisibility
         {
@@ -49,7 +52,8 @@ namespace FitApp.ViewModel
             }
         }
 
-        // Egenskaper för användarimnatning 
+        // Egenskaper för binding till UI
+
         private string selectedWorkout;
 
         public string SelectedWorkout
@@ -141,7 +145,7 @@ namespace FitApp.ViewModel
             }
         }
 
-        // Initialisera command
+        // Initierar kommando för att spara träningspass
         public ICommand SaveCommand => new RelayCommand(SaveWorkout);
 
         // Konstruktor - Anropar både WorkoutsWindowViewModel och MainWindowViewModels konstruktorer
