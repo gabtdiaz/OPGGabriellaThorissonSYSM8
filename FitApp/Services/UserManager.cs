@@ -17,7 +17,7 @@ namespace FitApp.Services
 
         public List<User> Users = new List<User>(); // Lista på alla användar
 
-
+        public ObservableCollection<Workout> Workouts { get; set; } // Lista på alla träningar 
         private User currentUser; // Hanterar inloggade användare
         public User CurrentUser
         {
@@ -30,15 +30,18 @@ namespace FitApp.Services
 
             }
         }
-        
+
+        public bool IsCurrentUserAdmin => CurrentUser?.Username == "admin";
+
         public UserManager()
         {
-            // Lägger till användare direkt i listan.
+            // Lägg till admin och användare
             Users = new List<User>
-            {
-                new User { Username = "admin", Password = "abcd", Country = "Sweden" },
-                new User { Username = "gabriella", Password = "abc123", Country = "Finland" }
-            };
+        {
+            new AdminUser("Sweden", "admin", "abcd"),  // Admin användare
+            new User { Username = "gabriella", Password = "abc123", Country = "Finland" }
+        };
+
     }
 
 

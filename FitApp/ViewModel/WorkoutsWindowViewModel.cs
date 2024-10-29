@@ -46,6 +46,9 @@ namespace FitApp.ViewModel
         public string FilterType { get; set; }
         public TimeSpan? FilterDuration { get; set; }
 
+        // Egenskap som kollar ifall currentUser är AdminUser
+        public bool IsAdmin => userManager.IsCurrentUserAdmin;
+
         // Egenskap som returnerar användarnamnet
         public string CurrentUserName
         {
@@ -81,29 +84,51 @@ namespace FitApp.ViewModel
         }
 
         // Konstruktor 
-        public WorkoutsWindowViewModel(UserManager userManager, Window workoutsWindow) 
+        public WorkoutsWindowViewModel(UserManager userManager, Window workoutsWindow)
         {
             this.userManager = userManager;
             this.workoutsWindow = workoutsWindow;
-            Workouts = new ObservableCollection<Workout>
-            // Skapar träningspass
-        {
-            new CardioWorkout { Type = "Cardio", Distance = 5,  Duration = new TimeSpan(0, 20, 0), CaloriesBurned = 250, DateTime = new DateTime(2024, 10, 24, 08, 00, 0), Notes = "Run"},
-            new StrengthWorkout { Type = "Strength", Repetitions = 10, Duration = new TimeSpan(0, 45, 0), CaloriesBurned = 300, DateTime = new DateTime(2024, 10, 20, 18, 30, 0), Notes = "Gym"}
-        };
-            // Commands
+
+            // Initiera Workouts först
+            Workouts = new ObservableCollection<Workout>();
+
+            // Lägg till träningspass baserat på om användaren är admin eller inte
+            bool IsAdmin = userManager.IsCurrentUserAdmin;
+
+            // Lägg till demo-träningspass
+            Workouts.Add(new CardioWorkout
+            {
+                Type = "Cardio",
+                Distance = 5,
+                Duration = new TimeSpan(0, 20, 0),
+                CaloriesBurned = 250,
+                DateTime = new DateTime(2024, 10, 24, 08, 00, 0),
+                Notes = IsAdmin ? "Run (User: gabriella)" : "Run"
+            });
+
+            Workouts.Add(new StrengthWorkout
+            {
+                Type = "Strength",
+                Repetitions = 10,
+                Duration = new TimeSpan(0, 45, 0),
+                CaloriesBurned = 300,
+                DateTime = new DateTime(2024, 10, 20, 18, 30, 0),
+                Notes = IsAdmin ? "Gym (User: gabriella)" : "Gym"
+            });
+
+            // Initiera FilteredWorkouts
+            FilteredWorkouts = CollectionViewSource.GetDefaultView(Workouts);
+            FilteredWorkouts.Filter = FilterWorkouts;
+
+            // Initiera commands
             AddWorkoutCommand = new RelayCommand(AddWorkout);
             RemoveWorkoutCommand = new RelayCommand(RemoveWorkout);
             UserDetailsCommand = new RelayCommand(UserDetails);
             WorkoutDetailsCommand = new RelayCommand(() => WorkoutDetails(SelectedWorkout));
             SignOutCommand = new RelayCommand(SignOut);
-            FilteredWorkouts = CollectionViewSource.GetDefaultView(Workouts);
-            FilteredWorkouts.Filter = FilterWorkouts;
-
             FilterCommand = new RelayCommand(ApplyFilter);
             ClearFilterCommand = new RelayCommand(ClearFilter);
         }
-
         public WorkoutsWindowViewModel() {}
 
 
