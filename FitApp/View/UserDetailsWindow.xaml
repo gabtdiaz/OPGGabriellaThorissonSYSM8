@@ -7,7 +7,9 @@
         mc:Ignorable="d"
         Title="UserDetailsWindow" Height="480" Width="320">
 
+    <!-- UserDetails Window -->
     <Grid>
+        <!-- Bakgrundsfärg -->
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <GradientStop Color="LightGray"/>
@@ -16,13 +18,14 @@
                 <GradientStop Color="White" Offset="0.1"/>
             </LinearGradientBrush>
         </Grid.Background>
+
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>
             <RowDefinition Height="60"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <!-- Logga -->
+        <!-- Logo och titel -->
         <StackPanel Width="100" Height="60">
             <Label Content="F I T" HorizontalAlignment="Center" 
                   FontSize="20" VerticalAlignment="Top" FontFamily="Arial Black" 
@@ -32,80 +35,114 @@
                     FontSize="14" Foreground="#FF8C00"/>
         </StackPanel>
 
-        <!-- Titel -->
+        <!-- Sidtitel -->
         <TextBlock Text="My User Information" HorizontalAlignment="Center" 
-                   VerticalAlignment="Top" FontSize="26" 
-                   FontWeight="SemiBold" Foreground="#454545" Grid.Row="1" />
+                   VerticalAlignment="Top" FontSize="26" FontFamily="Arial"
+                   Foreground="#454545" Grid.Row="1" Margin="10" />
 
+        <!-- Användarinformation -->
         <StackPanel Grid.Row="3">
+            <!-- Nuvarande användarinformation -->
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" 
                         Margin="0,0,0,10">
-                
-            <!-- Username -->
-            <StackPanel Margin="0,0,0,15">
-                <Label Content="Username" FontWeight="SemiBold" Foreground="#454545"/>
-                <TextBlock x:Name="txtBoxCurrentUsername" Text="{Binding CurrentUsername}" 
-                           Height="25" Padding="5" Width="100" Background="LightGray"/>
-            </StackPanel>
-                
-            <!-- Current Password -->
-            <StackPanel Margin="0,0,0,15">
-                <Label Content="Password" FontWeight="SemiBold" Foreground="#454545"/>
+
+                <!-- Användarnamn -->
+                <StackPanel Margin="0,0,0,15">
+                    <Label Content="Username" FontWeight="SemiBold" Foreground="#454545"/>
+                    <TextBlock x:Name="txtBoxCurrentUsername" Text="{Binding CurrentUsername}" 
+                              Height="25" Padding="5" Width="100" Background="LightGray"/>
+                </StackPanel>
+
+                <!-- Nuvarande lösenord -->
+                <StackPanel Margin="0,0,0,15">
+                    <Label Content="Password" FontWeight="SemiBold" Foreground="#454545"/>
                     <TextBlock x:Name="txtBoxCurrentPassword" Text="{Binding CurrentPassword}" 
-                           Height="25" Padding="5" Width="100" Background="LightGray"/>
+                              Height="25" Padding="5" Width="100" Background="LightGray"/>
+                </StackPanel>
+
+                <!-- Combobox -->
+                <StackPanel Margin="0,0,0,15">
+                    <Label Content="Country" FontWeight="SemiBold" Foreground="#454545" Width="100"/>
+                    <ComboBox ItemsSource="{Binding CountryComboBox}" 
+                            SelectedItem="{Binding SelectedCountry}"
+                            Height="25" Padding="5" BorderThickness="1" BorderBrush="#ddd"/>
+                </StackPanel>
             </StackPanel>
 
-            <!-- Country -->
-            <StackPanel Margin="0,0,0,15">
-                <Label Content="Country" FontWeight="SemiBold" Foreground="#454545" Width="100"/>
-                <ComboBox ItemsSource="{Binding CountryComboBox}" SelectedItem="{Binding SelectedCountry}"
-                      Height="25" Padding="5" BorderThickness="1" BorderBrush="#ddd"/>
-            </StackPanel>
-            </StackPanel>
-
-            <!-- New Username -->
+            <!-- Fält för uppdatering av användarinformation -->
             <StackPanel Margin="0,0,0,15">
                 <Label Content="New Username" FontWeight="SemiBold" Foreground="#454545"/>
                 <TextBox x:Name="txtBoxNewUsername" Height="25" Padding="5"
                         BorderThickness="1" BorderBrush="#ddd" Text="{Binding NewUsername}"/>
             </StackPanel>
-        
-            <!-- New Password -->
+
             <StackPanel Margin="0,0,0,15">
                 <Label Content="New Password" FontWeight="SemiBold" Foreground="#454545"/>
                 <TextBox x:Name="NewPasswordTextBox" Height="25" Padding="5"
                          BorderThickness="1" BorderBrush="#ddd" Text="{Binding NewPassword}"/>
             </StackPanel>
 
-            <!-- Confirm Password -->
             <StackPanel Margin="0,0,0,15">
                 <Label Content="Confirm New Password" FontWeight="SemiBold" Foreground="#454545"/>
                 <TextBox x:Name="ConfirmPasswordTextBox" Height="25" Padding="5"
-                            BorderThickness="1" BorderBrush="#ddd" Text="{Binding ConfirmPassword}"/>
+                        BorderThickness="1" BorderBrush="#ddd" Text="{Binding ConfirmPassword}"/>
             </StackPanel>
         </StackPanel>
 
-        <!-- Knappar -->
+        <!-- Knappar Save och Cancel -->
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" 
-                VerticalAlignment="Bottom" Margin="0,0,0,20">
+                    VerticalAlignment="Bottom" Margin="0,0,0,20">
+            <!-- Spara-knapp -->
             <Button Content="Save" Command="{Binding SaveUserDetailsCommand}" 
-                Width="110" Height="30" Margin="0,0,10,0" Background="Crimson" 
-                Foreground="White" BorderThickness="0">
-                <Button.Resources>
-                    <Style TargetType="Border">
-                        <Setter Property="CornerRadius" Value="15"/>
-                    </Style>
-                </Button.Resources>
+                    Width="110" Height="30" Margin="0,0,10,0">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" Background="Crimson" CornerRadius="15">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <ContentPresenter.Resources>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Foreground" Value="White"/>
+                                    </Style>
+                                </ContentPresenter.Resources>
+                            </ContentPresenter>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#FFB00020"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#FFDD1133"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
             </Button>
 
+            <!-- Avbryt-knapp -->
             <Button Content="Cancel" Command="{Binding CancelCommand}" 
-                Width="110" Height="30" Background="LightGray" 
-                Foreground="#454545" BorderThickness="1" BorderBrush="#ddd">
-                <Button.Resources>
-                    <Style TargetType="Border">
-                        <Setter Property="CornerRadius" Value="15"/>
-                    </Style>
-                </Button.Resources>
+                    Width="110" Height="30">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" Background="LightGray" CornerRadius="15"
+                                BorderThickness="1" BorderBrush="#ddd">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <ContentPresenter.Resources>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Foreground" Value="#454545"/>
+                                    </Style>
+                                </ContentPresenter.Resources>
+                            </ContentPresenter>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#FFD0D0D0"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#FFE0E0E0"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
             </Button>
         </StackPanel>
     </Grid>

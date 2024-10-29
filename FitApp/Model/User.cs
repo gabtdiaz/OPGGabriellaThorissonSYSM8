@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,10 +13,11 @@ namespace FitApp.Model
         public string Country { get; set; }
         public string SecurityQuestion { get; set; } = "What's your pets name?";
         public string SecurityAnswer = "Cleo";
+        public ObservableCollection<Workout> Workouts { get; set; } // Lista på alla träningar 
 
         public User() 
         {
-
+            Workouts = new ObservableCollection<Workout>();
         }
 
         // Konstruktor - för att kunna lägga till ny användare i UserManager klassen.
@@ -24,6 +26,7 @@ namespace FitApp.Model
             this.Country = Country;
             this.Username = Username;
             this.Password = Password;
+            Workouts = new ObservableCollection<Workout>();
         }
 
         // Metoder

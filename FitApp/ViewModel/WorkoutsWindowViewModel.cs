@@ -86,48 +86,48 @@ namespace FitApp.ViewModel
         // Konstruktor 
         public WorkoutsWindowViewModel(UserManager userManager, Window workoutsWindow)
         {
-            this.userManager = userManager;
-            this.workoutsWindow = workoutsWindow;
 
-            // Initiera Workouts först
-            Workouts = new ObservableCollection<Workout>();
+        this.userManager = userManager;
+        this.workoutsWindow = workoutsWindow;
 
-            // Lägg till träningspass baserat på om användaren är admin eller inte
-            bool IsAdmin = userManager.IsCurrentUserAdmin;
-
-            // Lägg till demo-träningspass
-            Workouts.Add(new CardioWorkout
+        // Initiera Workouts 
+        Workouts = new ObservableCollection<Workout>();
+    
+        // Hämta träningspass baserat på om användaren är admin eller ej
+        if (userManager.IsCurrentUserAdmin)
+        {
+            foreach (User user in userManager.Users)
             {
-                Type = "Cardio",
-                Distance = 5,
-                Duration = new TimeSpan(0, 20, 0),
-                CaloriesBurned = 250,
-                DateTime = new DateTime(2024, 10, 24, 08, 00, 0),
-                Notes = IsAdmin ? "Run (User: gabriella)" : "Run"
-            });
-
-            Workouts.Add(new StrengthWorkout
+                foreach (Workout workout in user.Workouts)
+                {
+                // Lägg till användarnamn i anteckningarna för admin
+                Workout workoutCopy = workout;
+                workoutCopy.Notes += $"(User: {user.Username})";
+                Workouts.Add(workoutCopy);
+                }
+            }
+        }
+        else
+        {
+            // visar vanliga användares träningspass
+            foreach (Workout workout in userManager.CurrentUser.Workouts)
             {
-                Type = "Strength",
-                Repetitions = 10,
-                Duration = new TimeSpan(0, 45, 0),
-                CaloriesBurned = 300,
-                DateTime = new DateTime(2024, 10, 20, 18, 30, 0),
-                Notes = IsAdmin ? "Gym (User: gabriella)" : "Gym"
-            });
+                Workouts.Add(workout);
+            }
+        }
 
-            // Initiera FilteredWorkouts
-            FilteredWorkouts = CollectionViewSource.GetDefaultView(Workouts);
-            FilteredWorkouts.Filter = FilterWorkouts;
+        // Initiera FilteredWorkouts
+        FilteredWorkouts = CollectionViewSource.GetDefaultView(Workouts);
+        FilteredWorkouts.Filter = FilterWorkouts;
 
-            // Initiera commands
-            AddWorkoutCommand = new RelayCommand(AddWorkout);
-            RemoveWorkoutCommand = new RelayCommand(RemoveWorkout);
-            UserDetailsCommand = new RelayCommand(UserDetails);
-            WorkoutDetailsCommand = new RelayCommand(() => WorkoutDetails(SelectedWorkout));
-            SignOutCommand = new RelayCommand(SignOut);
-            FilterCommand = new RelayCommand(ApplyFilter);
-            ClearFilterCommand = new RelayCommand(ClearFilter);
+        // Initiera kommando
+        AddWorkoutCommand = new RelayCommand(AddWorkout);
+        RemoveWorkoutCommand = new RelayCommand(RemoveWorkout);
+        UserDetailsCommand = new RelayCommand(UserDetails);
+        WorkoutDetailsCommand = new RelayCommand(() => WorkoutDetails(SelectedWorkout));
+        SignOutCommand = new RelayCommand(SignOut);
+        FilterCommand = new RelayCommand(ApplyFilter);
+        ClearFilterCommand = new RelayCommand(ClearFilter);
         }
         public WorkoutsWindowViewModel() {}
 
@@ -138,7 +138,6 @@ namespace FitApp.ViewModel
             AddWorkoutWindow addWorkoutWindow = new AddWorkoutWindow(this);
             addWorkoutWindow.Show();
             workoutsWindow.Close();
-            
         }
 
         // Metod som tar bort det valda träningspasset

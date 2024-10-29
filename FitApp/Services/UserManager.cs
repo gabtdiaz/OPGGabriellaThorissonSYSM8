@@ -17,7 +17,7 @@ namespace FitApp.Services
 
         public List<User> Users = new List<User>(); // Lista på alla användar
 
-        public ObservableCollection<Workout> Workouts { get; set; } // Lista på alla träningar 
+
         private User currentUser; // Hanterar inloggade användare
         public User CurrentUser
         {
@@ -35,13 +35,54 @@ namespace FitApp.Services
 
         public UserManager()
         {
-            // Lägg till admin och användare
-            Users = new List<User>
-        {
-            new AdminUser("Sweden", "admin", "abcd"),  // Admin användare
-            new User { Username = "gabriella", Password = "abc123", Country = "Finland" }
-        };
+            //Skapa användare 
+            var admin = new AdminUser("Sweden", "admin", "abcd");
+            var user1 = new User { Username = "gabriella", Password = "abc123", Country = "Finland" };
+            var user2 = new User { Username = "erik", Password = "abc123", Country = "Norway" };
 
+            // Lägg till träningspass för Gabriella
+            user1.Workouts.Add(new CardioWorkout
+            {
+                Type = "Cardio",
+                Distance = 5,
+                Duration = new TimeSpan(0, 20, 0),
+                CaloriesBurned = 250,
+                DateTime = new DateTime(2024, 10, 24, 08, 00, 0),
+                Notes = "Morning run"
+            });
+            user1.Workouts.Add(new StrengthWorkout
+            {
+                Type = "Strength",
+                Repetitions = 10,
+                Duration = new TimeSpan(0, 45, 0),
+                CaloriesBurned = 300,
+                DateTime = new DateTime(2024, 10, 20, 18, 30, 0),
+                Notes = "Evening Gym Session"
+            });
+
+            // Lägg till träningspass för Erik
+            user2.Workouts.Add(new CardioWorkout
+            {
+                Type = "Cardio",
+                Distance = 3,
+                Duration = new TimeSpan(0, 15, 0),
+                CaloriesBurned = 180,
+                DateTime = new DateTime(2024, 10, 25, 16, 00, 0),
+                Notes = "Evening Jog"
+            });
+
+            user2.Workouts.Add(new StrengthWorkout
+            {
+                Type = "Strength",
+                Repetitions = 12,
+                Duration = new TimeSpan(1, 0, 0),
+                CaloriesBurned = 400,
+                DateTime = new DateTime(2024, 10, 23, 19, 00, 0),
+                Notes = "Weight Training"
+            });
+
+            // Lägg till alla användare i Users-listan
+            Users = new List<User> { admin, user1, user2 };
     }
 
 

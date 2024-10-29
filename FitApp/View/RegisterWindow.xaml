@@ -8,8 +8,8 @@
         Title="RegisterWindow" Height="480" Width="320">
 
     <Grid Background="White">
-
         <StackPanel>
+            <!-- Bakgrundsfärg -->
             <StackPanel.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="LightGray"/>
@@ -18,57 +18,130 @@
                     <GradientStop Color="#FFECECEC" Offset="0.9"/>
                 </LinearGradientBrush>
             </StackPanel.Background>
-            <Label Content="Join Us!" FontSize="30" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="10,0,0,20"/>
-                
-            <!--Logga-->
+
+            <!-- Titel "Join Us" -->
+            <Label Content="Join Us!" FontSize="30" FontFamily="Arial" 
+                   VerticalAlignment="Center" 
+                   HorizontalAlignment="Center" 
+                   Margin="10,0,0,20"
+                   FontWeight="SemiBold"
+                   Foreground="#454545"/>
+
+            <!-- Logo -->
             <StackPanel Width="100" Height="100">
-                <Label Content="F I T" HorizontalAlignment="Center" FontSize="30" VerticalAlignment="Top" FontFamily="Arial Black" FontWeight="Bold" Foreground="#FF5B5B5B"/>
-                <Label Content="&#x2AF8;Track" HorizontalAlignment="Center" VerticalAlignment="Top" FontFamily="Arial" FontSize="20" Foreground="DarkOrange"/>
+                <Label Content="F I T" 
+                       HorizontalAlignment="Center" 
+                       FontSize="30" 
+                       VerticalAlignment="Top" 
+                       FontFamily="Arial Black" 
+                       FontWeight="Bold" 
+                       Foreground="#FF5B5B5B"/>
+                <Label Content="&#x2AF8;Track" 
+                       HorizontalAlignment="Center" 
+                       VerticalAlignment="Top" 
+                       FontFamily="Arial" 
+                       FontSize="20" 
+                       Foreground="DarkOrange"/>
             </StackPanel>
-            
-            <!-- Username input -->
-        <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
-                <Label Content="Username" Height="25"/>
-                <TextBox Width="200" Height="20"
-                Text="{Binding UsernameInput}"/>
-        </StackPanel>
 
-        <!-- Password input -->
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
-                <Label Content="Password " Height="25"/>
-                <TextBox Text="{Binding PasswordInput}" x:Name="Password" Width="200" Height="20"/>
-        </StackPanel>
-            
-        <!-- Bekräfta lösenord -->
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
-                <Label Content="Password " Height="25"/>
-                <TextBox Text = "{Binding ConfirmPasswordInput}"  x:Name="PasswordBoxConfirm" Width="200" Height="20"/>
-        </StackPanel>
+            <!-- Användarnamn -->
+            <StackPanel Orientation="Horizontal" Margin="20,0,20,20">
+                <Label Content="Username" 
+                       Height="25" 
+                       Width="80"
+                       FontWeight="SemiBold"
+                       Foreground="#454545"/>
+                <TextBox Width="200" Height="25"
+                        Text="{Binding UsernameInput}"
+                        VerticalContentAlignment="Center"
+                        Padding="5,0"
+                        BorderThickness="1"
+                        BorderBrush="#ddd"/>
+            </StackPanel>
 
-        <!-- Välj land ComboBox-->
-            <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
-                <Label Content="Country   " Height="25"/>
-                <ComboBox Width="200" Height="20"
-             ItemsSource="{Binding CountryComboBox}" SelectedItem="{Binding SelectedCountry}">
-            </ComboBox>
-        </StackPanel>
+            <!-- Lösenord -->
+            <StackPanel Orientation="Horizontal" Margin="20,0,20,20">
+                <Label Content="Password" 
+                       Height="25"
+                       Width="80"
+                       FontWeight="SemiBold"
+                       Foreground="#454545"/>
+                <TextBox Text="{Binding PasswordInput}" 
+                         x:Name="Password" 
+                         Width="200" 
+                         Height="25"
+                         VerticalContentAlignment="Center"
+                         Padding="5,0"
+                         BorderThickness="1"
+                         BorderBrush="#ddd"/>
+            </StackPanel>
 
-        <!-- Skapa konto button -->
-            <Button Content="Create account" Width="130" Height="30"
-            Background="#DC143C" Foreground="AliceBlue"
-            BorderBrush="#DC143C" BorderThickness="2" Padding="10" 
-            VerticalAlignment="Center" Command="{Binding RegisterNewUserCommand}">
-            <Button.Template>
-                <ControlTemplate TargetType="Button">
-                    <Border Background="{TemplateBinding Background}" 
-                     BorderBrush="{TemplateBinding BorderBrush}" 
-                     BorderThickness="{TemplateBinding BorderThickness}" 
-                     CornerRadius="15">
-                        <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                    </Border>
-                </ControlTemplate>
-            </Button.Template>
-        </Button>
+            <!-- Bekräfta lösenord -->
+            <StackPanel Orientation="Horizontal" Margin="20,0,20,20">
+                <Label Content="Confirm" 
+                       Height="25"
+                       Width="80"
+                       FontWeight="SemiBold"
+                       Foreground="#454545"/>
+                <TextBox Text="{Binding ConfirmPasswordInput}"  
+                         x:Name="PasswordBoxConfirm" 
+                         Width="200" 
+                         Height="25"
+                         VerticalContentAlignment="Center"
+                         Padding="5,0"
+                         BorderThickness="1"
+                         BorderBrush="#ddd"/>
+            </StackPanel>
+
+            <!-- Combobox -->
+            <StackPanel Orientation="Horizontal" Margin="20,0,20,30">
+                <Label Content="Country" 
+                       Height="25"
+                       Width="80"
+                       FontWeight="SemiBold"
+                       Foreground="#454545"/>
+                <ComboBox Width="200" 
+                         Height="25"
+                         ItemsSource="{Binding CountryComboBox}" 
+                         SelectedItem="{Binding SelectedCountry}"
+                         VerticalContentAlignment="Center"
+                         Padding="5,0"
+                         BorderThickness="1"
+                         BorderBrush="#ddd"/>
+            </StackPanel>
+
+            <!-- Skapa konto-knapp -->
+            <Button Content="Create account" 
+                    Width="130" 
+                    Height="30"
+                    Command="{Binding RegisterNewUserCommand}">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" 
+                                Background="#DC143C" 
+                                BorderThickness="2"
+                                BorderBrush="#DC143C"
+                                CornerRadius="15">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center">
+                                <ContentPresenter.Resources>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Foreground" Value="White"/>
+                                    </Style>
+                                </ContentPresenter.Resources>
+                            </ContentPresenter>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#FFB00020"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#FFDD1133"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
         </StackPanel>
     </Grid>
 </Window>

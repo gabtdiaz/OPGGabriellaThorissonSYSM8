@@ -6,7 +6,9 @@
         xmlns:local="clr-namespace:FitApp.View"
         mc:Ignorable="d"
         Title="WorkoutsWindow" Height="480" Width="320">
+    
     <Grid>
+        <!-- Bakgrundsgradient för ett mjukare utseende -->
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <GradientStop Color="LightGray"/>
@@ -16,33 +18,46 @@
             </LinearGradientBrush>
         </Grid.Background>
 
-        <!-- Rader -->
+        <!-- Definition av rader för layout -->
         <Grid.RowDefinitions>
             <RowDefinition Height="60"/>
-            <!-- Header Row (Buttons & Logo) -->
-            <RowDefinition Height="Auto"/>
-            <!-- Filter Row -->
+            <!-- Header-rad -->
+            <RowDefinition Height="160"/>
+            <!-- Workout-lista -->
             <RowDefinition Height="*"/>
-            <!-- Workouts List -->
-            <RowDefinition Height="Auto"/>
-            <!-- Buttons Row (Details, Remove, Sign Out) -->
+            <!-- Filter-sektion -->
+            <RowDefinition Height="60"/>
+            <!-- Knappar i botten -->
         </Grid.RowDefinitions>
 
-        <!-- Header - Användarknapp och Add Workout knapp -->
+        <!-- Header-sektion med användarknapp, logo och lägg till-knapp -->
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Width="300" Height="60" Grid.Row="0">
+            <!-- Användarknapp med visuell feedback -->
             <Button x:Name="btnUser" Content="{Binding CurrentUserName}" Width="93" Height="30" Margin="5"
-                    Background="Crimson" Foreground="AliceBlue" BorderBrush="Crimson" BorderThickness="2" 
-                    Padding="10" Command="{Binding UserDetailsCommand}">
+                    Background="Crimson" Foreground="White" BorderBrush="Crimson" BorderThickness="2" 
+                    Command="{Binding UserDetailsCommand}">
                 <Button.Template>
                     <ControlTemplate TargetType="{x:Type Button}">
-                        <Border Background="{TemplateBinding Background}" BorderBrush="{TemplateBinding BorderBrush}" 
-                                BorderThickness="{TemplateBinding BorderThickness}" CornerRadius="15">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" 
+                                BorderBrush="{TemplateBinding BorderBrush}" 
+                                BorderThickness="{TemplateBinding BorderThickness}" 
+                                CornerRadius="15">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
+                        <!-- Visuell feedback för musinteraktion -->
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#FFB00020"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#FFDD1133"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Button.Template>
             </Button>
 
+            <!-- Logo-sektion -->
             <StackPanel Width="100" Height="60">
                 <Label Content="F I T" HorizontalAlignment="Center" FontSize="18" VerticalAlignment="Top" 
                        FontFamily="Arial Black" FontWeight="Bold" Foreground="#FF5B5B5B"/>
@@ -50,104 +65,198 @@
                        FontFamily="Arial" FontSize="13" Foreground="DarkOrange"/>
             </StackPanel>
 
+            <!-- Lägg till träningspass-knapp -->
             <Button x:Name="btnAddWorkout" Content="+ Add Workout" Width="93" Height="30" 
-                    Background="DarkGray" Foreground="AliceBlue" VerticalAlignment="Center" 
-                    Padding="10" Command="{Binding AddWorkoutCommand}">
+                    Background="DarkGray" Foreground="White" Command="{Binding AddWorkoutCommand}">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}" CornerRadius="15">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" CornerRadius="15">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#FF404040"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#FF606060"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Button.Template>
             </Button>
         </StackPanel>
 
-        <!-- Label and ListBox for workouts -->
-        <Label Content="Your workouts" FontSize="14" FontFamily="Arial" Grid.Row="1" HorizontalAlignment="Center" Margin="0,10"/>
-        <ListBox ItemsSource="{Binding Workouts}" SelectedItem="{Binding SelectedWorkout, Mode=TwoWay}" 
-                 Height="110" Width="280" Grid.Row="1" HorizontalAlignment="Center" 
-                 VerticalAlignment="Top" Margin="0,30">
-            <ListBox.ItemTemplate>
-                <DataTemplate>
-                    <Border BorderBrush="LightGray" BorderThickness="0,0,0,1" Padding="2">
-                        <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="{Binding Type}" Width="60" Margin="0,0,5,0" FontSize="10"/>
-                            <TextBlock Text="{Binding DateTime, StringFormat=yyyy-MM-dd}" Width="70" Margin="0,0,5,0" FontSize="10"/>
-                            <TextBlock Text="{Binding Duration}" Width="50" Margin="0,0,5,0" FontSize="10"/>
-                            <TextBlock Text="{Binding Notes}" Width="50" Margin="0,0,5,0" FontSize="10"/>
-                        </StackPanel>
-                    </Border>
-                </DataTemplate>
-            </ListBox.ItemTemplate>
-        </ListBox>
-
-        <!-- Filter StackPanel -->
-        <StackPanel Orientation="Vertical" Grid.Row="2" VerticalAlignment="Top" HorizontalAlignment="Center">
-            <TextBlock Text="Find Workouts" FontSize="14" HorizontalAlignment="Center" />
-
-            <TextBlock Text="Date:" Margin="10,0"/>
-            <DatePicker SelectedDate="{Binding FilterDate}" Width="200"/>
-
-            <TextBlock Text="Type:" Margin="10,0"/>
-            <TextBox Text="{Binding FilterType}" Width="200"/>
-
-            <TextBlock Text="Minimum Duration (HH:MM):" Margin="10,0"/>
-            <TextBox Text="{Binding FilterDuration}" Width="200"/>
-
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,5,0,0">
-                <Button Content="Apply Filter" Command="{Binding FilterCommand}" Width="100" Margin="5,0">
-                    <Button.Template>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                    </Button.Template>
-                </Button> 
-                <Button Content="Clear Filter" Command="{Binding ClearFilterCommand}" Width="100" Margin="5,0">
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Border Background="{TemplateBinding Background}">
-                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <!-- Träningspass-listbox-->
+        <Border Grid.Row="1" Background="#10000000" Margin="10,5" CornerRadius="10">
+            <StackPanel>
+                <Label Content="Your workouts" FontSize="12" FontFamily="Arial" FontWeight="SemiBold"
+                       HorizontalAlignment="Center" Margin="0,5"/>
+                <ListBox ItemsSource="{Binding Workouts}" 
+                         SelectedItem="{Binding SelectedWorkout, Mode=TwoWay}" 
+                         Height="110" Margin="10,0"
+                         BorderThickness="0"
+                         Background="Transparent">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderBrush="#20000000" BorderThickness="0,0,0,1" Padding="5">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="60"/>
+                                        <!-- Typ -->
+                                        <ColumnDefinition Width="70"/>
+                                        <!-- Datum -->
+                                        <ColumnDefinition Width="50"/>
+                                        <!-- Varaktighet -->
+                                        <ColumnDefinition Width="*"/>
+                                        <!-- Anteckningar -->
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="{Binding Type}" Grid.Column="0" FontSize="11"/>
+                                    <TextBlock Text="{Binding DateTime, StringFormat=yyyy-MM-dd}" 
+                                             Grid.Column="1" FontSize="11"/>
+                                    <TextBlock Text="{Binding Duration}" Grid.Column="2" FontSize="11"/>
+                                    <TextBlock Text="{Binding Notes}" Grid.Column="3" FontSize="11" 
+                                             TextTrimming="CharacterEllipsis"/>
+                                </Grid>
                             </Border>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
             </StackPanel>
-        </StackPanel>
+        </Border>
 
-        <!-- Buttons for Workout Actions -->
-        <StackPanel Orientation="Horizontal" Grid.Row="3" VerticalAlignment="Top" HorizontalAlignment="Center" Height="50" Width="320" Margin="0,10,0,0">
-            <Button Content="See details" Command="{Binding WorkoutDetailsCommand}" Width="80" Height="30" 
-                    Foreground="AliceBlue" VerticalAlignment="Center" Padding="10" Margin="20,0,20,0" Background="DarkGray">
+        <!-- Filter-sektion med bakgrundseffekt -->
+        <Border Grid.Row="2" Background="#10000000" Margin="10,5" CornerRadius="10">
+            <StackPanel Margin="10">
+                <TextBlock Text="Find Workouts" FontSize="12" HorizontalAlignment="Center" 
+                           FontWeight="SemiBold" FontFamily="Arial"/>
+
+                <!-- Filter-inputs -->
+                <TextBlock Text="Date:" Margin="5,5,5,2" FontSize="12"/>
+                <DatePicker SelectedDate="{Binding FilterDate}" Margin="5,0"/>
+
+                <TextBlock Text="Type:" Margin="5,10,5,2" FontSize="12"/>
+                <TextBox Text="{Binding FilterType}" Margin="5,0" Padding="5,3"/>
+
+                <TextBlock Text="Minimum Duration (HH:MM):" Margin="5,10,5,2" FontSize="12"/>
+                <TextBox Text="{Binding FilterDuration}" Margin="5,0" Padding="5,3"/>
+
+                <!-- Filter-knappar -->
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,15,0,0">
+                    <Button Content="Apply Filter" Command="{Binding FilterCommand}" 
+                            Width="100" Height="30" Margin="5,0"
+                            Background="DarkGray" Foreground="White">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border x:Name="border" Background="{TemplateBinding Background}" 
+                                        CornerRadius="15">
+                                    <ContentPresenter HorizontalAlignment="Center" 
+                                                    VerticalAlignment="Center"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsPressed" Value="True">
+                                        <Setter TargetName="border" Property="Background" 
+                                                Value="#FF404040"/>
+                                    </Trigger>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="border" Property="Background" 
+                                                Value="#FF606060"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                    <Button Content="Clear Filter" Command="{Binding ClearFilterCommand}" 
+                            Width="100" Height="30" Margin="5,0"
+                            Background="DarkGray" Foreground="White">
+                        <Button.Template>
+                            <ControlTemplate TargetType="Button">
+                                <Border x:Name="border" Background="{TemplateBinding Background}" 
+                                        CornerRadius="15">
+                                    <ContentPresenter HorizontalAlignment="Center" 
+                                                    VerticalAlignment="Center"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsPressed" Value="True">
+                                        <Setter TargetName="border" Property="Background" 
+                                                Value="#FF404040"/>
+                                    </Trigger>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter TargetName="border" Property="Background" 
+                                                Value="#FF606060"/>
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Button.Template>
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+
+        <!-- Nedersta knapprad -->
+        <StackPanel Orientation="Horizontal" Grid.Row="3" 
+                    VerticalAlignment="Center" HorizontalAlignment="Center">
+            <!-- Se detaljer-knapp -->
+            <Button Content="See details" Command="{Binding WorkoutDetailsCommand}" 
+                    Width="80" Height="30" Margin="5,0"
+                    Background="DarkGray" Foreground="White">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}" CornerRadius="15">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" 
+                                CornerRadius="15">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#FF404040"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#FF606060"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Button.Template>
             </Button>
-            <Button Content="Remove" Command="{Binding RemoveWorkoutCommand}" Width="80" Height="30" 
-                    Foreground="AliceBlue" VerticalAlignment="Center"
-                    Padding="10" Margin="0,0,20,0" Background="DarkGray">
+
+            <!-- Ta bort-knapp -->
+            <Button Content="Remove" Command="{Binding RemoveWorkoutCommand}" 
+                    Width="80" Height="30" Margin="5,0"
+                    Background="DarkGray" Foreground="White">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}" CornerRadius="15">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" 
+                                CornerRadius="15">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#FF404040"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#FF606060"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Button.Template>
             </Button>
-            <Button Content="Sign Out" Command="{Binding SignOutCommand}" Width="80" Height="30" 
-                    Foreground="AliceBlue" VerticalAlignment="Center" 
-                    Padding="10" Margin="0,0,20,0" Background="Crimson">
+
+            <!-- Logga ut-knapp -->
+            <Button Content="Sign Out" Command="{Binding SignOutCommand}" 
+                    Width="80" Height="30" Margin="5,0"
+                    Background="Crimson" Foreground="White">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}" CornerRadius="15">
+                        <Border x:Name="border" Background="{TemplateBinding Background}" 
+                                CornerRadius="15">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#FFB00020"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#FFDD1133"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
                     </ControlTemplate>
                 </Button.Template>
             </Button>
