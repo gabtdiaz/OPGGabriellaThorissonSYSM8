@@ -25,10 +25,7 @@ namespace FitApp.ViewModel
         private readonly UserManager userManager;
 
         // Egenskaper för användarinmatning
-        public ObservableCollection<string> Countries // Egenskap för att få tillgång till länder i RegisterWindow
-        {
-            get { return registerWindow.CountryComboBox; }
-        }
+        public ObservableCollection<string> Countries { get; set; }
 
         private string selectedCountry;
         public string SelectedCountry
@@ -124,6 +121,7 @@ namespace FitApp.ViewModel
             this.userDetailsWindow = userDetailsWindow;
             this.userManager = userManager;
             this.registerWindow = registerWindow;
+            Countries = new ObservableCollection<string> { "Sweden", "Norway", "Denmark", "Finland" };
             // Initiera egenskaperna från userManager
             currentUsername = userManager.CurrentUser.Username;
             currentPassword = userManager.CurrentUser.Password;
@@ -203,7 +201,7 @@ namespace FitApp.ViewModel
 
                 if (selectedCountry != userManager.CurrentUser.Country)
                 {
-                    userManager.CurrentUser.Country = selectedCountry;
+                    userManager.CurrentUser.Country = SelectedCountry;
                 }
 
                 MessageBox.Show("User details updated successfully!",

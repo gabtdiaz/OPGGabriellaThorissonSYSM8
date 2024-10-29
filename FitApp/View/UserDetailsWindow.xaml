@@ -63,8 +63,8 @@
                 <!-- Combobox -->
                 <StackPanel Margin="0,0,0,15">
                     <Label Content="Country" FontWeight="SemiBold" Foreground="#454545" Width="100"/>
-                    <ComboBox ItemsSource="{Binding CountryComboBox}" 
-                            SelectedItem="{Binding SelectedCountry}"
+                    <ComboBox ItemsSource="{Binding Countries}" 
+                            SelectedItem="{Binding SelectedCountry, Mode=TwoWay}"
                             Height="25" Padding="5" BorderThickness="1" BorderBrush="#ddd"/>
                 </StackPanel>
             </StackPanel>
@@ -72,19 +72,19 @@
             <!-- Fält för uppdatering av användarinformation -->
             <StackPanel Margin="0,0,0,15">
                 <Label Content="New Username" FontWeight="SemiBold" Foreground="#454545"/>
-                <TextBox x:Name="txtBoxNewUsername" Height="25" Padding="5"
+                <TextBox x:Name="txtBoxNewUsername" Height="25"
                         BorderThickness="1" BorderBrush="#ddd" Text="{Binding NewUsername}"/>
             </StackPanel>
 
             <StackPanel Margin="0,0,0,15">
                 <Label Content="New Password" FontWeight="SemiBold" Foreground="#454545"/>
-                <TextBox x:Name="NewPasswordTextBox" Height="25" Padding="5"
+                <TextBox x:Name="NewPasswordTextBox" Height="25"
                          BorderThickness="1" BorderBrush="#ddd" Text="{Binding NewPassword}"/>
             </StackPanel>
 
             <StackPanel Margin="0,0,0,15">
                 <Label Content="Confirm New Password" FontWeight="SemiBold" Foreground="#454545"/>
-                <TextBox x:Name="ConfirmPasswordTextBox" Height="25" Padding="5"
+                <TextBox x:Name="ConfirmPasswordTextBox" Height="25"
                         BorderThickness="1" BorderBrush="#ddd" Text="{Binding ConfirmPassword}"/>
             </StackPanel>
         </StackPanel>
