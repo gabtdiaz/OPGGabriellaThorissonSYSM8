@@ -229,7 +229,8 @@ namespace FitApp.ViewModel
             ResetFields();
 
             // Öppnar WorkoutsWindow och stänger nuvarande fönster
-            WorkoutsWindow newWorkoutsWindow = new WorkoutsWindow(workoutsWindow.userManager, workoutsWindow);
+            WorkoutsWindowViewModel viewModel = new WorkoutsWindowViewModel(workoutsWindow.userManager, null);
+            WorkoutsWindow newWorkoutsWindow = new WorkoutsWindow(workoutsWindow.userManager, viewModel);
             newWorkoutsWindow.Show();
             addWorkoutWindow.Close();
         }

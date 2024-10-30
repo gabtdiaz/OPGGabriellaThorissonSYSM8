@@ -27,10 +27,10 @@ namespace FitApp.ViewModel
         public Window workoutsWindow;
         public Window workoutDetailsWindow;
         public UserManager userManager;
-        private RegisterWindowViewModel registerWindow;
+        private readonly RegisterWindowViewModel registerWindow;
         public ObservableCollection<Workout> Workouts { get; set; }
         
-        // Commands
+        // Commands för 
         public ICommand AddWorkoutCommand { get; }
         public ICommand UserDetailsCommand { get; }
         public ICommand RemoveWorkoutCommand { get; }
@@ -110,6 +110,7 @@ namespace FitApp.ViewModel
                     }
                 }
             }
+
             else
             {
                 // visar vanliga användares träningspass
@@ -119,11 +120,13 @@ namespace FitApp.ViewModel
                 }
             }
         }
+
         catch (Exception ex)
         {
             MessageBox.Show($"Failed to load workouts: {ex.Message}", 
                 "Error", MessageBoxButton.OK, MessageBoxImage.Error);         
         }
+
         // Initiera FilteredWorkouts
         FilteredWorkouts = CollectionViewSource.GetDefaultView(Workouts);
         FilteredWorkouts.Filter = FilterWorkouts;
@@ -141,13 +144,13 @@ namespace FitApp.ViewModel
 
         //public WorkoutsWindowViewModel() {}
 
-
-        // Metod som öppnar AddWorkoutWindow
+        // Metod som öppnar AddWorkoutWindow - och stänger WorkoutsWindow
         public void AddWorkout()
         {
             AddWorkoutWindow addWorkoutWindow = new AddWorkoutWindow(this);
             addWorkoutWindow.Show();
-            workoutsWindow.Close();
+            //WorkoutsWindow workoutsWindow = new WorkoutsWindow(userManager, this);
+            workoutsWindow.Close(); // stängs!
         }
 
         // Metod som tar bort valt träningspass

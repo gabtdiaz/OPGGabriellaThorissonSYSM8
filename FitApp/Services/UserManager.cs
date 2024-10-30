@@ -114,7 +114,7 @@ namespace FitApp.Services
         public bool ResetPassword(string username, string newPassword, string securityAnswer)
         {
             // Hitta användaren baserat på användarnamn
-            //User user = null; // Skapa en variabel med ev. tillfälligt värde
+ 
             User? user = Users.FirstOrDefault(u => u.Username == username && u.SecurityAnswer == securityAnswer);
 
             foreach (User u in Users) // Iterera över alla användare i listan Users
