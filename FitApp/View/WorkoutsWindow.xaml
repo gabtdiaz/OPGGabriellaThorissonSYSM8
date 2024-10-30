@@ -103,31 +103,48 @@
         <!-- Träningspass-listbox-->
         <Border Grid.Row="2" Background="#10000000" Margin="10,5" CornerRadius="10">
             <StackPanel>
-                <Label Content="Your workouts" FontSize="12" FontFamily="Arial" FontWeight="SemiBold"
-                       HorizontalAlignment="Center" Margin="0,5"/>
+                <Label Content="Your workouts" 
+               FontSize="12" 
+               FontFamily="Arial" 
+               FontWeight="SemiBold"
+               HorizontalAlignment="Center" 
+               Margin="0,5"/>
+
                 <ListBox ItemsSource="{Binding Workouts}" 
-                         SelectedItem="{Binding SelectedWorkout, Mode=TwoWay}" 
-                         Height="110" Margin="10,0"
-                         BorderThickness="0"
-                         Background="Transparent">
+                 SelectedItem="{Binding SelectedWorkout, Mode=TwoWay}" 
+                 Height="110" 
+                 Margin="10,0"
+                 BorderThickness="0"
+                 Background="Transparent">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <Border BorderBrush="#20000000" BorderThickness="0,0,0,1" Padding="5">
-                                <Grid>
-                                    <!--Kolumner-->
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="60"/>
-                                        <ColumnDefinition Width="70"/>
-                                        <ColumnDefinition Width="50"/>
-                                        <ColumnDefinition Width="*"/>
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock Text="{Binding Type}" Grid.Column="0" FontSize="11"/>
+                            <Border BorderBrush="#20000000" 
+                            BorderThickness="0,0,0,1" 
+                            Padding="5,3">
+                                <StackPanel Orientation="Horizontal">
+                                    <!-- Type -->
+                                    <TextBlock Text="{Binding Type}" 
+                                     FontSize="11"
+                                     Width="60"
+                                     Margin="0,0,15,0"/>
+
+                                    <!-- Date -->
                                     <TextBlock Text="{Binding DateTime, StringFormat=yyyy-MM-dd}" 
-                                             Grid.Column="1" FontSize="11"/>
-                                    <TextBlock Text="{Binding Duration}" Grid.Column="2" FontSize="11"/>
-                                    <TextBlock Text="{Binding Notes}" Grid.Column="3" FontSize="11" 
-                                             TextTrimming="CharacterEllipsis"/>
-                                </Grid>
+                                     FontSize="11"
+                                     Width="80"
+                                     Margin="0,0,15,0"/>
+
+                                    <!-- Duration -->
+                                    <TextBlock Text="{Binding Duration, StringFormat=hh\\:mm}" 
+                                     FontSize="11"
+                                     Width="50"
+                                     Margin="0,0,15,0"/>
+
+                                    <!-- Notes -->
+                                    <TextBlock Text="{Binding Notes}" 
+                                     FontSize="11"
+                                     TextTrimming="CharacterEllipsis"/>
+                                </StackPanel>
                             </Border>
                         </DataTemplate>
                     </ListBox.ItemTemplate>

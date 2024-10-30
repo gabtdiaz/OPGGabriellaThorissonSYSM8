@@ -24,8 +24,10 @@ namespace FitApp.ViewModel
         // Binding-egenskaper för UI
         public DateTime WorkoutDateTime { get; set; }
         public TimeSpan WorkoutDuration { get; set; }
-        public int CaloriesBurned { get; set; }
         public string Notes { get; set; }
+        public int Distance {  get; set; }
+        public int Repetitions { get; set; }
+        public int Sets { get; set; }
         public ObservableCollection<string> WorkoutTypeOptions { get; } = new ObservableCollection<string> { "Cardio", "Strength" };
 
         private string selectedWorkoutType;
@@ -48,6 +50,17 @@ namespace FitApp.ViewModel
                 selectedWorkout = value;
                 OnPropertyChanged(nameof(SelectedWorkout));
                 UpdateFieldsFromSelectedWorkout();
+            }
+        }
+
+        private int caloriesBurned;
+        public int CaloriesBurned
+        {
+            get => caloriesBurned;
+            set
+            {
+                caloriesBurned = value;
+                OnPropertyChanged(nameof(CaloriesBurned));
             }
         }
 
@@ -94,32 +107,62 @@ namespace FitApp.ViewModel
         // Sparar ändringar och återgår till huvudfönstret
         private void SaveWorkout()
         {
-            IsEditing = false;
-
-            Workout newWorkout;
-            if (SelectedWorkoutType == "Cardio")
+            if (SelectedWorkout != null)
             {
-                newWorkout = new CardioWorkout();
+                WorkoutDateTime = SelectedWorkout.DateTime;
+                WorkoutDuration = SelectedWorkout.Duration;
+                CaloriesBurned = SelectedWorkout.CaloriesBurned;
+                Notes = SelectedWorkout.Notes;
+
+                // Uppdatera fält baserat på workout typ
+                if (SelectedWorkout is CardioWorkout cardio)
+                {
+                    Distance = cardio.Distance;
+                    CalculateCalories(); // Beräkna CaloriesBurned
+                }
+                else if (SelectedWorkout is StrengthWorkout strength)
+                {
+                    Sets = strength.Sets;
+                    Repetitions = strength.Repetitions;
+                    CalculateCalories(); // Beräkna CaloriesBurned
+                }
+
+                MessageBox.Show("Workout saved!", "Success", MessageBoxButton.OK, MessageBoxImage.Exclamation);
             }
             else
             {
-                newWorkout = new StrengthWorkout();
+                MessageBox.Show("Fill in the correct information", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
 
-            // Tilldela egenskaper till det nya träningspasset
-            newWorkout.Type = SelectedWorkoutType;
-            newWorkout.DateTime = WorkoutDateTime;
-            newWorkout.Duration = WorkoutDuration;
-            newWorkout.CaloriesBurned = CaloriesBurned;
-            newWorkout.Notes = Notes;
-
-            workoutsWindow.Workouts.Add(newWorkout);
-
-            // Stänger fönstret
+            // Öppna och stäng fönster
             WorkoutsWindow newWorkoutsWindow = new WorkoutsWindow(workoutsWindow.userManager, workoutsWindow);
             newWorkoutsWindow.Show();
             workoutDetailsWindow.Close();
-            // okej så när jag sparar så skapas en ny workout istället
+        }
+
+
+        // Metod för att berkäkna kalorier
+        private void CalculateCalories()
+        {
+            if (SelectedWorkoutType == "Strength" && Sets > 0 && Repetitions > 0)
+            {
+                var workout = new StrengthWorkout
+                {
+                    Sets = Sets,
+                    Repetitions = Repetitions,
+                    Duration = WorkoutDuration
+                };
+                CaloriesBurned = workout.CalculateCaloriesBurned();
+            }
+            else if (SelectedWorkoutType == "Cardio" && Distance > 0)
+            {
+                var workout = new CardioWorkout
+                {
+                    Distance = Distance,
+                    Duration = WorkoutDuration
+                };
+                CaloriesBurned = workout.CalculateCaloriesBurned();
+            }
         }
 
         // Uppdaterar UI-egenskaper baserat på vald workout

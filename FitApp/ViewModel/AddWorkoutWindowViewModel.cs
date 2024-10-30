@@ -17,18 +17,20 @@ namespace FitApp.ViewModel
     {
         // Egenskaper
 
+        // Fönster och Referenser
         public Window addWorkoutWindow;
+        private WorkoutsWindowViewModel workoutsWindow;
+
+        // Lista med träningstyper 
         public ObservableCollection<string> WorkoutTypeComboBox { get; set; }
 
-        // Referenser
-
-        private WorkoutsWindowViewModel workoutsWindow;
+        // Referens till träningslistan från WorkoutsWindow
         public ObservableCollection<Workout> Workouts
         {
             get => workoutsWindow.Workouts;
         }
-
-        // Synlighets-egenskaper
+        
+        // Synlighetsegenskaper
 
         private Visibility cardioVisibility;
         public Visibility CardioVisibility
@@ -52,10 +54,8 @@ namespace FitApp.ViewModel
             }
         }
 
-        // Egenskaper för binding till UI
-
+        // Träningsegenskaper
         private string selectedWorkout;
-
         public string SelectedWorkout
         {
             get { return selectedWorkout; }
@@ -64,15 +64,15 @@ namespace FitApp.ViewModel
                 selectedWorkout = value;
                 OnPropertyChanged(nameof(SelectedWorkout));
                 UpdateVisibility();
+                CalculateCalories(); // Lägg till denna för automatisk kalorieberäkning
             }
         }
 
-        private DateTime dateinput;
-
+        private DateTime dateinput = DateTime.Now; // Sätt default värde
         public DateTime DateInput
         {
             get { return dateinput; }
-            set 
+            set
             {
                 dateinput = value;
                 OnPropertyChanged(nameof(DateInput));
@@ -80,38 +80,39 @@ namespace FitApp.ViewModel
         }
 
         private TimeSpan durationInput;
-
         public TimeSpan DurationInput
         {
             get { return durationInput; }
-            set 
-            { 
+            set
+            {
                 durationInput = value;
                 OnPropertyChanged(nameof(DurationInput));
+                CalculateCalories(); // För automatisk kalorieberäkning
             }
         }
-        private int caloriesBurnedInput;
 
+        private int caloriesBurnedInput;
         public int CaloriesBurnedInput
         {
             get { return caloriesBurnedInput; }
-            set 
-            { 
-                caloriesBurnedInput = value; 
+            set
+            {
+                caloriesBurnedInput = value;
                 OnPropertyChanged(nameof(CaloriesBurnedInput));
             }
         }
-        private string notesInput;
 
+        private string notesInput;
         public string NotesInput
         {
             get { return notesInput; }
-            set 
-            { 
-                notesInput = value; 
-                OnPropertyChanged(NotesInput);
+            set
+            {
+                notesInput = value;
+                OnPropertyChanged(nameof(NotesInput));
             }
         }
+
         private int distance;
         public int Distance
         {
@@ -120,6 +121,7 @@ namespace FitApp.ViewModel
             {
                 distance = value;
                 OnPropertyChanged(nameof(Distance));
+                CalculateCalories(); // För automatisk kalorieberäkning
             }
         }
 
@@ -131,6 +133,7 @@ namespace FitApp.ViewModel
             {
                 repetitions = value;
                 OnPropertyChanged(nameof(Repetitions));
+                CalculateCalories(); // För automatisk kalorieberäkning
             }
         }
 
@@ -142,66 +145,98 @@ namespace FitApp.ViewModel
             {
                 sets = value;
                 OnPropertyChanged(nameof(Sets));
+                CalculateCalories(); // För automatisk kalorieberäkning
             }
         }
 
-        // Initierar kommando för att spara träningspass
         public ICommand SaveCommand => new RelayCommand(SaveWorkout);
 
-        // Konstruktor - Anropar både WorkoutsWindowViewModel och MainWindowViewModels konstruktorer
-        public AddWorkoutWindowViewModel(Window addWorkoutWindow, WorkoutsWindowViewModel workoutsWindow) 
+        public AddWorkoutWindowViewModel(Window addWorkoutWindow, WorkoutsWindowViewModel workoutsWindow)
         {
             this.addWorkoutWindow = addWorkoutWindow;
             this.workoutsWindow = workoutsWindow;
             WorkoutTypeComboBox = new ObservableCollection<string> { "Cardio", "Strength" };
-        } 
+            DateInput = DateTime.Now; // Sätt dagens datum som default
+        }
 
-        // Metod som sparar träningspass förutsatt att varje fält är ifyllt.
-        public void SaveWorkout() 
+        // Beräknar kalorier - anropar metoder från StrengthWorkout & CardioWorkout
+        private void CalculateCalories()
         {
-            // Kontrollerar ifall fälten är tomma
-            if (string.IsNullOrWhiteSpace(DateInput.ToString()) ||
-                string.IsNullOrWhiteSpace(DurationInput.ToString()) ||
-                string.IsNullOrWhiteSpace(CaloriesBurnedInput.ToString()) ||
-                string.IsNullOrWhiteSpace(NotesInput) ||
-                WorkoutTypeComboBox == null)
+            if (SelectedWorkout == "Strength" && Sets > 0 && Repetitions > 0)
             {
-                MessageBox.Show("Please enter all the information correctly.", "Error", MessageBoxButton.OK);
-                return;
+                Workout workout = new StrengthWorkout
+                {
+                    Sets = Sets,
+                    Repetitions = Repetitions,
+                    Duration = DurationInput
+                };
+                CaloriesBurnedInput = workout.CalculateCaloriesBurned();
             }
+            else if (SelectedWorkout == "Cardio" && Distance > 0)
+            {
+                Workout workout = new CardioWorkout
+                {
+                    Distance = Distance,
+                    Duration = DurationInput
+                };
+                CaloriesBurnedInput = workout.CalculateCaloriesBurned();
+            }
+        }
 
-            // Kontrollerar fälten utefter träningstyp
+        // Uppdaterar synlighet av fält baserat på vald träningstyp
+        private void UpdateVisibility()
+        {
+            CardioVisibility = selectedWorkout == "Cardio" ? Visibility.Visible : Visibility.Collapsed;
+            StrengthVisibility = selectedWorkout == "Strength" ? Visibility.Visible : Visibility.Collapsed;
+        }
+
+        // Sparar träningspasset och kontrollerar inmatning
+        public void SaveWorkout()
+        {
+            // Skapar nytt träningspass baserat på typ
+            Workout newWorkout;
             if (SelectedWorkout == "Cardio")
             {
-                if (Distance == 0)
+                newWorkout = new CardioWorkout
                 {
-                    MessageBox.Show("Please enter distance", "Error", MessageBoxButton.OK);
-                    return;
-                }
+                    Distance = Distance,
+                    Duration = DurationInput,
+                    DateTime = DateInput,
+                    Notes = NotesInput,
+                    Type = SelectedWorkout
+                };
             }
-            else if (SelectedWorkout == "Strength")
+            else // Strength
             {
-                if (Sets == 0 || Repetitions == 0)
+                newWorkout = new StrengthWorkout
                 {
-                    MessageBox.Show("Please enter sets & reps", "Error", MessageBoxButton.OK);
-                    return;
-                }
+                    Sets = Sets,
+                    Repetitions = Repetitions,
+                    Duration = DurationInput,
+                    DateTime = DateInput,
+                    Notes = NotesInput,
+                    Type = SelectedWorkout
+                };
             }
 
-            // Spara träningspasset i Workouts listan från WorkoutsWindowViewModel
-            Workout newWorkout = SelectedWorkout == "Cardio" ? new CardioWorkout() : new StrengthWorkout();
-            newWorkout.Type = SelectedWorkout;
-            newWorkout.DateTime = DateInput;
-            newWorkout.Duration = DurationInput;
-            newWorkout.CaloriesBurned = CaloriesBurnedInput;
-            newWorkout.Notes = NotesInput;
-            newWorkout.Distance = Distance;
-            newWorkout.Repetitions = Repetitions;
-            newWorkout.Sets = Sets;
+            // Beräknar kalorier automatiskt 
+            newWorkout.CaloriesBurned = newWorkout.CalculateCaloriesBurned();
 
+            // Lägger till i listan
             workoutsWindow.Workouts.Add(newWorkout);
 
-            // Återställer fälten
+            // Återställer alla fält
+            ResetFields();
+
+            // Öppnar WorkoutsWindow och stänger nuvarande fönster
+            WorkoutsWindow newWorkoutsWindow = new WorkoutsWindow(workoutsWindow.userManager, workoutsWindow);
+            newWorkoutsWindow.Show();
+            addWorkoutWindow.Close();
+        }
+
+        // Återställer alla fält till default-värden
+        private void ResetFields()
+        {
             SelectedWorkout = string.Empty;
             DateInput = DateTime.Now;
             DurationInput = TimeSpan.Zero;
@@ -210,18 +245,6 @@ namespace FitApp.ViewModel
             Distance = 0;
             Repetitions = 0;
             Sets = 0;
-
-            // Öppna WorkoutsWindow igen och stäng AddWorkoutWindow
-            WorkoutsWindow newWorkoutsWindow = new WorkoutsWindow(workoutsWindow.userManager, workoutsWindow);
-            newWorkoutsWindow.Show();
-            addWorkoutWindow.Close();
-        }
-
-        // Metod som gör att Cardio eller Strength "egenskaper" uppdateras varje gång SelectedWorkout ändras.
-        private void UpdateVisibility()
-        {
-            CardioVisibility = selectedWorkout == "Cardio" ? Visibility.Visible : Visibility.Collapsed;
-            StrengthVisibility = selectedWorkout == "Strength" ? Visibility.Visible : Visibility.Collapsed;
         }
 
     }

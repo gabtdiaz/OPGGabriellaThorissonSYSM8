@@ -29,13 +29,21 @@
         </Grid.RowDefinitions>
 
         <!-- Logo och titel -->
-        <StackPanel Width="100" Height="60">
-            <Label Content="F I T" HorizontalAlignment="Center" FontSize="18" 
-                   VerticalAlignment="Top" FontFamily="Arial Black" 
-                   FontWeight="Bold" Foreground="#FF5B5B5B"/>
-            <Label Content="&#x2AF8;Track" HorizontalAlignment="Center" 
-                   VerticalAlignment="Top" FontFamily="Arial" 
-                   FontSize="13" Foreground="DarkOrange"/>
+        <StackPanel Width="100" 
+                    Height="60">
+            <Label Content="F I T" 
+                   HorizontalAlignment="Center"
+                   FontSize="18" 
+                   VerticalAlignment="Top" 
+                   FontFamily="Arial Black" 
+                   FontWeight="Bold" 
+                   Foreground="#FF5B5B5B"/>
+            <Label Content="&#x2AF8;Track" 
+                   HorizontalAlignment="Center" 
+                   VerticalAlignment="Top" 
+                   FontFamily="Arial" 
+                   FontSize="13" 
+                   Foreground="DarkOrange"/>
         </StackPanel>
 
         <!-- Kolumner -->
@@ -49,11 +57,26 @@
             </Grid.ColumnDefinitions>
 
             <!-- Rubriktexter -->
-            <TextBlock Text="Type" Grid.Column="0" Padding="5" FontWeight="SemiBold"/>
-            <TextBlock Text="Date" Grid.Column="1" Padding="5" FontWeight="SemiBold"/>
-            <TextBlock Text="Duration" Grid.Column="2" Padding="5" FontWeight="SemiBold"/>
-            <TextBlock Text="Calories" Grid.Column="3" Padding="5" FontWeight="SemiBold"/>
-            <TextBlock Text="Notes" Grid.Column="4" Padding="5" FontWeight="SemiBold"/>
+            <TextBlock Text="Type" 
+                       Grid.Column="0" 
+                       Padding="5" 
+                       FontWeight="SemiBold"/>
+            <TextBlock Text="Date" 
+                       Grid.Column="1" 
+                       Padding="5" 
+                       FontWeight="SemiBold"/>
+            <TextBlock Text="Duration" 
+                       Grid.Column="2" 
+                       Padding="5" 
+                       FontWeight="SemiBold"/>
+            <TextBlock Text="Calories" 
+                       Grid.Column="4" 
+                       Padding="5" 
+                       FontWeight="SemiBold"/>
+            <TextBlock Text="Notes" 
+                       Grid.Column="3" 
+                       Padding="5" 
+                       FontWeight="SemiBold"/>
         </Grid>
 
         <!-- Inmatningsfält baserat på typ av träning -->
@@ -71,7 +94,8 @@
                       ItemsSource="{Binding Workouts}" 
                       SelectedItem="{Binding SelectedWorkout, Mode=TwoWay}"
                       IsEnabled="{Binding IsEditing}" 
-                      Margin="2" SelectedIndex="0"/>
+                      Margin="2" 
+                      SelectedIndex="0"/>
 
             <TextBox Grid.Column="1"
                      Text="{Binding SelectedWorkout.DateInput, StringFormat=yyyy-MM-dd}"
@@ -82,107 +106,158 @@
             <TextBox Grid.Column="2" 
                      Text="{Binding SelectedWorkout.Duration}" 
                      IsEnabled="{Binding IsEditing}" 
-                     Margin="2" Padding="5,2"/>
+                     Margin="2" 
+                     Padding="5,2"/>
 
-            <TextBox Grid.Column="3" Text="{Binding SelectedWorkout.CaloriesBurned}" 
-                     IsEnabled="{Binding IsEditing}" Margin="2" Padding="5,2"/>
+            <TextBox Grid.Column="4" 
+                     Text="{Binding CaloriesBurned, UpdateSourceTrigger=PropertyChanged}"
+                     IsEnabled="{Binding IsEditing}" 
+                     Margin="2" 
+                     Padding="5,2"/>
 
-            <TextBox Grid.Column="4" Text="{Binding SelectedWorkout.Notes}" 
-                     IsEnabled="{Binding IsEditing}" Margin="2" Padding="5,2"/>
+            <TextBox Grid.Column="3" Text="{Binding SelectedWorkout.Notes}" 
+                     IsEnabled="{Binding IsEditing}" 
+                     Margin="2" 
+                     Padding="5,2"/>
         </Grid>
 
         <!-- Specifika fält för olika träningstyper -->
-        <StackPanel Orientation="Horizontal" Height="21" Grid.Row="3" Margin="20,0">
+        <StackPanel Orientation="Horizontal" 
+                    Height="21" 
+                    Grid.Row="3" 
+                    Margin="20,0">
             <!-- Cardio-specifika fält -->
-            <StackPanel Orientation="Horizontal" Visibility="{Binding CardioVisibility}">
-                <TextBlock Text="Distance:" Background="LightGray" Padding="5,2"/>
-                <TextBox x:Name="txtBoxDistance" Text="{Binding SelectedWorkout.Distance}" 
-                         Width="48" IsEnabled="{Binding IsEditing}" Padding="5,2"/>
+            <StackPanel Orientation="Horizontal" 
+                        Visibility="{Binding CardioVisibility}">
+                <TextBlock Text="Distance:" 
+                           Background="LightGray" 
+                           Padding="5,2"/>
+                <TextBox x:Name="txtBoxDistance" 
+                         Text="{Binding SelectedWorkout.Distance}" 
+                         Width="48" 
+                         IsEnabled="{Binding IsEditing}" 
+                         Padding="5,2"/>
             </StackPanel>
 
             <!-- Strength-specifika fält -->
-            <StackPanel Orientation="Horizontal" Visibility="{Binding StrengthVisibility}" Background="LightGray">
-                <TextBlock Text="Reps:" Background="LightGray" Padding="5,2"/>
-                <TextBox x:Name="txtBoxRepetitions" Text="{Binding SelectedWorkout.Repetitions}" 
-                         Width="48" IsEnabled="{Binding IsEditing}" Padding="5,2"/>
-
-                <TextBlock Text="Sets:" Background="LightGray" Margin="20,0,0,0" Padding="5,2"/>
-                <TextBox x:Name="txtBoxSets" Text="{Binding SelectedWorkout.Sets}" 
-                         Width="48" IsEnabled="{Binding IsEditing}" Padding="5,2"/>
+            <StackPanel Orientation="Horizontal" 
+                        Visibility="{Binding StrengthVisibility}" 
+                        Background="LightGray">
+                <TextBlock Text="Reps:" 
+                           Background="LightGray" 
+                           Padding="5,2"/>
+                <TextBox x:Name="txtBoxRepetitions" 
+                         Text="{Binding SelectedWorkout.Repetitions}" 
+                         Width="48" 
+                         IsEnabled="{Binding IsEditing}" 
+                         Padding="5,2"/>
+                <TextBlock Text="Sets:" 
+                           Background="LightGray" 
+                           Margin="20,0,0,0" 
+                           Padding="5,2"/>
+                <TextBox x:Name="txtBoxSets" 
+                         Text="{Binding SelectedWorkout.Sets}" 
+                         Width="48" 
+                         IsEnabled="{Binding IsEditing}" 
+                         Padding="5,2"/>
             </StackPanel>
         </StackPanel>
 
-        <!-- Lista med träningspass -->
-        <ListBox Grid.Row="4" ItemsSource="{Binding Workouts}" 
-                 SelectedItem="{Binding SelectedWorkout}" Margin="20,10">
+        <ListBox Grid.Row="4" 
+         ItemsSource="{Binding Workouts}" 
+         SelectedItem="{Binding SelectedWorkout}" 
+         Margin="20,20,20,40" 
+         Grid.RowSpan="2">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                    <Grid>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
+                    <Border BorderBrush="#20000000" 
+                    BorderThickness="0,0,0,1" 
+                    Padding="5">
+                        <StackPanel Orientation="Horizontal">
+                            
+                            <!-- Type -->
+                            <TextBlock Text="{Binding Type}" 
+                             Width="70"
+                             FontSize="11"
+                             Margin="0,0,15,0"/>
 
-                        <!-- Grundläggande träningsinformation -->
-                        <TextBlock Text="{Binding Type}" Grid.Column="0" Padding="5"/>
-                        <TextBlock Text="{Binding DateTime}" Grid.Column="1" Padding="5"/>
-                        <TextBlock Text="{Binding Duration}" Grid.Column="2" Padding="5"/>
-                        <TextBlock Text="{Binding CaloriesBurned}" Grid.Column="3" Padding="5"/>
-                        <TextBlock Text="{Binding Notes}" Grid.Column="4" Padding="5"/>
+                            <!-- Date -->
+                            <TextBlock Text="{Binding DateTime, StringFormat=yyyy-MM-dd}"
+                             Width="80"
+                             FontSize="11"
+                             Margin="0,0,15,0"/>
 
-                        <!-- Cardio-specifik information -->
-                        <TextBlock Text="D:" Grid.Column="5" Padding="5" 
-                                 Visibility="{Binding CardioVisibility}"/>
-                        <TextBlock Text="{Binding Distance}" Grid.Column="6" Padding="5" 
-                                 Visibility="{Binding CardioVisibility}"/>
+                            <!-- Duration -->
+                            <TextBlock Text="{Binding Duration, StringFormat=hh\\:mm}"
+                             Width="50"
+                             FontSize="11"
+                             Margin="0,0,15,0"/>
 
-                        <!-- Strength-specifik information -->
-                        <TextBlock Text="R:" Grid.Column="7" Padding="5" 
-                                 Visibility="{Binding StrengthVisibility}"/>
-                        <TextBlock Text="{Binding Repetitions}" Grid.Column="8" Padding="5" 
-                                 Visibility="{Binding StrengthVisibility}"/>
-                        <TextBlock Text="S:" Grid.Column="9" Padding="5" 
-                                 Visibility="{Binding StrengthVisibility}"/>
-                        <TextBlock Text="{Binding Sets}" Grid.Column="10" Padding="5" 
-                                 Visibility="{Binding StrengthVisibility}"/>
-                    </Grid>
+                            <!-- Notes -->
+                            <TextBlock Text="{Binding Notes}"
+                             Width="100"
+                             FontSize="11"
+                             Margin="0,0,15,0"/>
+
+                            <!-- Calories -->
+                            <TextBlock Text="{Binding CaloriesBurned, StringFormat={}{0} kcal}"
+                             Width="70"
+                             FontSize="11"
+                             Margin="0,0,15,0"/>
+
+                            <!-- Cardio info -->
+                            <TextBlock Text="{Binding Distance, StringFormat={}{0} km}"
+                             Width="60"
+                             FontSize="11"
+                             Margin="0,0,15,0"
+                             Visibility="{Binding CardioVisibility}"/>
+
+                            <!-- Strength info -->
+                            <StackPanel Orientation="Horizontal"
+                              Visibility="{Binding StrengthVisibility}">
+                                <TextBlock Text="{Binding Sets, StringFormat=Sets: {0}}"
+                                 Width="60"
+                                 FontSize="11"
+                                 Margin="0,0,15,0"/>
+                                <TextBlock Text="{Binding Repetitions, StringFormat=Reps: {0}}"
+                                 Width="70"
+                                 FontSize="11"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
-
+        
         <!-- Knappar Edit och Save -->
         <StackPanel Grid.Row="5" Orientation="Horizontal" 
                     HorizontalAlignment="Center" Margin="0,5">
             <!-- Redigera-knapp -->
-            <Button Content="Edit" Command="{Binding EditWorkoutCommand}" 
+            <Button Content="Edit"    
+                    Command="{Binding EditWorkoutCommand}" 
                     Width="80" Height="30" Margin="0,0,20,0">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
-                        <Border x:Name="border" Background="Crimson" CornerRadius="15">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Border x:Name="border" Background="Crimson" 
+                                CornerRadius="15">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center">
                                 <ContentPresenter.Resources>
                                     <Style TargetType="TextBlock">
-                                        <Setter Property="Foreground" Value="White"/>
+                                        <Setter Property="Foreground" 
+                                                Value="White"/>
                                     </Style>
                                 </ContentPresenter.Resources>
                             </ContentPresenter>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsPressed" Value="True">
-                                <Setter TargetName="border" Property="Background" Value="#FFB00020"/>
+                                <Setter TargetName="border" Property="Background" 
+                                        Value="#FFB00020"/>
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="border" Property="Background" Value="red
-                                        "/>
+                                <Setter TargetName="border" Property="Background" 
+                                        Value="red"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
@@ -194,21 +269,28 @@
                     Width="80" Height="30">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
-                        <Border x:Name="border" Background="Crimson" CornerRadius="15">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Border x:Name="border" Background="Crimson" 
+                                CornerRadius="15">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                              VerticalAlignment="Center">
                                 <ContentPresenter.Resources>
                                     <Style TargetType="TextBlock">
-                                        <Setter Property="Foreground" Value="White"/>
+                                        <Setter Property="Foreground" 
+                                                Value="White"/>
                                     </Style>
                                 </ContentPresenter.Resources>
                             </ContentPresenter>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsPressed" Value="True">
-                                <Setter TargetName="border" Property="Background" Value="#FFB00020"/>
+                                <Setter TargetName="border" 
+                                        Property="Background" 
+                                        Value="#FFB00020"/>
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="border" Property="Background" Value="red"/>
+                                <Setter TargetName="border" 
+                                        Property="Background" 
+                                        Value="red"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>

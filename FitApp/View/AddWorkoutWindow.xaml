@@ -95,7 +95,7 @@
                         Padding="5,2"/>
 
                 <TextBox Grid.Column="4" 
-                        Text="{Binding CaloriesBurnedInput}"
+                        Text="{Binding CaloriesBurnedInput, UpdateSourceTrigger=PropertyChanged}"
                         Height="25"
                         VerticalContentAlignment="Center"
                         Padding="5,2"/>
@@ -142,71 +142,95 @@
                 </StackPanel>
             </Grid>
 
-            <!-- Träningslistbox -->
-            <ListBox ItemsSource="{Binding Workouts}" 
-                    SelectedItem="{Binding SelectedWorkoutItem, Mode=TwoWay}" 
-                    Height="220" 
-                    Margin="0,5"
-                    BorderThickness="1"
-                    BorderBrush="#ddd">
+        <!-- Träningslistbox -->    
+        <ListBox ItemsSource="{Binding Workouts}" 
+         SelectedItem="{Binding SelectedWorkout, Mode=TwoWay}" 
+         Height="220" 
+         Margin="0,5"
+         BorderThickness="1"
+         BorderBrush="#ddd">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Border BorderBrush="#20000000" 
-                                BorderThickness="0,0,0,1" 
-                                Padding="5,3">
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="70"/>
-                                    <ColumnDefinition Width="80"/>
-                                    <ColumnDefinition Width="50"/>
-                                    <ColumnDefinition Width="*"/>
-                                </Grid.ColumnDefinitions>
+                    BorderThickness="0,0,0,1" 
+                    Padding="5,3">
+                            <StackPanel Orientation="Horizontal">
+                                <!-- Type -->
                                 <TextBlock Text="{Binding Type}" 
-                                         Grid.Column="0" 
-                                         FontSize="11"/>
+                             FontSize="11"
+                             Width="60"
+                             Margin="0,0,15,0"/>
+
+                                <!-- Date -->
                                 <TextBlock Text="{Binding DateTime, StringFormat=yyyy-MM-dd}" 
-                                         Grid.Column="1" 
-                                         FontSize="11"/>
-                                <TextBlock Text="{Binding Duration}" 
-                                         Grid.Column="2" 
-                                         FontSize="11"/>
+                             FontSize="11"
+                             Width="80"
+                             Margin="0,0,15,0"/>
+
+                                <!-- Duration -->
+                                <TextBlock Text="{Binding Duration, StringFormat=hh\\:mm}" 
+                             FontSize="11"
+                             Width="50"
+                             Margin="0,0,15,0"/>
+
+                                <!-- Calories -->
+                                <StackPanel Orientation="Horizontal"
+                              Width="70"
+                              Margin="0,0,15,0">
+                                    <TextBlock Text="{Binding CaloriesBurned}" 
+                                 FontSize="11"/>
+                                    <TextBlock Text=" kcal" 
+                                 FontSize="11" 
+                                 Foreground="#666"/>
+                                </StackPanel>
 
                                 <!-- Cardio/Strength-specifik information -->
-                                <StackPanel Grid.Column="3" 
-                                          Orientation="Horizontal">
-                                    <!-- Cardio info -->
-                                    <StackPanel Orientation="Horizontal" 
-                                              Visibility="{Binding CardioVisibility}">
-                                        <TextBlock Text="D:" 
-                                                 FontSize="11" 
-                                                 Margin="0,0,2,0"/>
-                                        <TextBlock Text="{Binding Distance}" 
-                                                 FontSize="11" 
-                                                 Margin="0,0,5,0"/>
-                                    </StackPanel>
-
-                                    <!-- Strength info -->
-                                    <StackPanel Orientation="Horizontal" 
-                                              Visibility="{Binding StrengthVisibility}">
-                                        <TextBlock Text="R:" 
-                                                 FontSize="11" 
-                                                 Margin="0,0,2,0"/>
-                                        <TextBlock Text="{Binding Repetitions}" 
-                                                 FontSize="11" 
-                                                 Margin="0,0,5,0"/>
-                                        <TextBlock Text="S:" 
-                                                 FontSize="11" 
-                                                 Margin="0,0,2,0"/>
-                                        <TextBlock Text="{Binding Sets}" 
-                                                 FontSize="11"/>
-                                    </StackPanel>
+                                <!-- Cardio info -->
+                                <StackPanel Orientation="Horizontal" 
+                              Visibility="{Binding CardioVisibility}">
+                                    <TextBlock Text="Distance: " 
+                                 FontSize="11" 
+                                 Foreground="#666"/>
+                                    <TextBlock Text="{Binding Distance}" 
+                                 FontSize="11"/>
+                                    <TextBlock Text=" km" 
+                                 FontSize="11" 
+                                 Foreground="#666"/>
                                 </StackPanel>
-                            </Grid>
+
+                                <!-- Strength info -->
+                                <StackPanel Orientation="Horizontal" 
+                              Visibility="{Binding StrengthVisibility}">
+                                    <TextBlock Text="Sets: " 
+                                 FontSize="11" 
+                                 Foreground="#666"/>
+                                    <TextBlock Text="{Binding Sets}" 
+                                 FontSize="11"
+                                 Margin="0,0,10,0"/>
+                                    <TextBlock Text="Reps: " 
+                                 FontSize="11" 
+                                 Foreground="#666"/>
+                                    <TextBlock Text="{Binding Repetitions}" 
+                                 FontSize="11"/>
+                                </StackPanel>
+                            </StackPanel>
                         </Border>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
-            </ListBox>
 
+                <ListBox.Resources>
+                    <Style TargetType="ListBoxItem">
+                        <Style.Triggers>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter Property="Background" Value="#f0f0f0"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#f8f8f8"/>
+                            </Trigger>
+                        </Style.Triggers>
+                    </Style>
+                </ListBox.Resources>
+            </ListBox>
             <!-- Spara-knapp -->
             <Button Content="Save" 
                     Command="{Binding SaveCommand}" 

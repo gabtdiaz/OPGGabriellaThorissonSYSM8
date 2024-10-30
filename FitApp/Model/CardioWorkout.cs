@@ -9,10 +9,11 @@ namespace FitApp.Model
     class CardioWorkout : Workout
     {
         public int Distance { get; set; }
-
         public override int CalculateCaloriesBurned()
         {
-            return (int)(Distance * 0.1); 
+            // Beräknar kalorier baserat på distans och duration
+            double durationInHours = Duration.TotalHours;
+            return (int)(Distance * 0.1 * durationInHours);
         }
         public override string ToString()
         {

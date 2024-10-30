@@ -25,7 +25,7 @@ namespace FitApp.Model
         // Metod
         public virtual int CalculateCaloriesBurned()
         {
-            return 0;
+            return CaloriesBurned;
         }
     }
 }
