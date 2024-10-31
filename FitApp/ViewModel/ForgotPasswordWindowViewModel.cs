@@ -1,13 +1,7 @@
 ﻿using FitApp.MVVM;
 using FitApp.Services;
 using FitApp.View;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace FitApp.ViewModel
@@ -22,18 +16,12 @@ namespace FitApp.ViewModel
         public Window workoutsWindow;
         private UserManager userManager;
 
-        // Kommando för att återställa lösenord
-        public ICommand ResetPasswordCommand { get; }
-
-        // Kommando för att återgå till inloggnigssida
-        public ICommand CancelCommand { get; }
-
         // Egenskaper för binding till UI
         private string username;
 
         public string Username
         {
-            get { return username; }
+            get => username;
             set
             {
                 username = value;
@@ -45,7 +33,7 @@ namespace FitApp.ViewModel
 
         public string NewPassword
         {
-            get { return newPassword; }
+            get => newPassword;
             set
             {
                 newPassword = value;
@@ -57,7 +45,7 @@ namespace FitApp.ViewModel
 
         public string ConfirmPassword
         {
-            get { return confirmPassword; }
+            get => confirmPassword;
             set
             {
                 confirmPassword = value;
@@ -65,18 +53,21 @@ namespace FitApp.ViewModel
             }
         }
 
-
         private string securityAnswer;
 
         public string SecurityAnswer
         {
-            get { return securityAnswer; }
+            get => securityAnswer;
             set
             {
                 securityAnswer = value;
                 OnPropertyChanged(SecurityAnswer);
             }
         }
+
+        // Kommando som anropar metoder
+        public ICommand ResetPasswordCommand { get; }
+        public ICommand CancelCommand { get; }
 
         // Konstruktor
         public ForgotPasswordWindowViewModel(Window forgotPasswordWindow, UserManager userManager)
@@ -101,11 +92,14 @@ namespace FitApp.ViewModel
         
             if (NewPassword.Length < 8 || !NewPassword.Any(char.IsDigit) || !NewPassword.Any(char.IsPunctuation))
             {
-                MessageBox.Show("Password must follow these requirements: \n - Minimun of 8 characters \n - At least one digit \n - At least one special character", "Error", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Password must follow these requirements: " +
+                    "\n - Minimun of 8 characters \n - At least one digit " +
+                    "\n - At least one special character", "Error", 
+                    MessageBoxButton.OK, MessageBoxImage.Information);
                 return;
             }
 
-            // Återställa lösenordet via UserManager
+            // Återställer lösenordet via UserManager
             bool success = userManager.ResetPassword(Username, NewPassword, SecurityAnswer);
 
             if (success)
@@ -121,6 +115,7 @@ namespace FitApp.ViewModel
             }
         }
 
+        // Metod för att avbryta och gå tillbaka till inloggningssidan
         public void Cancel()
         {
             MainWindow mainWindow = new MainWindow(userManager);

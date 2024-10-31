@@ -2,31 +2,25 @@
 using FitApp.MVVM;
 using FitApp.Services;
 using FitApp.View;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Markup;
 
 namespace FitApp.ViewModel
 {
-    public class MainWindowViewModel : ViewModelBase // Måste ärva från ViewModelBase klassen för att kunna använda sig av OnPropertyChanged()
+    public class MainWindowViewModel : ViewModelBase // Alla viewmodels ärver från ViewModelBase för att ha tillgång till OnPropertyChanged()
     {
         // Egenskaper
-        private readonly UserManager userManager;
-
         private string verifyCode;
+        //public string LabelTitle { get; set; } = "FitTrack"; // Används ej
 
-        public string LabelTitle { get; set; } = "FitTrack";
-        
-        // Egenskaper som returnerar användarinmatning
+        //Referens
+        private readonly UserManager userManager; // För att ha åtkomst till UserManager klassens egenskaper och metoder
+
+        // Egenskaper för binding i UI
         private string usernameInput; // Backing field
         public string UsernameInput
         {
-            get { return usernameInput;}
+            get => usernameInput;
             set
             {
                 usernameInput = value;
@@ -38,7 +32,7 @@ namespace FitApp.ViewModel
 
         public string PasswordInput 
         {
-            get { return passwordInput; }
+            get => passwordInput;
             set 
             { 
                 passwordInput = value;
@@ -46,7 +40,7 @@ namespace FitApp.ViewModel
             }
         }
 
-        // Commands 
+        // Kommando som anropar metoder
         public ICommand SignInCommand { get; }
         public ICommand RegisterCommand { get; set; }
         public ICommand ForgotPasswordCommand { get; }
@@ -55,7 +49,8 @@ namespace FitApp.ViewModel
         public MainWindowViewModel(Window mainWindow, UserManager userManager)
         {
             this.userManager = userManager;
-            // Commands
+
+            // Initierar kommado
             SignInCommand = new RelayCommand(SignIn);
             RegisterCommand = new RelayCommand(Register);
             ForgotPasswordCommand = new RelayCommand(ForgotPassword); 

@@ -19,10 +19,12 @@ namespace FitApp.ViewModel
     {
         // Egenskaper
 
+        public ObservableCollection<string> CountryComboBox { get; set; }
+        
+        //Referenser
         public Window registerWindow;
 
-        public UserManager userManager; // Referens - för att ha åtkomst till UserManager klassens egenskaper och metoder
-        public ObservableCollection<string> CountryComboBox { get; set; }
+        public UserManager userManager; // För att ha åtkomst till UserManager klassens egenskaper och metoder
 
         // Egenskaper för användarinmatning
 
@@ -30,7 +32,7 @@ namespace FitApp.ViewModel
         public string ConfirmPasswordInput
         {
             get
-            { return confirmPasswordInput; }
+            => confirmPasswordInput;
             set
             {
                 confirmPasswordInput = value;
@@ -41,7 +43,7 @@ namespace FitApp.ViewModel
         private string selectedCountry;
         public string SelectedCountry
         {
-            get { return selectedCountry; }
+            get => selectedCountry;
             set
             {
                 selectedCountry = value;
@@ -52,7 +54,7 @@ namespace FitApp.ViewModel
         private string usernameInput;
         public string UsernameInput
         {
-            get { return usernameInput; }
+            get => usernameInput;
             set
             {
                 usernameInput = value;
@@ -61,11 +63,9 @@ namespace FitApp.ViewModel
         }
 
         private string passwordInput;
-
-
         public string PasswordInput
         {
-            get { return passwordInput; }
+            get => passwordInput;
             set
             {
                 passwordInput = value;
@@ -73,9 +73,9 @@ namespace FitApp.ViewModel
             }
         }
 
-        // Command för att skapa ny användare 
+        // Kommando som anropar metoder
         public ICommand RegisterNewUserCommand { get; set; }
-        public ICommand CancelCommand { get; set; } // Cancel
+        public ICommand CancelCommand { get; set; }
 
         // Konstruktor
         public RegisterWindowViewModel(Window registerWindow, UserManager userManager)
@@ -84,7 +84,7 @@ namespace FitApp.ViewModel
             this.userManager = userManager;
             CountryComboBox = new ObservableCollection<string> { "Sweden", "Norway", "Denmark", "Finland" };
 
-            // Initiera RegisterNewUserCommand
+            // Initierar kommando
             RegisterNewUserCommand = new RelayCommand(RegisterNewUser);
             CancelCommand = new RelayCommand(Cancel);
         }
@@ -94,32 +94,44 @@ namespace FitApp.ViewModel
         {
             try
             {
-
-                if (string.IsNullOrWhiteSpace(UsernameInput) || string.IsNullOrWhiteSpace(PasswordInput) || // Kontrollerar ifall textboxarna är tomma
-                string.IsNullOrWhiteSpace(ConfirmPasswordInput) || SelectedCountry == null)
+                if (string.IsNullOrWhiteSpace(UsernameInput) || 
+                    string.IsNullOrWhiteSpace(PasswordInput) || // Kontrollerar ifall textboxarna är tomma
+                    string.IsNullOrWhiteSpace(ConfirmPasswordInput) || 
+                    SelectedCountry == null)
                 {
-                    MessageBox.Show("Please enter all the information correctly.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show("Please enter all the information correctly.", 
+                        "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
+
                 // Kontrollera om användarnamnet redan existerar
                 if (userManager.FindUser(UsernameInput, null) != null) // null för lösenord, vi bryr oss bara om användarnamnet här
                 {
-                    MessageBox.Show("The username is already taken. Please choose another username.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show("The username is already taken. Please choose another username.",
+                        "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
+
                 // Kontrollera att lösenorden matchar
                 if (PasswordInput != ConfirmPasswordInput)
                 {
                     MessageBox.Show("Passwords do not match.");
                     return;
                 }
+
                 // Kontrollera att lösenordet uppfyller kraven
-                if (PasswordInput.Length < 8 || !PasswordInput.Any(char.IsDigit) || !PasswordInput.Any(char.IsPunctuation))
+                if (PasswordInput.Length < 8 || !PasswordInput.Any(char.IsDigit) 
+                    || !PasswordInput.Any(char.IsPunctuation))
                 {
-                    MessageBox.Show("Password must follow these requirements: \n - Minimum of 8 characters " +
-                        "\n - At least one digit \n - At least one special character", "Felmeddelande", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBox.Show("Password must follow these requirements: " +
+                        "\n - Minimum of 8 characters " +
+                        "\n - At least one digit " +
+                        "\n - At least one special character", 
+                        "Felmeddelande", MessageBoxButton.OK, 
+                        MessageBoxImage.Information);
                     return;
                 }
+
                 // Skapa ny användare - Sätt till CurrentUser
                 User newUser = new User { Country = SelectedCountry, Username = UsernameInput, Password = PasswordInput };
                 userManager.Users.Add(newUser);
@@ -134,18 +146,24 @@ namespace FitApp.ViewModel
 
             catch (ArgumentException ex)
             {
-                MessageBox.Show($"Invalid input: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Invalid input: {ex.Message}", 
+                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+
             catch (InvalidOperationException ex)
             {
-                MessageBox.Show($"Operation error: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"Operation error: {ex.Message}", 
+                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+
             catch (Exception ex)
             {
-                MessageBox.Show($"An unexpected error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"An unexpected error occurred: {ex.Message}", 
+                    "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
 
+        // Metod som avbryter och går tillbaka till inloggningssidan
         public void Cancel()
         {
             MainWindow mainWindow = new MainWindow(userManager);

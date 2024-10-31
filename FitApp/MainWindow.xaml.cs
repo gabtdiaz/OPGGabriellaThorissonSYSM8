@@ -1,16 +1,7 @@
 ﻿using FitApp.Services;
-using FitApp.View;
 using FitApp.ViewModel;
-using System.Text;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+
 
 namespace FitApp
 {
@@ -25,6 +16,7 @@ namespace FitApp
             UserManager userManager = new UserManager();
             this.DataContext = new MainWindowViewModel(this, userManager);  
         }
+
         // Lägg till en andra konstruktor som tar UserManager som parameter
         public MainWindow(UserManager userManager)
         {

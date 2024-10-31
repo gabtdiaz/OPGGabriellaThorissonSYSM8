@@ -1,13 +1,7 @@
 ﻿using FitApp.Model;
 using FitApp.MVVM;
 using FitApp.View;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 
@@ -17,10 +11,10 @@ namespace FitApp.ViewModel
     {
         // Egenskaper
 
-        // Fönster och Referenser
-
         public Window addWorkoutWindow;
-        private WorkoutsWindowViewModel workoutsWindow;
+
+        // Referens till workoutsWindow
+        public WorkoutsWindowViewModel workoutsWindow;
 
         // Lista med träningstyper 
         public ObservableCollection<string> WorkoutTypeComboBox { get; set; }
@@ -30,13 +24,12 @@ namespace FitApp.ViewModel
         {
             get => workoutsWindow.Workouts;
         }
-        
-        // Synlighetsegenskaper
 
+        // Synlighetsegenskaper
         private Visibility cardioVisibility;
         public Visibility CardioVisibility
         {
-            get { return cardioVisibility; }
+            get => cardioVisibility;
             set
             {
                 cardioVisibility = value;
@@ -55,21 +48,21 @@ namespace FitApp.ViewModel
             }
         }
 
-        // Träningsegenskaper
+        // Träningsegenskaper för binding i UI
         private string selectedWorkout;
         public string SelectedWorkout
         {
-            get { return selectedWorkout; }
+            get => selectedWorkout;
             set
             {
                 selectedWorkout = value;
                 OnPropertyChanged(nameof(SelectedWorkout));
                 UpdateVisibility();
-                CalculateCalories(); // Lägg till denna för automatisk kalorieberäkning
+                CalculateCalories(); // För automatisk kalorieberäkning
             }
         }
 
-        private DateTime dateinput = DateTime.Now; // Sätt default värde
+        private DateTime dateinput = DateTime.Now; // Sätter startvärde på datum
         public DateTime DateInput
         {
             get { return dateinput; }
@@ -83,7 +76,7 @@ namespace FitApp.ViewModel
         private TimeSpan durationInput;
         public TimeSpan DurationInput
         {
-            get { return durationInput; }
+            get => durationInput;
             set
             {
                 durationInput = value;
@@ -95,7 +88,7 @@ namespace FitApp.ViewModel
         private int caloriesBurnedInput;
         public int CaloriesBurnedInput
         {
-            get { return caloriesBurnedInput; }
+            get => caloriesBurnedInput;
             set
             {
                 caloriesBurnedInput = value;
@@ -106,8 +99,7 @@ namespace FitApp.ViewModel
         private string notesInput;
         public string NotesInput
         {
-            get { return notesInput; }
-            set
+            get => notesInput;          set
             {
                 notesInput = value;
                 OnPropertyChanged(nameof(NotesInput));
@@ -117,7 +109,7 @@ namespace FitApp.ViewModel
         private int distance;
         public int Distance
         {
-            get { return distance; }
+            get => distance;
             set
             {
                 distance = value;
@@ -129,7 +121,7 @@ namespace FitApp.ViewModel
         private int repetitions;
         public int Repetitions
         {
-            get { return repetitions; }
+            get => repetitions; 
             set
             {
                 repetitions = value;
@@ -141,7 +133,7 @@ namespace FitApp.ViewModel
         private int sets;
         public int Sets
         {
-            get { return sets; }
+            get => sets;
             set
             {
                 sets = value;
@@ -150,6 +142,7 @@ namespace FitApp.ViewModel
             }
         }
 
+        // Kommando som anropa metod
         public ICommand SaveCommand => new RelayCommand(SaveWorkout);
 
         public AddWorkoutWindowViewModel(Window addWorkoutWindow, WorkoutsWindowViewModel workoutsWindow)
@@ -184,18 +177,26 @@ namespace FitApp.ViewModel
             }
         }
 
-        // Uppdaterar synlighet av fält baserat på vald träningstyp
+        // Metod som uppdaterar synlighet av fält baserat på vald träningstyp
         private void UpdateVisibility()
         {
             CardioVisibility = selectedWorkout == "Cardio" ? Visibility.Visible : Visibility.Collapsed;
             StrengthVisibility = selectedWorkout == "Strength" ? Visibility.Visible : Visibility.Collapsed;
         }
 
+
         // Sparar träningspasset och kontrollerar inmatning
         public void SaveWorkout()
         {
             // Skapar nytt träningspass baserat på typ
             Workout newWorkout;
+
+            if (SelectedWorkout == null)
+            {
+                MessageBox.Show("Unable to save workout. Please select a workout type!", "Error",
+                    MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                return;
+            }
 
             if (SelectedWorkout == "Cardio")
             {
@@ -210,6 +211,7 @@ namespace FitApp.ViewModel
 
                 MessageBox.Show("Cardio workout added! ", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
+
             else // Strength
             {
                 newWorkout = new StrengthWorkout
@@ -231,7 +233,7 @@ namespace FitApp.ViewModel
             // Lägg till träning i användarens lista
             workoutsWindow.userManager.CurrentUser.Workouts.Add(newWorkout);
 
-            // Läggwe till träning den temporära listan för nuvarande vy
+            // Lägger till träning den temporära listan för nuvarande vwindow
             workoutsWindow.Workouts.Add(newWorkout);
 
             // Återställer alla fält
@@ -243,7 +245,7 @@ namespace FitApp.ViewModel
             addWorkoutWindow.Close();
         }
 
-        // Återställer alla fält till default-värden
+        // Metod som återställer alla fält
         private void ResetFields()
         {
             SelectedWorkout = string.Empty;

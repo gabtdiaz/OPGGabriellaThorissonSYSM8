@@ -30,7 +30,7 @@ namespace FitApp.ViewModel
         private string selectedCountry;
         public string SelectedCountry
         {
-            get { return selectedCountry; }
+            get => selectedCountry;
             set
             {
                 if (selectedCountry != value)
@@ -44,7 +44,7 @@ namespace FitApp.ViewModel
         private string currentUsername;
         public string CurrentUsername
         {
-            get { return currentUsername; }
+            get => currentUsername;
             set
             {
                 if (currentUsername != value)
@@ -58,7 +58,7 @@ namespace FitApp.ViewModel
         private string currentPassword;
         public string CurrentPassword
         {
-            get { return currentPassword; }
+            get => currentPassword;
             set
             {
                 if (currentPassword != value)
@@ -72,7 +72,7 @@ namespace FitApp.ViewModel
         private string newUsername;
         public string NewUsername
         {
-            get { return newUsername; }
+            get => newUsername;
             set
             {
                 if (newUsername != value)
@@ -86,7 +86,7 @@ namespace FitApp.ViewModel
         private string newPassword;
         public string NewPassword
         {
-            get { return newPassword; }
+            get => newPassword; 
             set
             {
                 if (newPassword != value)
@@ -100,7 +100,7 @@ namespace FitApp.ViewModel
         private string confirmPassword;
         public string ConfirmPassword
         {
-            get { return confirmPassword; }
+            get => confirmPassword;
             set
             {
                 if (confirmPassword != value)
@@ -111,7 +111,7 @@ namespace FitApp.ViewModel
             }
         }
 
-        // Commands 
+        // Kommando som anropar metoder 
 
         public ICommand SaveUserDetailsCommand { get; }
         public ICommand CancelCommand { get; }
@@ -122,19 +122,21 @@ namespace FitApp.ViewModel
             this.userManager = userManager;
             this.registerWindow = registerWindow;
             Countries = new ObservableCollection<string> { "Sweden", "Norway", "Denmark", "Finland" };
+
             // Initiera egenskaperna från userManager
             currentUsername = userManager.CurrentUser.Username;
             currentPassword = userManager.CurrentUser.Password;
             selectedCountry = userManager.CurrentUser.Country;
 
+            // Initiera kommando
             SaveUserDetailsCommand = new RelayCommand(SaveUserDetails);
             CancelCommand = new RelayCommand(Cancel);
         }
 
-
+        // Metod som validerar användaruppgifter
         private bool ValidateInput()
         {
-            // Validate username
+            // Validering av användarnamn
             if (string.IsNullOrEmpty(NewUsername) || NewUsername.Length < 3)
             {
                 MessageBox.Show("Username must be at least 3 characters long.",
@@ -142,7 +144,7 @@ namespace FitApp.ViewModel
                 return false;
             }
 
-            // Check if username already exists
+            // Kollar ifall användarnamn redan existerar
             if (userManager.Users.Any(u => u.Username.Equals(NewUsername, StringComparison.OrdinalIgnoreCase))
                 && !NewUsername.Equals(currentUsername, StringComparison.OrdinalIgnoreCase))
             {
@@ -151,20 +153,15 @@ namespace FitApp.ViewModel
                 return false;
             }
 
-            // Validate password
+            // Validering av lösenord
             if (!string.IsNullOrEmpty(NewPassword))
             {
-                if (NewPassword.Length < 8)
+                if (NewPassword.Length < 8 || !NewPassword.Any(char.IsDigit) || !NewPassword.Any(char.IsPunctuation))
                 {
-                    MessageBox.Show("Password must be at least 8 characters long.",
-                                  "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
-                    return false;
-                }
-
-                if (!NewPassword.Any(char.IsLetter) || !NewPassword.Any(char.IsDigit))
-                {
-                    MessageBox.Show("Password must contain at least one letter and one number.",
-                                  "Validation Error", MessageBoxButton.OK, MessageBoxImage.Warning);
+                    MessageBox.Show("Password must follow these requirements: " +
+                        "\n - Minimun of 8 characters \n - At least one digit " +
+                        "\n - At least one special character", "Error",
+                        MessageBoxButton.OK, MessageBoxImage.Information);
                     return false;
                 }
 
@@ -179,6 +176,7 @@ namespace FitApp.ViewModel
             return true;
         }
 
+        // Metod som sparar användaruppgifter
         private void SaveUserDetails()
         {
             if (!ValidateInput())
@@ -188,7 +186,7 @@ namespace FitApp.ViewModel
 
             try
             {
-                // Uppdatera användarnamn och lösenord
+                // Uppdaterar användarnamn och lösenord
                 if (!string.IsNullOrEmpty(NewUsername))
                 {
                     userManager.CurrentUser.Username = NewUsername;
@@ -205,15 +203,15 @@ namespace FitApp.ViewModel
                 }
 
                 MessageBox.Show("User details updated successfully!",
-                              "Success",
-                              MessageBoxButton.OK,
+                              "Success", MessageBoxButton.OK,
                               MessageBoxImage.Information);
 
-                // Open WorkoutsWindow och stäng nuvarande fönster med samma mönster som AddWorkout
+                // Öppnar WorkoutsWindow och stänger nuvarande fönster
                 WorkoutsWindow newWorkoutsWindow = new WorkoutsWindow(userManager);
                 newWorkoutsWindow.Show();
                 userDetailsWindow?.Close();
             }
+
             catch (Exception ex)
             {
                 MessageBox.Show($"An error occurred while saving user details: {ex.Message}",
@@ -221,9 +219,9 @@ namespace FitApp.ViewModel
             }
         }
 
+        // Metod som avbryter och går tillbaka till WorkoutsWindow
         private void Cancel()
         {
-            // Samma navigeringsmönster här
             WorkoutsWindow newWorkoutsWindow = new WorkoutsWindow(userManager);
             newWorkoutsWindow.Show();
             userDetailsWindow?.Close();

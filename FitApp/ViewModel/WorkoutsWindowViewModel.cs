@@ -2,20 +2,11 @@
 using FitApp.MVVM;
 using FitApp.Services;
 using FitApp.View;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Input;
-using System.Windows.Media.Media3D;
 
 namespace FitApp.ViewModel
 {
@@ -23,24 +14,13 @@ namespace FitApp.ViewModel
     {
         // Egenskaper
        
-        // Referenser
         public Window workoutsWindow { get; private set; }
+        public ObservableCollection<Workout> Workouts { get; set; }
+
+        // Referenser
         public Window workoutDetailsWindow { get; private set; }
         public UserManager userManager { get; private set; }
         public RegisterWindowViewModel registerWindow;
-        public ObservableCollection<Workout> Workouts { get; set; }
-        
-        // Commands för 
-        public ICommand AddWorkoutCommand { get; }
-        public ICommand UserDetailsCommand { get; }
-        public ICommand RemoveWorkoutCommand { get; }
-        public ICommand SignOutCommand { get; }
-        public ICommand WorkoutDetailsCommand { get; }
-        public ICommand InfoCommand { get; }
-
-        public ICollectionView FilteredWorkouts { get; private set; }
-        public ICommand FilterCommand { get; }
-        public ICommand ClearFilterCommand { get; }
 
         // Filteregenskaper
         public DateTime? FilterDate { get; set; }
@@ -53,11 +33,7 @@ namespace FitApp.ViewModel
         // Egenskap som returnerar användarnamnet
         public string CurrentUserName
         {
-            get
-            {
-                // Kontrollera om CurrentUser är null innan jag försöker få tillgång till Username
-                return userManager.CurrentUser?.Username ?? "No User";
-            }
+            get => userManager.CurrentUser?.Username ?? "No User"; 
             set
             {
                 // Detta kommer inte direkt sätta CurrentUserName, utan det behöver hanteras via CurrentUser
@@ -68,21 +44,30 @@ namespace FitApp.ViewModel
                 }
             }
         }
-        // Egenskap som returnerar det valda träningspasset
-        private Workout selectedWorkout;
 
+        // Egenskaper för binding i UI
+        private Workout selectedWorkout;
         public Workout SelectedWorkout 
         {
-            get 
-            { 
-                return selectedWorkout;
-            }
+            get => selectedWorkout;
             set
             {
                 selectedWorkout = value;
                 OnPropertyChanged(nameof(SelectedWorkout));
             }
         }
+
+        // Kommando 
+        public ICommand AddWorkoutCommand { get; }
+        public ICommand UserDetailsCommand { get; }
+        public ICommand RemoveWorkoutCommand { get; }
+        public ICommand SignOutCommand { get; }
+        public ICommand WorkoutDetailsCommand { get; }
+        public ICommand InfoCommand { get; }
+
+        public ICollectionView FilteredWorkouts { get; private set; }
+        public ICommand FilterCommand { get; }
+        public ICommand ClearFilterCommand { get; }
 
         // Konstruktor 
         public WorkoutsWindowViewModel(UserManager userManager, Window workoutsWindow)
@@ -142,27 +127,19 @@ namespace FitApp.ViewModel
         ClearFilterCommand = new RelayCommand(ClearFilter);
         }
 
-        //public WorkoutsWindowViewModel() {}
-
         // Metod som öppnar AddWorkoutWindow - och stänger WorkoutsWindow
         public void AddWorkout()
         {
-
             // Skapa fönstret först
             var addWorkoutWindow = new AddWorkoutWindow();
 
             // Skapa ViewModel med referens till det nya fönstret och denna ViewModel
             var viewModel = new AddWorkoutWindowViewModel(addWorkoutWindow, this);
 
-            // Sätt DataContext
+            // Sätt DataContext 
             addWorkoutWindow.DataContext = viewModel;
-
             addWorkoutWindow.Show();
             workoutsWindow?.Close();
-            //AddWorkoutWindow addWorkoutWindow = new AddWorkoutWindow(this);
-            //addWorkoutWindow.Show();
-            ////WorkoutsWindow workoutsWindow = new WorkoutsWindow(userManager, this);
-            //workoutsWindow.Close(); // stängs!
         }
 
         // Metod som tar bort valt träningspass

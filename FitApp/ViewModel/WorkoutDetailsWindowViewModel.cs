@@ -1,27 +1,20 @@
 ﻿using FitApp.Model;
 using FitApp.MVVM;
 using FitApp.View;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Input;
 
 namespace FitApp.ViewModel
 {
     public class WorkoutDetailsWindowViewModel : ViewModelBase
     {
-        public Window workoutDetailsWindow;
-        public WorkoutsWindowViewModel workoutsWindow;
-        private Workout originalWorkout;
+        // Egenskaper
 
         public ObservableCollection<Workout> Workouts => workoutsWindow.Workouts;
-
-        // Binding-egenskaper för UI
+        public Window workoutDetailsWindow;
+        private Workout originalWorkout;
+        public WorkoutsWindowViewModel workoutsWindow; // Referens
         public DateTime WorkoutDateTime { get; set; }
         public TimeSpan WorkoutDuration { get; set; }
         public string Notes { get; set; }
@@ -30,6 +23,7 @@ namespace FitApp.ViewModel
         public int Sets { get; set; }
         public ObservableCollection<string> WorkoutTypeOptions { get; } = new ObservableCollection<string> { "Cardio", "Strength" };
 
+        // Egenskaper för binding i UI
         private string selectedWorkoutType;
         public string SelectedWorkoutType
         {
@@ -64,7 +58,7 @@ namespace FitApp.ViewModel
             }
         }
 
-        // Kommandon
+        // Kommandon som anropar metoder
         public ICommand EditWorkoutCommand => new RelayCommand(EditWorkout);
         public ICommand SaveWorkoutCommand => new RelayCommand(SaveWorkout);
 
@@ -81,7 +75,7 @@ namespace FitApp.ViewModel
             CopyWorkout();
         }
 
-        // Metod för att kopiera träningspasset till bindbara egenskaper
+        // Metod för att kopiera träningspasset till binding egenskaper
         private void CopyWorkout()
         {
             if (originalWorkout != null)
@@ -104,7 +98,7 @@ namespace FitApp.ViewModel
             }
         }
 
-        // Sparar ändringar och återgår till huvudfönstret
+        // Sparar ändringar och återgår till WorkoutsWindow
         private void SaveWorkout()
         {
             if (SelectedWorkout != null)
@@ -166,7 +160,7 @@ namespace FitApp.ViewModel
             }
         }
 
-        // Uppdaterar UI-egenskaper baserat på vald workout
+        // Uppdaterar UI-egenskaper baserat på vald träningstyp
         private void UpdateFieldsFromSelectedWorkout()
         {
             OnPropertyChanged(nameof(CardioVisibility));
