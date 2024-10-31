@@ -99,7 +99,7 @@ namespace FitApp.ViewModel
             else
             {
                 // visar vanliga användares träningspass
-                foreach (Workout? workout in userManager.CurrentUser.Workouts)
+                foreach (Workout workout in userManager.CurrentUser.Workouts)
                 {
                     Workouts.Add(workout);
                 }

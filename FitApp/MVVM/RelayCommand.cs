@@ -51,7 +51,7 @@ namespace FitApp.MVVM
         }
 
         // Event som signalerar när kommandots CanExecute-värde har ändrats
-        public event EventHandler CanExecuteChanged;
+        public event EventHandler? CanExecuteChanged;
 
         // Används för att explicit trigga omvärdering av om kommandot kan köras
         public void RaiseCanExecuteChanged()
