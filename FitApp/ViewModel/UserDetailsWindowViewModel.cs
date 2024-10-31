@@ -209,10 +209,10 @@ namespace FitApp.ViewModel
                               MessageBoxButton.OK,
                               MessageBoxImage.Information);
 
-                // Open WorkoutsWindow and close current window
-                WorkoutsWindow workoutsWindow = new WorkoutsWindow(userManager);
-                workoutsWindow.Show();
-                userDetailsWindow.Close();
+                // Open WorkoutsWindow och stäng nuvarande fönster med samma mönster som AddWorkout
+                WorkoutsWindow newWorkoutsWindow = new WorkoutsWindow(userManager);
+                newWorkoutsWindow.Show();
+                userDetailsWindow?.Close();
             }
             catch (Exception ex)
             {
@@ -223,11 +223,10 @@ namespace FitApp.ViewModel
 
         private void Cancel()
         {
-            // Open WorkoutsWindow and close current window
-            WorkoutsWindow workoutsWindow = new WorkoutsWindow(userManager);
-            workoutsWindow.Show();
-            userDetailsWindow.Close();
-
+            // Samma navigeringsmönster här
+            WorkoutsWindow newWorkoutsWindow = new WorkoutsWindow(userManager);
+            newWorkoutsWindow.Show();
+            userDetailsWindow?.Close();
         }
     }
 }

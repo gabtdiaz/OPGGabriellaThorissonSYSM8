@@ -16,7 +16,7 @@ namespace FitApp.ViewModel
     {
         // Egenskaper
 
-        private readonly Window forgotPasswordWindow;
+        public Window forgotPasswordWindow;
 
         // Referenser
         public Window workoutsWindow;
@@ -24,6 +24,9 @@ namespace FitApp.ViewModel
 
         // Kommando för att återställa lösenord
         public ICommand ResetPasswordCommand { get; }
+
+        // Kommando för att återgå till inloggnigssida
+        public ICommand CancelCommand { get; }
 
         // Egenskaper för binding till UI
         private string username;
@@ -81,8 +84,9 @@ namespace FitApp.ViewModel
             this.userManager = userManager;
             this.forgotPasswordWindow = forgotPasswordWindow;
 
-            // Initiera ResetPasswordCommand
+            // Initiera kommando
             ResetPasswordCommand = new RelayCommand(ResetPassword);
+            CancelCommand = new RelayCommand(Cancel);
         }
 
         // Metod som körs när kommandot anropas
@@ -116,5 +120,14 @@ namespace FitApp.ViewModel
                 MessageBox.Show("Invalid username or security answer.", "Error", MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
+
+        public void Cancel()
+        {
+            MainWindow mainWindow = new MainWindow(userManager);
+            Application.Current.MainWindow = mainWindow;
+            mainWindow.Show();
+            forgotPasswordWindow.Close();
+        }
+
     }
 }

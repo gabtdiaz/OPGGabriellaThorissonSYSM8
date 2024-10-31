@@ -15,8 +15,8 @@ namespace FitApp.ViewModel
 {
     public class WorkoutDetailsWindowViewModel : ViewModelBase
     {
-        private readonly Window workoutDetailsWindow;
-        private readonly WorkoutsWindowViewModel workoutsWindow;
+        public Window workoutDetailsWindow;
+        public WorkoutsWindowViewModel workoutsWindow;
         private Workout originalWorkout;
 
         public ObservableCollection<Workout> Workouts => workoutsWindow.Workouts;
@@ -118,26 +118,27 @@ namespace FitApp.ViewModel
                 if (SelectedWorkout is CardioWorkout cardio)
                 {
                     Distance = cardio.Distance;
-                    CalculateCalories(); // Beräkna CaloriesBurned
+                    CalculateCalories(); // Beräknar CaloriesBurned
                 }
                 else if (SelectedWorkout is StrengthWorkout strength)
                 {
                     Sets = strength.Sets;
                     Repetitions = strength.Repetitions;
-                    CalculateCalories(); // Beräkna CaloriesBurned
+                    CalculateCalories(); // Beräknar CaloriesBurned
                 }
 
-                MessageBox.Show("Workout saved!", "Success", MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                MessageBox.Show("Workout saved!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else
             {
                 MessageBox.Show("Fill in the correct information", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                return; // återgå ifall informationen inte fylls i korrekt
             }
 
-            // Öppna och stäng fönster
-            WorkoutsWindow newWorkoutsWindow = new WorkoutsWindow(workoutsWindow.userManager, workoutsWindow);
+            // Öppnar WorkoutsWindow och stänger nuvarande fönster
+            WorkoutsWindow newWorkoutsWindow = new WorkoutsWindow(workoutsWindow.userManager);
             newWorkoutsWindow.Show();
-            workoutDetailsWindow.Close();
+            workoutDetailsWindow?.Close();
         }
 
 

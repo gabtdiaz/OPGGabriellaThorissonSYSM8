@@ -18,6 +18,7 @@ namespace FitApp.ViewModel
         // Egenskaper
 
         // Fönster och Referenser
+
         public Window addWorkoutWindow;
         private WorkoutsWindowViewModel workoutsWindow;
 
@@ -195,6 +196,7 @@ namespace FitApp.ViewModel
         {
             // Skapar nytt träningspass baserat på typ
             Workout newWorkout;
+
             if (SelectedWorkout == "Cardio")
             {
                 newWorkout = new CardioWorkout
@@ -205,6 +207,8 @@ namespace FitApp.ViewModel
                     Notes = NotesInput,
                     Type = SelectedWorkout
                 };
+
+                MessageBox.Show("Cardio workout added! ", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else // Strength
             {
@@ -217,20 +221,24 @@ namespace FitApp.ViewModel
                     Notes = NotesInput,
                     Type = SelectedWorkout
                 };
+
+                MessageBox.Show("Strength workout added!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
             }
 
             // Beräknar kalorier automatiskt 
             newWorkout.CaloriesBurned = newWorkout.CalculateCaloriesBurned();
 
-            // Lägger till i listan
+            // Lägg till träning i användarens lista
+            workoutsWindow.userManager.CurrentUser.Workouts.Add(newWorkout);
+
+            // Läggwe till träning den temporära listan för nuvarande vy
             workoutsWindow.Workouts.Add(newWorkout);
 
             // Återställer alla fält
             ResetFields();
 
-            // Öppnar WorkoutsWindow och stänger nuvarande fönster
-            WorkoutsWindowViewModel viewModel = new WorkoutsWindowViewModel(workoutsWindow.userManager, null);
-            WorkoutsWindow newWorkoutsWindow = new WorkoutsWindow(workoutsWindow.userManager, viewModel);
+            // Öppnar Workoutswindow och stänger Addworkoutswindow
+            WorkoutsWindow newWorkoutsWindow = new WorkoutsWindow(workoutsWindow.userManager);
             newWorkoutsWindow.Show();
             addWorkoutWindow.Close();
         }

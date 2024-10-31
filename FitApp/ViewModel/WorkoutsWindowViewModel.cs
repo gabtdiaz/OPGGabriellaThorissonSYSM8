@@ -24,10 +24,10 @@ namespace FitApp.ViewModel
         // Egenskaper
        
         // Referenser
-        public Window workoutsWindow;
-        public Window workoutDetailsWindow;
-        public UserManager userManager;
-        private readonly RegisterWindowViewModel registerWindow;
+        public Window workoutsWindow { get; private set; }
+        public Window workoutDetailsWindow { get; private set; }
+        public UserManager userManager { get; private set; }
+        public RegisterWindowViewModel registerWindow;
         public ObservableCollection<Workout> Workouts { get; set; }
         
         // Commands för 
@@ -147,10 +147,22 @@ namespace FitApp.ViewModel
         // Metod som öppnar AddWorkoutWindow - och stänger WorkoutsWindow
         public void AddWorkout()
         {
-            AddWorkoutWindow addWorkoutWindow = new AddWorkoutWindow(this);
+
+            // Skapa fönstret först
+            var addWorkoutWindow = new AddWorkoutWindow();
+
+            // Skapa ViewModel med referens till det nya fönstret och denna ViewModel
+            var viewModel = new AddWorkoutWindowViewModel(addWorkoutWindow, this);
+
+            // Sätt DataContext
+            addWorkoutWindow.DataContext = viewModel;
+
             addWorkoutWindow.Show();
-            //WorkoutsWindow workoutsWindow = new WorkoutsWindow(userManager, this);
-            workoutsWindow.Close(); // stängs!
+            workoutsWindow?.Close();
+            //AddWorkoutWindow addWorkoutWindow = new AddWorkoutWindow(this);
+            //addWorkoutWindow.Show();
+            ////WorkoutsWindow workoutsWindow = new WorkoutsWindow(userManager, this);
+            //workoutsWindow.Close(); // stängs!
         }
 
         // Metod som tar bort valt träningspass
@@ -167,20 +179,38 @@ namespace FitApp.ViewModel
             }
         }
 
-        // Metod som öppnar användardetaljer
+        // Metod som öppnar användardetaljer - och stänger nuvarande fönster
         public void UserDetails()
         {
+            Console.WriteLine($"workoutsWindow före: {workoutsWindow}");
             UserDetailsWindow userDetailsWindow = new UserDetailsWindow(userManager, registerWindow);
             userDetailsWindow.Show();
-            workoutsWindow.Close();
+            if (workoutsWindow != null)
+            {
+                workoutsWindow.Close();
+                Console.WriteLine("Fönster stängdes");
+            }
+            else
+            {
+                Console.WriteLine("workoutsWindow är null!");
+            }
         }
 
-        // Metod som öppnar träningsdetaljer
+        // Metod som öppnar träningsdetaljer - och stänger nuvarande fönster
         public void WorkoutDetails(Workout workout)
         {
-            workoutDetailsWindow = new WorkoutDetailsWindow(workout, this);
-            workoutDetailsWindow.Show();
-            workoutsWindow?.Close();
+            Console.WriteLine($"workoutsWindow före: {workoutsWindow}");
+            WorkoutDetailsWindow detailsWindow = new WorkoutDetailsWindow(workout, this);
+            detailsWindow.Show();
+            if (workoutsWindow != null)
+            {
+                workoutsWindow.Close();
+                Console.WriteLine("Fönster stängdes");
+            }
+            else
+            {
+                Console.WriteLine("workoutsWindow är null!");
+            }
         }
 
         // Metod för utloggning
@@ -236,7 +266,7 @@ namespace FitApp.ViewModel
                 "- Use the 'User' button to access your profile.\n" +
                 "- Click '+ Add Workout' to add a new workout.\n" +
                 "- Use the 'Remove' button to delete a workout.\n" +
-                "- To view workout details click 'Details'.",
+                "- To view workout details click 'See Details'.",
                 "App Instructions", MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }

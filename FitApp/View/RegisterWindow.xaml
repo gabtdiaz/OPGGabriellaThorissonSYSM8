@@ -7,118 +7,114 @@
         mc:Ignorable="d"
         Title="RegisterWindow" Height="480" Width="320">
 
-    <Grid Background="White">
-        <StackPanel>
-            <!-- Bakgrundsfärg -->
-            <StackPanel.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="LightGray"/>
-                    <GradientStop Color="LightGray" Offset="1"/>
-                    <GradientStop Color="White" Offset="0.1"/>
-                    <GradientStop Color="#FFECECEC" Offset="0.9"/>
-                </LinearGradientBrush>
-            </StackPanel.Background>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
 
-            <!-- Titel "Join Us" -->
-            <Label Content="Join Us!" FontSize="30" FontFamily="Arial" 
-                   VerticalAlignment="Center" 
+        <!-- Bakgrundsfärg -->
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="LightGray"/>
+                <GradientStop Color="LightGray" Offset="1"/>
+                <GradientStop Color="White" Offset="0.07"/>
+                <GradientStop Color="White" Offset="0.9"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+
+        <!-- Logga -->
+        <StackPanel Width="100" Height="60">
+            <Label Content="F I T" 
                    HorizontalAlignment="Center" 
-                   Margin="10,0,0,20"
-                   FontWeight="SemiBold"
-                   Foreground="#454545"/>
+                   FontSize="18" 
+                   VerticalAlignment="Top" 
+                   FontFamily="Arial Black" 
+                   FontWeight="Bold" 
+                   Foreground="#FF5B5B5B"/>
+            <Label Content="&#x2AF8;Track" 
+                   HorizontalAlignment="Center" 
+                   VerticalAlignment="Top" 
+                   FontFamily="Arial" 
+                   FontSize="13" 
+                   Foreground="DarkOrange"/>
+        </StackPanel>
+        
+        <!--Titel-->
+        <Label Content="Join Us!" 
+               Grid.Row="1"
+               FontSize="20" 
+               FontWeight="SemiBold" 
+               Foreground="#454545"
+               HorizontalAlignment="Center"
+                Margin="0,0,0,20"/>
 
-            <!-- Logo -->
-            <StackPanel Width="100" Height="100">
-                <Label Content="F I T" 
-                       HorizontalAlignment="Center" 
-                       FontSize="30" 
-                       VerticalAlignment="Top" 
-                       FontFamily="Arial Black" 
-                       FontWeight="Bold" 
-                       Foreground="#FF5B5B5B"/>
-                <Label Content="&#x2AF8;Track" 
-                       HorizontalAlignment="Center" 
-                       VerticalAlignment="Top" 
-                       FontFamily="Arial" 
-                       FontSize="20" 
-                       Foreground="DarkOrange"/>
-            </StackPanel>
-
+        <StackPanel HorizontalAlignment="Center" Margin="10,30" Grid.Row="1" Height="340">
             <!-- Användarnamn -->
-            <StackPanel Orientation="Horizontal" Margin="20,0,20,20">
-                <Label Content="Username" 
-                       Height="25" 
-                       Width="80"
-                       FontWeight="SemiBold"
-                       Foreground="#454545"/>
-                <TextBox Width="200" Height="25"
-                        Text="{Binding UsernameInput}"
-                        VerticalContentAlignment="Center"
-                        Padding="5,0"
-                        BorderThickness="1"
-                        BorderBrush="#ddd"/>
-            </StackPanel>
+            <Label Content="Username" 
+                   FontWeight="SemiBold" 
+                   Foreground="#454545"/>
+            <TextBox Text="{Binding UsernameInput}" 
+                     Width="200"
+                     Height="25"
+                     Padding="5,2"
+                     BorderThickness="1"
+                     BorderBrush="#ddd"
+                     Margin="0,0,0,5"
+                     VerticalContentAlignment="Center"/>
 
             <!-- Lösenord -->
-            <StackPanel Orientation="Horizontal" Margin="20,0,20,20">
-                <Label Content="Password" 
-                       Height="25"
-                       Width="80"
-                       FontWeight="SemiBold"
-                       Foreground="#454545"/>
-                <TextBox Text="{Binding PasswordInput}" 
-                         x:Name="Password" 
-                         Width="200" 
-                         Height="25"
-                         VerticalContentAlignment="Center"
-                         Padding="5,0"
-                         BorderThickness="1"
-                         BorderBrush="#ddd"/>
-            </StackPanel>
+            <Label Content="Password" 
+                   FontWeight="SemiBold" 
+                   Foreground="#454545"/>
+            <TextBox Text="{Binding PasswordInput}" 
+                     x:Name="Password"
+                     Width="200"
+                     Height="25"
+                     Padding="5,2"
+                     BorderThickness="1"
+                     BorderBrush="#ddd"
+                     Margin="0,0,0,5"
+                     VerticalContentAlignment="Center"/>
 
             <!-- Bekräfta lösenord -->
-            <StackPanel Orientation="Horizontal" Margin="20,0,20,20">
-                <Label Content="Confirm" 
-                       Height="25"
-                       Width="80"
-                       FontWeight="SemiBold"
-                       Foreground="#454545"/>
-                <TextBox Text="{Binding ConfirmPasswordInput}"  
-                         x:Name="PasswordBoxConfirm" 
-                         Width="200" 
-                         Height="25"
-                         VerticalContentAlignment="Center"
-                         Padding="5,0"
-                         BorderThickness="1"
-                         BorderBrush="#ddd"/>
-            </StackPanel>
+            <Label Content="Confirm password" 
+                   FontWeight="SemiBold" 
+                   Foreground="#454545"/>
+            <TextBox Text="{Binding ConfirmPasswordInput}" 
+                     x:Name="PasswordBoxConfirm"
+                     Width="200"
+                     Height="25"
+                     Padding="5,2"
+                     BorderThickness="1"
+                     BorderBrush="#ddd"
+                     Margin="0,0,0,5"
+                     VerticalContentAlignment="Center"/>
 
-            <!-- Combobox -->
-            <StackPanel Orientation="Horizontal" Margin="20,0,20,30">
-                <Label Content="Country" 
-                       Height="25"
-                       Width="80"
-                       FontWeight="SemiBold"
-                       Foreground="#454545"/>
-                <ComboBox Width="200" 
-                         Height="25"
-                         ItemsSource="{Binding CountryComboBox}" 
-                         SelectedItem="{Binding SelectedCountry}"
-                         VerticalContentAlignment="Center"
-                         Padding="5,0"
-                         BorderThickness="1"
-                         BorderBrush="#ddd"/>
-            </StackPanel>
+            <!-- Land -->
+            <Label Content="Country" 
+                   FontWeight="SemiBold" 
+                   Foreground="#454545"/>
+            <ComboBox Width="200"
+                      Height="25"
+                      ItemsSource="{Binding CountryComboBox}"
+                      SelectedItem="{Binding SelectedCountry}"
+                      Padding="5,2"
+                      BorderThickness="1"
+                      BorderBrush="#ddd"
+                      Margin="0,0,0,20"
+                      VerticalContentAlignment="Center"/>
 
-            <!-- Skapa konto-knapp -->
+            <!-- Create account knapp -->
             <Button Content="Create account" 
-                    Width="130" 
+                    Width="160" 
                     Height="30"
-                    Command="{Binding RegisterNewUserCommand}">
+                    Command="{Binding RegisterNewUserCommand}" 
+                    Margin="0,0,0,10">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Border x:Name="border" 
-                                Background="#DC143C" 
+                                Background="Crimson"
                                 CornerRadius="15">
                             <ContentPresenter HorizontalAlignment="Center" 
                                             VerticalAlignment="Center">
@@ -134,7 +130,39 @@
                                 <Setter TargetName="border" Property="Background" Value="#FFB00020"/>
                             </Trigger>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="border" Property="Background" Value="Red"/>
+                                <Setter TargetName="border" Property="Background" Value="red"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+
+            <!-- Cancel knapp -->
+            <Button Content="Cancel" 
+                    Width="160" 
+                    Height="30"
+                    Command="{Binding CancelCommand}" 
+                    Margin="0,0,0,20">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="border" 
+                                Background="Transparent"
+                                CornerRadius="15">
+                            <ContentPresenter HorizontalAlignment="Center" 
+                                            VerticalAlignment="Center">
+                                <ContentPresenter.Resources>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="Foreground" Value="Blue"/>
+                                    </Style>
+                                </ContentPresenter.Resources>
+                            </ContentPresenter>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#4D808080"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="border" Property="Background" Value="#40808080"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>

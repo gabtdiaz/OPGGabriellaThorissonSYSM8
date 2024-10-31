@@ -6,18 +6,22 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using FitApp;
 
 namespace FitApp.ViewModel
 {
     public class RegisterWindowViewModel : ViewModelBase
     {
         // Egenskaper
-        public UserManager userManager;
+
         public Window registerWindow;
+
+        public UserManager userManager; // Referens - för att ha åtkomst till UserManager klassens egenskaper och metoder
         public ObservableCollection<string> CountryComboBox { get; set; }
 
         // Egenskaper för användarinmatning
@@ -69,8 +73,9 @@ namespace FitApp.ViewModel
             }
         }
 
-        // Command för att skapa ny användare
+        // Command för att skapa ny användare 
         public ICommand RegisterNewUserCommand { get; set; }
+        public ICommand CancelCommand { get; set; } // Cancel
 
         // Konstruktor
         public RegisterWindowViewModel(Window registerWindow, UserManager userManager)
@@ -81,6 +86,7 @@ namespace FitApp.ViewModel
 
             // Initiera RegisterNewUserCommand
             RegisterNewUserCommand = new RelayCommand(RegisterNewUser);
+            CancelCommand = new RelayCommand(Cancel);
         }
 
         // Metod för att lägga till nya användare.
@@ -138,7 +144,14 @@ namespace FitApp.ViewModel
             {
                 MessageBox.Show($"An unexpected error occurred: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
 
+        public void Cancel()
+        {
+            MainWindow mainWindow = new MainWindow(userManager);
+            Application.Current.MainWindow = mainWindow;
+            mainWindow.Show();
+            registerWindow.Close();
         }
     }
 }

@@ -98,7 +98,7 @@
                       SelectedIndex="0"/>
 
             <TextBox Grid.Column="1"
-                     Text="{Binding SelectedWorkout.DateInput, StringFormat=yyyy-MM-dd}"
+                     Text="{Binding SelectedWorkout.DateTime, StringFormat=yyyy-MM-dd, Mode=TwoWay}"
                      VerticalContentAlignment="Center"
                      Padding="5,2" Margin="2"
                      IsEnabled="{Binding IsEditing}"/>
