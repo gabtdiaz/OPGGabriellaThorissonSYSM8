@@ -17,7 +17,7 @@ namespace FitApp.ViewModel
         public WorkoutsWindowViewModel workoutsWindow;
 
         // Lista med träningstyper 
-        public ObservableCollection<string> WorkoutTypeComboBox { get; set; }
+        public ObservableCollection<string> WorkoutTypeComboBox { get; set; } 
 
         // Referens till träningslistan från WorkoutsWindow
         public ObservableCollection<Workout> Workouts
@@ -40,7 +40,7 @@ namespace FitApp.ViewModel
         private Visibility strengthVisibility;
         public Visibility StrengthVisibility
         {
-            get { return strengthVisibility; }
+            get => strengthVisibility;
             set
             {
                 strengthVisibility = value;
@@ -49,7 +49,7 @@ namespace FitApp.ViewModel
         }
 
         // Träningsegenskaper för binding i UI
-        private string selectedWorkout;
+        private string selectedWorkout = string.Empty;
         public string SelectedWorkout
         {
             get => selectedWorkout;
@@ -65,7 +65,7 @@ namespace FitApp.ViewModel
         private DateTime dateinput = DateTime.Now; // Sätter startvärde på datum
         public DateTime DateInput
         {
-            get { return dateinput; }
+            get => dateinput; 
             set
             {
                 dateinput = value;
@@ -96,10 +96,11 @@ namespace FitApp.ViewModel
             }
         }
 
-        private string notesInput;
+        private string notesInput = string.Empty;
         public string NotesInput
         {
-            get => notesInput;          set
+            get => notesInput;
+            set
             {
                 notesInput = value;
                 OnPropertyChanged(nameof(NotesInput));
@@ -185,12 +186,9 @@ namespace FitApp.ViewModel
         }
 
 
-        // Sparar träningspasset och kontrollerar inmatning
+        // Metod som sparar träningspasset och kontrollerar inmatning
         public void SaveWorkout()
         {
-            // Skapar nytt träningspass baserat på typ
-            Workout newWorkout;
-
             if (SelectedWorkout == null)
             {
                 MessageBox.Show("Unable to save workout. Please select a workout type!", "Error",
@@ -198,15 +196,32 @@ namespace FitApp.ViewModel
                 return;
             }
 
+            if (DurationInput.TotalMinutes <= 0)
+            {
+                MessageBox.Show("Duration must be greater than 0!", "Error",
+                    MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                return;
+            }
+
+            Workout newWorkout;
+
             if (SelectedWorkout == "Cardio")
             {
+                if (Distance <= 0)
+                {
+                    MessageBox.Show("Distance must be greater than 0!", "Error",
+                        MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    return;
+                }
+
                 newWorkout = new CardioWorkout
                 {
                     Distance = Distance,
                     Duration = DurationInput,
                     DateTime = DateInput,
                     Notes = NotesInput,
-                    Type = SelectedWorkout
+                    Type = SelectedWorkout,
+                    CaloriesBurned = CaloriesBurnedInput  // Använd det redan uträknade värdet
                 };
 
                 MessageBox.Show("Cardio workout added! ", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -214,6 +229,13 @@ namespace FitApp.ViewModel
 
             else // Strength
             {
+                if (Sets <= 0 || Repetitions <= 0)
+                {
+                    MessageBox.Show("Sets and Repetitions must be greater than 0!", "Error",
+                        MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                    return;
+                }
+
                 newWorkout = new StrengthWorkout
                 {
                     Sets = Sets,
@@ -221,7 +243,8 @@ namespace FitApp.ViewModel
                     Duration = DurationInput,
                     DateTime = DateInput,
                     Notes = NotesInput,
-                    Type = SelectedWorkout
+                    Type = SelectedWorkout,
+                    CaloriesBurned = CaloriesBurnedInput  // Använd det redan uträknade värdet
                 };
 
                 MessageBox.Show("Strength workout added!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
@@ -231,7 +254,7 @@ namespace FitApp.ViewModel
             newWorkout.CaloriesBurned = newWorkout.CalculateCaloriesBurned();
 
             // Lägg till träning i användarens lista
-            workoutsWindow.userManager.CurrentUser.Workouts.Add(newWorkout);
+            workoutsWindow.userManager?.CurrentUser?.Workouts.Add(newWorkout);
 
             // Lägger till träning den temporära listan för nuvarande vwindow
             workoutsWindow.Workouts.Add(newWorkout);

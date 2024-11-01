@@ -17,7 +17,7 @@ namespace FitApp.ViewModel
         private readonly UserManager userManager; // För att ha åtkomst till UserManager klassens egenskaper och metoder
 
         // Egenskaper för binding i UI
-        private string usernameInput; // Backing field
+        private string usernameInput = string.Empty; // Backing field
         public string UsernameInput
         {
             get => usernameInput;
@@ -28,8 +28,7 @@ namespace FitApp.ViewModel
             }
         }
 
-        private string passwordInput; // Backing field
-
+        private string passwordInput = string.Empty; // Backing field
         public string PasswordInput 
         {
             get => passwordInput;
@@ -94,11 +93,6 @@ namespace FitApp.ViewModel
             ForgotPasswordWindow forgotPasswordWindow = new ForgotPasswordWindow(userManager);
             forgotPasswordWindow.Show();
             Application.Current.MainWindow.Close();
-        }
-
-        internal void Show()
-        {
-            throw new NotImplementedException();
         }
 
         // Metod för att starta tvåfaktorautentisering

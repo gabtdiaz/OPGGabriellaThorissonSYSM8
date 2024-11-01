@@ -27,7 +27,7 @@ namespace FitApp.ViewModel
         // Egenskaper för användarinmatning
         public ObservableCollection<string> Countries { get; set; }
 
-        private string selectedCountry;
+        private string selectedCountry = string.Empty;
         public string SelectedCountry
         {
             get => selectedCountry;
@@ -41,7 +41,7 @@ namespace FitApp.ViewModel
             }
         }
 
-        private string currentUsername;
+        private string currentUsername = string.Empty;
         public string CurrentUsername
         {
             get => currentUsername;
@@ -83,7 +83,7 @@ namespace FitApp.ViewModel
             }
         }
 
-        private string newPassword;
+        private string newPassword = string.Empty;
         public string NewPassword
         {
             get => newPassword; 
@@ -97,7 +97,7 @@ namespace FitApp.ViewModel
             }
         }
 
-        private string confirmPassword;
+        private string confirmPassword = string.Empty;
         public string ConfirmPassword
         {
             get => confirmPassword;
@@ -123,10 +123,16 @@ namespace FitApp.ViewModel
             this.registerWindow = registerWindow;
             Countries = new ObservableCollection<string> { "Sweden", "Norway", "Denmark", "Finland" };
 
+            // Lägg till null-check för CurrentUser
+            if (userManager.CurrentUser == null)
+            {
+                throw new InvalidOperationException("No current user found");
+            }
+
             // Initiera egenskaperna från userManager
-            currentUsername = userManager.CurrentUser.Username;
-            currentPassword = userManager.CurrentUser.Password;
-            selectedCountry = userManager.CurrentUser.Country;
+            currentUsername = userManager.CurrentUser.Username ?? string.Empty;
+            currentPassword = userManager.CurrentUser.Password ?? string.Empty;
+            selectedCountry = userManager.CurrentUser.Country ?? string.Empty;
 
             // Initiera kommando
             SaveUserDetailsCommand = new RelayCommand(SaveUserDetails);
@@ -136,6 +142,8 @@ namespace FitApp.ViewModel
         // Metod som validerar användaruppgifter
         private bool ValidateInput()
         {
+            if (userManager?.CurrentUser == null) return false;
+
             // Validering av användarnamn
             if (string.IsNullOrEmpty(NewUsername) || NewUsername.Length < 3)
             {
@@ -179,6 +187,13 @@ namespace FitApp.ViewModel
         // Metod som sparar användaruppgifter
         private void SaveUserDetails()
         {
+            if (userManager?.CurrentUser == null)
+            {
+                MessageBox.Show("No user is currently logged in.", "Error",
+                    MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
             if (!ValidateInput())
             {
                 return;

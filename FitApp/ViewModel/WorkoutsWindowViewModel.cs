@@ -13,18 +13,18 @@ namespace FitApp.ViewModel
     public class WorkoutsWindowViewModel : ViewModelBase
     {
         // Egenskaper
-       
-        public Window workoutsWindow { get; private set; }
+
+        public Window workoutsWindow { get; private set; } 
         public ObservableCollection<Workout> Workouts { get; set; }
 
         // Referenser
-        public Window workoutDetailsWindow { get; private set; }
+        public Window? workoutDetailsWindow { get; private set; }
         public UserManager userManager { get; private set; }
         public RegisterWindowViewModel registerWindow;
 
         // Filteregenskaper
         public DateTime? FilterDate { get; set; }
-        public string FilterType { get; set; }
+        public string? FilterType { get; set; }
         public TimeSpan? FilterDuration { get; set; }
 
         // Egenskap som kollar ifall currentUser är AdminUser
@@ -73,8 +73,8 @@ namespace FitApp.ViewModel
         public WorkoutsWindowViewModel(UserManager userManager, Window workoutsWindow)
         {
 
-        this.userManager = userManager;
-        this.workoutsWindow = workoutsWindow;
+            this.userManager = userManager;
+            this.workoutsWindow = workoutsWindow;
 
         // Initiera Workouts 
         Workouts = new ObservableCollection<Workout>();
@@ -97,11 +97,13 @@ namespace FitApp.ViewModel
             }
 
             else
-            {
-                // visar vanliga användares träningspass
-                foreach (Workout workout in userManager.CurrentUser.Workouts)
+            {   // Lägg till null-check innan foreach
+                if (userManager?.CurrentUser?.Workouts != null)  // Kollar både userManager och CurrentUser
                 {
-                    Workouts.Add(workout);
+                    foreach (Workout workout in userManager.CurrentUser.Workouts)
+                    {
+                        Workouts.Add(workout);
+                    }
                 }
             }
         }
@@ -136,7 +138,7 @@ namespace FitApp.ViewModel
             // Skapa ViewModel med referens till det nya fönstret och denna ViewModel
             var viewModel = new AddWorkoutWindowViewModel(addWorkoutWindow, this);
 
-            // Sätt DataContext 
+            // Sätter DataContext  - öppnar AddworkoutWindow och stänger WorkoutsWindow
             addWorkoutWindow.DataContext = viewModel;
             addWorkoutWindow.Show();
             workoutsWindow?.Close();
@@ -159,34 +161,32 @@ namespace FitApp.ViewModel
         // Metod som öppnar användardetaljer - och stänger nuvarande fönster
         public void UserDetails()
         {
-            Console.WriteLine($"workoutsWindow före: {workoutsWindow}");
             UserDetailsWindow userDetailsWindow = new UserDetailsWindow(userManager, registerWindow);
             userDetailsWindow.Show();
+
             if (workoutsWindow != null)
             {
                 workoutsWindow.Close();
-                Console.WriteLine("Fönster stängdes");
             }
             else
             {
-                Console.WriteLine("workoutsWindow är null!");
+                Console.WriteLine("workoutsWindow är null!"); // Debugutskrift
             }
         }
 
-        // Metod som öppnar träningsdetaljer - och stänger nuvarande fönster
+        // Metod som öppnar träningsdetaljer för alla träningspass- och stänger nuvarande fönster
         public void WorkoutDetails(Workout workout)
         {
-            Console.WriteLine($"workoutsWindow före: {workoutsWindow}");
             WorkoutDetailsWindow detailsWindow = new WorkoutDetailsWindow(workout, this);
             detailsWindow.Show();
+
             if (workoutsWindow != null)
             {
                 workoutsWindow.Close();
-                Console.WriteLine("Fönster stängdes");
             }
             else
             {
-                Console.WriteLine("workoutsWindow är null!");
+                Console.WriteLine("WorkoutsWindow är null!"); // Debugutskrift
             }
         }
 
@@ -206,7 +206,6 @@ namespace FitApp.ViewModel
             try
             {
                 if (obj is not Workout workout) return false;
-
                 if (FilterDate.HasValue && workout.DateTime.Date != FilterDate.Value.Date) return false;
                 if (!string.IsNullOrEmpty(FilterType) && !workout.Type.Equals(FilterType, StringComparison.OrdinalIgnoreCase)) return false;
                 if (FilterDuration.HasValue && workout.Duration < FilterDuration.Value) return false;
@@ -239,11 +238,12 @@ namespace FitApp.ViewModel
         // Metod som visar hjälpinformation
         public void Info()
         {
-            MessageBox.Show("Welcome to the FitTack!\n\n" +
+            MessageBox.Show("Welcome to the FitTrack!\n\n" +
                 "- Use the 'User' button to access your profile.\n" +
                 "- Click '+ Add Workout' to add a new workout.\n" +
                 "- Use the 'Remove' button to delete a workout.\n" +
-                "- To view workout details click 'See Details'.",
+                "- To view workout details click 'See Details'.\n" +
+                "* Caloriecount accurate for medium intensity workouts only.\n", 
                 "App Instructions", MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }

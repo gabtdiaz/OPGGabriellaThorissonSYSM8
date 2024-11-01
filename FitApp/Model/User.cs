@@ -1,16 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FitApp.Model
 {
     public class User : Person
     {
         // Egenskaper
-        public string Country { get; set; }
+        public string? Country { get; set; }
         public string SecurityQuestion { get; set; } = "What's your pets name?";
         public string SecurityAnswer = "Cleo";
         public ObservableCollection<Workout> Workouts { get; set; } // Lista på alla träningar 
@@ -29,7 +25,7 @@ namespace FitApp.Model
             Workouts = new ObservableCollection<Workout>();
         }
 
-        // Metoder
+        // Metod
         public override void SignIn()
         {
             

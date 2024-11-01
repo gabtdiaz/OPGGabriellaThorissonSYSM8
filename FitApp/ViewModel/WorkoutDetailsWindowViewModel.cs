@@ -17,14 +17,14 @@ namespace FitApp.ViewModel
         public WorkoutsWindowViewModel workoutsWindow; // Referens
         public DateTime WorkoutDateTime { get; set; }
         public TimeSpan WorkoutDuration { get; set; }
-        public string Notes { get; set; }
-        public int Distance {  get; set; }
+        public string Notes { get; set; } = string.Empty;
+        public int Distance {  get; set; } 
         public int Repetitions { get; set; }
         public int Sets { get; set; }
         public ObservableCollection<string> WorkoutTypeOptions { get; } = new ObservableCollection<string> { "Cardio", "Strength" };
 
         // Egenskaper för binding i UI
-        private string selectedWorkoutType;
+        private string selectedWorkoutType = string.Empty;
         public string SelectedWorkoutType
         {
             get => selectedWorkoutType;
@@ -96,6 +96,12 @@ namespace FitApp.ViewModel
                 IsEditing = true;
                 CopyWorkout();
             }
+            else
+            {
+                MessageBox.Show("Please select workout to edit!", "Error", 
+                    MessageBoxButton.OK, MessageBoxImage.Exclamation);
+                return;
+            }
         }
 
         // Sparar ändringar och återgår till WorkoutsWindow
@@ -121,11 +127,13 @@ namespace FitApp.ViewModel
                     CalculateCalories(); // Beräknar CaloriesBurned
                 }
 
-                MessageBox.Show("Workout saved!", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+                MessageBox.Show("Workout saved!", "Success", 
+                    MessageBoxButton.OK, MessageBoxImage.Information);
             }
             else
             {
-                MessageBox.Show("Fill in the correct information", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show("Fill in the correct information", "Error", 
+                    MessageBoxButton.OK, MessageBoxImage.Error);
                 return; // återgå ifall informationen inte fylls i korrekt
             }
 

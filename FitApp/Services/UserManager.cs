@@ -19,7 +19,7 @@ namespace FitApp.Services
         public List<User> Users = new List<User>(); // Lista på alla användar
 
 
-        private User currentUser; // Hanterar inloggade användare
+        private User? currentUser; // Hanterar inloggade användare
         public User? CurrentUser
         {
             get { return currentUser; }
@@ -44,39 +44,41 @@ namespace FitApp.Services
             user1.Workouts.Add(new CardioWorkout
             {
                 Type = "Cardio",
-                Distance = 5,
-                Duration = new TimeSpan(0, 20, 0),
-                CaloriesBurned = 250,
+                Distance = 4,
+                Duration = new TimeSpan(0, 25, 0),
+                CaloriesBurned = 280,
                 DateTime = new DateTime(2024, 10, 24, 08, 00, 0),
-                Notes = "Morning run"
+                Notes = "Morning Run"
             });
             user1.Workouts.Add(new StrengthWorkout
             {
                 Type = "Strength",
                 Repetitions = 10,
+                Sets = 3,
                 Duration = new TimeSpan(0, 45, 0),
-                CaloriesBurned = 300,
+                CaloriesBurned = 120,
                 DateTime = new DateTime(2024, 10, 20, 18, 30, 0),
-                Notes = "Evening Gym Session"
+                Notes = "Gym Session"
             });
 
             // Lägg till träningspass för Erik
             user2.Workouts.Add(new CardioWorkout
             {
                 Type = "Cardio",
-                Distance = 3,
-                Duration = new TimeSpan(0, 15, 0),
-                CaloriesBurned = 180,
+                Distance = 5,
+                Duration = new TimeSpan(0, 45, 0),
+                CaloriesBurned = 350,
                 DateTime = new DateTime(2024, 10, 25, 16, 00, 0),
-                Notes = "Evening Jog"
+                Notes = "Afternoon Run"
             });
 
             user2.Workouts.Add(new StrengthWorkout
             {
                 Type = "Strength",
                 Repetitions = 12,
+                Sets = 4,
                 Duration = new TimeSpan(1, 0, 0),
-                CaloriesBurned = 400,
+                CaloriesBurned = 192,
                 DateTime = new DateTime(2024, 10, 23, 19, 00, 0),
                 Notes = "Weight Training"
             });

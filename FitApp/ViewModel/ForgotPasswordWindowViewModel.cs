@@ -17,7 +17,7 @@ namespace FitApp.ViewModel
         private UserManager userManager;
 
         // Egenskaper för binding till UI
-        private string username;
+        private string username = string.Empty;
 
         public string Username
         {
@@ -25,11 +25,11 @@ namespace FitApp.ViewModel
             set
             {
                 username = value;
-                OnPropertyChanged(Username);
+                OnPropertyChanged(nameof(Username));
             }
         }
 
-        private string newPassword;
+        private string newPassword = string.Empty;
 
         public string NewPassword
         {
@@ -37,11 +37,11 @@ namespace FitApp.ViewModel
             set
             {
                 newPassword = value;
-                OnPropertyChanged(NewPassword);
+                OnPropertyChanged(nameof(NewPassword));
             }
         }
 
-        private string confirmPassword;
+        private string confirmPassword = string.Empty;
 
         public string ConfirmPassword
         {
@@ -49,11 +49,11 @@ namespace FitApp.ViewModel
             set
             {
                 confirmPassword = value;
-                OnPropertyChanged(ConfirmPassword);
+                OnPropertyChanged(nameof(ConfirmPassword));
             }
         }
 
-        private string securityAnswer;
+        private string securityAnswer = string.Empty;
 
         public string SecurityAnswer
         {
@@ -61,7 +61,7 @@ namespace FitApp.ViewModel
             set
             {
                 securityAnswer = value;
-                OnPropertyChanged(SecurityAnswer);
+                OnPropertyChanged(nameof(SecurityAnswer));
             }
         }
 
@@ -72,8 +72,8 @@ namespace FitApp.ViewModel
         // Konstruktor
         public ForgotPasswordWindowViewModel(Window forgotPasswordWindow, UserManager userManager)
         {
-            this.userManager = userManager;
-            this.forgotPasswordWindow = forgotPasswordWindow;
+            this.userManager = userManager ?? throw new ArgumentNullException(nameof(userManager));
+            this.forgotPasswordWindow = forgotPasswordWindow ?? throw new ArgumentNullException(nameof(forgotPasswordWindow));
 
             // Initiera kommando
             ResetPasswordCommand = new RelayCommand(ResetPassword);

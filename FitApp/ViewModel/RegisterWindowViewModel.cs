@@ -2,13 +2,7 @@
 using FitApp.MVVM;
 using FitApp.Services;
 using FitApp.View;
-using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using FitApp;
@@ -28,7 +22,7 @@ namespace FitApp.ViewModel
 
         // Egenskaper för användarinmatning
 
-        private string confirmPasswordInput;
+        private string confirmPasswordInput = string.Empty;
         public string ConfirmPasswordInput
         {
             get
@@ -40,7 +34,7 @@ namespace FitApp.ViewModel
             }
         }
 
-        private string selectedCountry;
+        private string selectedCountry = string.Empty;
         public string SelectedCountry
         {
             get => selectedCountry;
@@ -51,7 +45,7 @@ namespace FitApp.ViewModel
             }
         }
 
-        private string usernameInput;
+        private string usernameInput = string.Empty;
         public string UsernameInput
         {
             get => usernameInput;
@@ -62,7 +56,7 @@ namespace FitApp.ViewModel
             }
         }
 
-        private string passwordInput;
+        private string passwordInput = string.Empty;
         public string PasswordInput
         {
             get => passwordInput;

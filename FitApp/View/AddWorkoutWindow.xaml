@@ -51,11 +51,21 @@
                         <ColumnDefinition Width="60"/>
                     </Grid.ColumnDefinitions>
                     <!-- Rubriker i Kolumner -->
-                    <TextBlock Text="Type" Grid.Column="0" FontWeight="SemiBold"/>
-                    <TextBlock Text="Date" Grid.Column="1" FontWeight="SemiBold"/>
-                    <TextBlock Text="Duration" Grid.Column="2" FontWeight="SemiBold"/>
-                    <TextBlock Text="Notes" Grid.Column="3" FontWeight="SemiBold"/>
-                    <TextBlock Text="KCAL" Grid.Column="4" FontWeight="SemiBold"/>
+                    <TextBlock Text="Type" 
+                               Grid.Column="0" 
+                               FontWeight="SemiBold"/>
+                    <TextBlock Text="Date" 
+                               Grid.Column="1" 
+                               FontWeight="SemiBold"/>
+                    <TextBlock Text="Duration" 
+                               Grid.Column="2" 
+                               FontWeight="SemiBold"/>
+                    <TextBlock Text="Notes" 
+                               Grid.Column="3" 
+                               FontWeight="SemiBold"/>
+                    <TextBlock Text="KCAL" 
+                               Grid.Column="4" 
+                               FontWeight="SemiBold"/>
                 </Grid>
             </Border>
 
@@ -144,74 +154,74 @@
 
         <!-- Träningslistbox -->    
         <ListBox ItemsSource="{Binding Workouts}" 
-         SelectedItem="{Binding SelectedWorkout, Mode=TwoWay}" 
-         Height="220" 
-         Margin="0,5"
-         BorderThickness="1"
-         BorderBrush="#ddd">
+                SelectedItem="{Binding SelectedWorkout, Mode=TwoWay}" 
+                Height="220" 
+                Margin="0,5"
+                BorderThickness="1"
+                BorderBrush="#ddd">
                 <ListBox.ItemTemplate>
                     <DataTemplate>
                         <Border BorderBrush="#20000000" 
-                    BorderThickness="0,0,0,1" 
-                    Padding="5,3">
+                        BorderThickness="0,0,0,1" 
+                        Padding="5,3">
                             <StackPanel Orientation="Horizontal">
                                 <!-- Type -->
                                 <TextBlock Text="{Binding Type}" 
-                             FontSize="11"
-                             Width="60"
-                             Margin="0,0,15,0"/>
+                                FontSize="11"
+                                Width="60"
+                                Margin="0,0,15,0"/>
 
                                 <!-- Date -->
                                 <TextBlock Text="{Binding DateTime, StringFormat=yyyy-MM-dd}" 
-                             FontSize="11"
-                             Width="80"
-                             Margin="0,0,15,0"/>
+                                FontSize="11"
+                                Width="80"
+                                Margin="0,0,15,0"/>
 
                                 <!-- Duration -->
                                 <TextBlock Text="{Binding Duration, StringFormat=hh\\:mm}" 
-                             FontSize="11"
-                             Width="50"
-                             Margin="0,0,15,0"/>
+                                FontSize="11"
+                                Width="50"
+                                Margin="0,0,15,0"/>
 
                                 <!-- Calories -->
                                 <StackPanel Orientation="Horizontal"
-                              Width="70"
-                              Margin="0,0,15,0">
+                                    Width="70"
+                                    Margin="0,0,15,0">
                                     <TextBlock Text="{Binding CaloriesBurned}" 
-                                 FontSize="11"/>
+                                    FontSize="11"/>
                                     <TextBlock Text=" kcal" 
-                                 FontSize="11" 
-                                 Foreground="#666"/>
+                                    FontSize="11" 
+                                    Foreground="#666"/>
                                 </StackPanel>
 
                                 <!-- Cardio/Strength-specifik information -->
                                 <!-- Cardio info -->
                                 <StackPanel Orientation="Horizontal" 
-                              Visibility="{Binding CardioVisibility}">
+                                    Visibility="{Binding CardioVisibility}">
                                     <TextBlock Text="Distance: " 
-                                 FontSize="11" 
-                                 Foreground="#666"/>
+                                    FontSize="11" 
+                                    Foreground="#666"/>
                                     <TextBlock Text="{Binding Distance}" 
-                                 FontSize="11"/>
+                                    FontSize="11"/>
                                     <TextBlock Text=" km" 
-                                 FontSize="11" 
-                                 Foreground="#666"/>
+                                     FontSize="11" 
+                                    Foreground="#666"/>
                                 </StackPanel>
 
                                 <!-- Strength info -->
                                 <StackPanel Orientation="Horizontal" 
-                              Visibility="{Binding StrengthVisibility}">
+                                    Visibility="{Binding StrengthVisibility}">
                                     <TextBlock Text="Sets: " 
-                                 FontSize="11" 
-                                 Foreground="#666"/>
+                                    FontSize="11" 
+                                    Foreground="#666"/>
                                     <TextBlock Text="{Binding Sets}" 
-                                 FontSize="11"
-                                 Margin="0,0,10,0"/>
+                                    FontSize="11"
+                                    Margin="0,0,10,0"/>
                                     <TextBlock Text="Reps: " 
-                                 FontSize="11" 
-                                 Foreground="#666"/>
+                                    FontSize="11" 
+                                    Foreground="#666"/>
                                     <TextBlock Text="{Binding Repetitions}" 
-                                 FontSize="11"/>
+                                    FontSize="11"/>
                                 </StackPanel>
                             </StackPanel>
                         </Border>
@@ -221,11 +231,15 @@
                 <ListBox.Resources>
                     <Style TargetType="ListBoxItem">
                         <Style.Triggers>
-                            <Trigger Property="IsSelected" Value="True">
-                                <Setter Property="Background" Value="#f0f0f0"/>
+                            <Trigger Property="IsSelected" 
+                                     Value="True">
+                                <Setter Property="Background" 
+                                        Value="#f0f0f0"/>
                             </Trigger>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#f8f8f8"/>
+                            <Trigger Property="IsMouseOver" 
+                                     Value="True">
+                                <Setter Property="Background" 
+                                        Value="#f8f8f8"/>
                             </Trigger>
                         </Style.Triggers>
                     </Style>
@@ -247,17 +261,24 @@
                                             VerticalAlignment="Center">
                                 <ContentPresenter.Resources>
                                     <Style TargetType="TextBlock">
-                                        <Setter Property="Foreground" Value="White"/>
+                                        <Setter Property="Foreground" 
+                                                Value="White"/>
                                     </Style>
                                 </ContentPresenter.Resources>
                             </ContentPresenter>
                         </Border>
                         <ControlTemplate.Triggers>
-                            <Trigger Property="IsPressed" Value="True">
-                                <Setter TargetName="border" Property="Background" Value="#FFB00020"/>
+                            <Trigger Property="IsPressed" 
+                                     Value="True">
+                                <Setter TargetName="border" 
+                                        Property="Background" 
+                                        Value="#FFB00020"/>
                             </Trigger>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter TargetName="border" Property="Background" Value="red
+                            <Trigger Property="IsMouseOver" 
+                                     Value="True">
+                                <Setter TargetName="border" 
+                                        Property="Background" 
+                                        Value="red
  "/>
                             </Trigger>
                         </ControlTemplate.Triggers>

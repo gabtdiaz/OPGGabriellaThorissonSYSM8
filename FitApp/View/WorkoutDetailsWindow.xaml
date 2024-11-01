@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:FitApp.View"
         mc:Ignorable="d"
-        Title="WorkoutDetailsWindow" Height="480" Width="320">
+        Title="WorkoutDetailsWindow" Height="500" Width="360">
 
     <Grid>
         <!-- Bakgrundsfärg -->
@@ -28,7 +28,7 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <!-- Logo och titel -->
+        <!-- Logga och titel -->
         <StackPanel Width="100" 
                     Height="60">
             <Label Content="F I T" 

@@ -1,20 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FitApp.Model
 {
     class CardioWorkout : Workout
     {
-        public int Distance { get; set; }
+        public new int Distance { get; set; }
+
+        // Metod som beräknar brända kalorier på distans och varaktighet.
         public override int CalculateCaloriesBurned()
         {
-            // Beräknar kalorier baserat på distans och duration
+            if (Duration.TotalMinutes <= 0) return 0;
+
+            // Ca 70 kalorier per kilometer per timme 
             double durationInHours = Duration.TotalHours;
-            return (int)(Distance * 0.1 * durationInHours);
+            return (int)(Distance * 70 * durationInHours);
         }
+
         public override string ToString()
         {
             return $"Cardio";
