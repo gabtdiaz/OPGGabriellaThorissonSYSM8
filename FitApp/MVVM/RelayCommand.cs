@@ -30,7 +30,7 @@ namespace FitApp.MVVM
         }
 
         // Bestämmer om kommandot kan köras
-        public bool CanExecute(object parameter)
+        public bool CanExecute(object? parameter)
         {
             return canExecute == null || canExecute();
         }
