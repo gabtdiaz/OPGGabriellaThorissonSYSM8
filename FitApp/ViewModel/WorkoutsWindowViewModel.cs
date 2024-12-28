@@ -149,6 +149,29 @@ namespace FitApp.ViewModel
         {
             if (SelectedWorkout != null)
             {
+                // Ta bort från rätt användares lista först
+                if (userManager.IsCurrentUserAdmin)
+                {
+                    // Hitta användarnamnet från Notes-fältet
+                    string username = SelectedWorkout.Notes.Split("User: ")[1].TrimEnd(')');
+
+                    // Hitta användaren och ta bort workouten från deras lista
+                    User user = userManager.Users.FirstOrDefault(u => u.Username == username);
+                    if (user != null)
+                    {
+                        // Hitta original workout:et (utan den tillagda användarinformationen i Notes)
+                        var originalWorkout = user.Workouts.FirstOrDefault(w =>
+                            w.DateTime == SelectedWorkout.DateTime &&
+                            w.Type == SelectedWorkout.Type);
+
+                        if (originalWorkout != null)
+                        {
+                            user.Workouts.Remove(originalWorkout);
+                        }
+                    }
+                }
+
+                // Ta bort från visningslistan
                 Workouts.Remove(SelectedWorkout);
             }
             else
